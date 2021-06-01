@@ -57,49 +57,7 @@ const title2 = () => {
                 </div>
               </div>
             </div>
-            {/* <div className="flex flex-row justify-center space-x-10">
-            <p>
-              <img width="50" height="60" src={category_image} alt="image" />
-              <p>Title 2-1</p>
-              <span>Some random words</span>
-            </p>
-            <p>
-              <img width="50" height="60" src={category_image} alt="image" />
-              <p>Title 2-1</p>
-              <span>Some random words</span>
-            </p>
-          </div> */}
           </div>
-          {/* <div className="p-10">
-          {/* Row-2 *!/}
-          <div className="flex flex-row justify-center space-x-10">
-            <p>
-              <img width="50" height="60" src={category_image} alt="image" />
-              <p>Title 2-1</p>
-              <span>Some random words</span>
-            </p>
-            <p>
-              <img width="50" height="60" src={category_image} alt="image" />
-              <p>Title 2-1</p>
-              <span>Some random words</span>
-            </p>
-          </div>
-        </div>
-        <div className="p-10">
-          {/* Row-3 *!/}
-          <div className="flex flex-row justify-center space-x-10">
-            <p>
-              <img width="50" height="60" src={category_image} alt="image" />
-              <p>Title 2-1</p>
-              <span>Some random words</span>
-            </p>
-            <p>
-              <img width="50" height="60" src={category_image} alt="image" />
-              <p>Title 2-1</p>
-              <span>Some random words</span>
-            </p>
-          </div>
-        </div> */}
         </div>
         {/* Column-2 */}
         <div className="p-2">
