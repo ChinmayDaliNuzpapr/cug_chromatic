@@ -1,10 +1,10 @@
 import React from "react";
-
+import image from "../../../public/GetImage.jpeg";
 function Navbar(props) {
   const { variant = "primary", children, ...rest } = props;
   return (
     <>
-      <nav className="bg-gray-800">
+      <nav className="bg-grey-800">
         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex items-center justify-between h-16">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -49,47 +49,48 @@ function Navbar(props) {
               </button>
             </div>
             <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+              {/* Image for the logo */}
               <div className="flex-shrink-0 flex items-center">
                 <img
                   className="block lg:hidden h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                  alt="Workflow"
+                  src={image}
+                  alt="Q&A"
                 />
                 <img
                   className="hidden lg:block h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
-                  alt="Workflow"
+                  src={image}
+                  alt="Q&A"
                 />
               </div>
-              <div className="hidden sm:block sm:ml-6">
-                <div className="flex space-x-4">
+              <div className="flex flex-1 hidden sm:block sm:ml-6">
+                <div className="flex justify-end space-x-20 mr-40">
                   <a
                     href="#"
-                    className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium"
                     aria-current="page"
                   >
-                    Dashboard
+                    Menu-1
                   </a>
 
                   <a
                     href="#"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="text-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
-                    Team
+                    Menu-2
                   </a>
 
                   <a
                     href="#"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="text-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
-                    Projects
+                    Menu-3
                   </a>
 
                   <a
                     href="#"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="text-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
-                    Calendar
+                    Menu-4
                   </a>
                 </div>
               </div>
@@ -131,7 +132,7 @@ function Navbar(props) {
                     />
                   </button>
                 </div>
-                <div
+                {/* <div
                   className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                   role="menu"
                   aria-orientation="vertical"
@@ -165,7 +166,7 @@ function Navbar(props) {
                   >
                     Sign out
                   </a>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
