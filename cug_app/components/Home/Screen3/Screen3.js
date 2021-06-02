@@ -5,7 +5,7 @@ import Screen3_Feature from "./Screen3_Feature";
 
 const Screen3 = () => {
   return (
-    <div className="bg-blue-200 p-5">
+    <div className="bg-blue-200 p-5 mb-60">
       <div className="mb-8">
         <p className=" text-blue-900 montserrat-30 text-center  text-4xl font-size: 2.25rem+-* m-1.5 margin: 0.375rem">
           <span>Title 3</span>

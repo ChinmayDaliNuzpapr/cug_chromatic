@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 // import image from "../../../public/GetImage.gif";
 // import category_image from "../../../public/category_placeholder.svg";
 import Screen3_Feature from "../Screen3/Screen3_Feature";
@@ -30,7 +31,12 @@ const title2 = () => {
         </div>
         {/* Column-2 */}
         <div className="p-2">
-          <img alt="the_it_guy" src="/GetImage.gif" />
+          <Image
+            width="1000"
+            height="1000"
+            alt="the_it_guy"
+            src="/GetImage.gif"
+          />
         </div>
       </div>
     </div>

@@ -1,11 +1,12 @@
 import React from "react";
 // import image from "../../../public/GetImage.jpeg";
+import Image from "next/image";
 function Navbar(props) {
-  const { variant = "primary", children, ...rest } = props;
+  // const { variant = "primary", children, ...rest } = props;
   return (
-    <>
-      <nav className="bg-grey-800">
-        <div className="max-w-100 mx-auto px-2 sm:px-6 lg:px-8">
+    <div className="fixed position:fixed  min-w-full mb-60 top-0 bg-white">
+      <nav className=" w-full">
+        <div className=" mx-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex items-center justify-between h-16">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
               <button
@@ -25,9 +26,9 @@ function Navbar(props) {
                   aria-hidden="true"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M4 6h16M4 12h16M4 18h16"
                   />
                 </svg>
@@ -40,9 +41,9 @@ function Navbar(props) {
                   aria-hidden="true"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M6 18L18 6M6 6l12 12"
                   />
                 </svg>
@@ -107,9 +108,9 @@ function Navbar(props) {
                   aria-hidden="true"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
                   />
                 </svg>
@@ -172,7 +173,7 @@ function Navbar(props) {
           </div>
         </div>
       </nav>
-    </>
+    </div>
   );
 }
 

@@ -1,8 +1,8 @@
 import React from "react";
 import Screen3_Feature from "./Screen3_Feature";
 import "../../../styles/globals.css";
-import image from "../../../public/GetImage.gif";
-
+// import image from "../../../public/GetImage.gif";
+import Image from "next/image";
 const Screen3 = () => {
   return (
     <div className="bg-blue-200 p-5">
@@ -17,7 +17,12 @@ const Screen3 = () => {
       <div>
         <div className=" flex justify-around">
           <div>
-            <img className="h-300 m-auto margin: auto" src={image} />
+            <Image
+              width="1000"
+              height="1000"
+              alt="the_it_guy"
+              src="/GetImage.gif"
+            />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 ">
             <Screen3_Feature />
