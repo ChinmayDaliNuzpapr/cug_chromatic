@@ -1,5 +1,5 @@
 import React from "react";
-// import image from "../../../public/GetImage.gif";
+import image from "../../../public/GetImage.gif";
 // import "./hero.css";
 
 function Hero() {
@@ -34,7 +34,7 @@ function Hero() {
           </div>
           {/* Column-2 */}
           <div className="p-2">
-            <img alt="the_it_guy" src="/GetImage.gif" />
+            <img alt="the_it_guy" src={image} />
           </div>
         </div>
       </div>
