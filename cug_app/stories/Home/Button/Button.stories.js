@@ -1,10 +1,10 @@
-import React from "react";
-import Button from "../../../components/Home/Button/Button";
+import React from 'react';
+import Button from '../../../components/Button/Button';
 
 //default export
 export default {
-  title: "Home/Button", //
-  component: Button,
+	title: 'Home/Button', //
+	component: Button,
 };
 
 //named export for variations
