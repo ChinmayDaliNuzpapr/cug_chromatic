@@ -5,6 +5,7 @@ module.exports = {
 		width: {
 			100: '100px',
 			50: '50px',
+			400: '400px',
 		},
 
 		height: {

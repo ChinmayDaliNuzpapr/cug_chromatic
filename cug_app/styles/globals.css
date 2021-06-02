@@ -23,9 +23,21 @@ a {
   font-family: "Montserrat", sans-serif;
 }
 
+.montserrat-10 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+}
+
+
+
 .montserrat-12 {
   font-family: "Montserrat", sans-serif;
   font-size: 12px;
+}
+
+.montserrat-14 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
 }
 
 .montserrat-18 {
