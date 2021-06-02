@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "chromatic": "npx chromatic --project-token=b8e9509f79dc"
+    "chromatic": "npx chromatic --project-token=b8e9509f79dc",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "formik": "^2.2.8",
