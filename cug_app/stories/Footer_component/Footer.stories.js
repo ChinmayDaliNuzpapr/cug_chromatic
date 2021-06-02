@@ -1,5 +1,5 @@
 import React from "react";
-import Footer from "../../../components/Home/Screen1_Footer/Footer";
+import Footer from "../../components/Footer_component/Footer";
 
 //default export
 export default {
@@ -8,4 +8,4 @@ export default {
 };
 
 //named export for variations
-export const Component_Footer = () => <Footer />;
+export const Component_Navbar = () => <Footer />;

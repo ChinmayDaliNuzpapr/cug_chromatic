@@ -1,5 +1,5 @@
 import React from "react";
-import Hero from "./Hero";
+import Hero from "../../../components/Home/Hero_component/Hero";
 
 //default export
 export default {

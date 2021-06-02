@@ -1,5 +1,5 @@
 import React from "react";
-import Title2 from "./title2";
+import Title2 from "../../../components/Home/Title_two_comp/title2";
 
 //default export
 export default {

@@ -47,3 +47,7 @@ a {
   margin-top: auto;
   margin-bottom: auto;
 }
+
+.subtext_css {
+  text-shadow: 2px 2px #bbbbbb;
+}
