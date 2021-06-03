@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 const topQuestion = () => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col border-b-2 border-blue-400 border-opacity-50">
       <div className="flex flex-row content-center justify-between text-gray-900 text-center bg-blue-200 px-4 py-2">
         <div>
           <span className="text-2xl">Title of the question</span>

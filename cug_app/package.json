@@ -6,12 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p $PORT",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -s ./public -p 6006",
     "build-storybook": "build-storybook",
     "chromatic": "npx chromatic --project-token=b8e9509f79dc",
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
+    "@headlessui/react": "^1.2.0",
+    "@heroicons/react": "^1.0.1",
     "formik": "^2.2.8",
     "next": "10.2.3",
     "react": "17.0.2",
