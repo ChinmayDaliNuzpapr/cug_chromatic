@@ -31,9 +31,9 @@ const title2 = () => {
         </div>
         {/* Column-2 */}
         <div className="p-2">
-          <Image
-            width="1000"
-            height="1000"
+          <img
+            // width="1000"
+            // height="1000"
             alt="the_it_guy"
             src="/GetImage.gif"
           />

@@ -29,13 +29,15 @@ function Hero() {
         </div>
         {/* Column-2 */}
         <div className="p-2">
-          <div className="m-14 p-14">
-            <Image
-              width={650}
-              height={650}
-              alt="the_it_guy"
-              src="/GetImage.gif"
-            />
+          <div className="flex justify-around">
+            <div>
+              <img
+                // width={650}
+                // height={650}
+                alt="the_it_guy"
+                src="/GetImage.gif"
+              />
+            </div>
           </div>
         </div>
       </div>

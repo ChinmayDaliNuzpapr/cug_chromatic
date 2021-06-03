@@ -6,7 +6,7 @@ function Navbar(props) {
   return (
     <div
       id="navbar_component"
-      className="fixed position:fixed  min-w-full mb-60 top-0 bg-white"
+      className="shadow-lg fixed  min-w-full mb-60 top-0 bg-white"
     >
       <nav className=" w-full">
         <div className=" mx-auto px-2 sm:px-6 lg:px-8">
