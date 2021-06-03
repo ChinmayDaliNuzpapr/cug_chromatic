@@ -6,16 +6,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p $PORT",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -s ./public -p 6006",
     "build-storybook": "build-storybook",
     "chromatic": "npx chromatic --project-token=b8e9509f79dc",
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
+    "draft-js": "^0.11.7",
     "formik": "^2.2.8",
     "next": "10.2.3",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-draft-wysiwyg": "^1.14.7"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",
