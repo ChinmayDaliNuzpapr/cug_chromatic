@@ -1,11 +1,12 @@
-import React from "react";
-import Hero from "./Home/Hero_component/Hero";
-import Footer from "./Home/Screen1_Footer/Footer";
-import Screen3 from "./Home/Screen3/Screen3";
-import TopQuestion from "./Home/subscribe_component/topQuestion";
-import Subscribe from "./Home/subscribe_component/subscribe";
-import Title2 from "./Home/Title_two_comp/title2";
-import Screen4 from "./Home/Screen4/Screen4";
+import React from 'react';
+import Hero from './Home/Hero_component/Hero';
+import Footer from './Home/Screen1_Footer/Footer';
+import Screen3 from './Home/Screen3/Screen3';
+import TopQuestion from './Home/subscribe_component/topQuestion';
+import Subscribe from './Home/subscribe_component/subscribe';
+import Title2 from './Home/Title_two_comp/title2';
+import Screen4 from './Home/Screen4/Screen4';
+
 function HomePage() {
   console.log("THE HOMEPAGE COMPONENT");
   return (

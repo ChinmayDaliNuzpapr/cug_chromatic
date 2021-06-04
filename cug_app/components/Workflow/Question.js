@@ -2,7 +2,7 @@ import React from 'react';
 
 const Question = () => {
 	return (
-		<div className='p-3 w-400 border-2'>
+		<div className='p-3 w-400 border-2 rounded-md '>
 			<p className='montserrat-14'>Question to list here in 1-2 lines?</p>
 			<p className='montserrat-12'>
 				2 lines of question is quoted in 2 point small font than font used in

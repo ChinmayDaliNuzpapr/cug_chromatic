@@ -1,5 +1,5 @@
-import React from "react";
-import Screen3_Feature from "./Screen3_Feature";
+import React from 'react';
+import Screen3_Feature from './Screen3_Feature';
 // import "../../../styles/globals.css";
 // import image from "../../../public/GetImage.gif";
 
