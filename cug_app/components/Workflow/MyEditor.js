@@ -7,6 +7,7 @@ const MyEditor = () => {
 	const [editorState, setEditorState] = useState(() =>
 		EditorState.createEmpty()
 	);
+	console.log(editorState);
 	return (
 		<div className='h-[200px] border-2'>
 			<Editor editorState={editorState} onEditorStateChange={setEditorState} />
