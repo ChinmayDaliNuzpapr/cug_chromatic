@@ -63,6 +63,10 @@ a {
   text-shadow: 2px 2px #bbbbbb;
 }
 
+#the_mobile_icon_navbar_button {
+  height: 35px !important;
+  width: 35px !important;
+}
 /* 100% width */
 .w-100
 {
