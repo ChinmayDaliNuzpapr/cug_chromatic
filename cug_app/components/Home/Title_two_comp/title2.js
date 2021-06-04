@@ -14,7 +14,7 @@ const title2 = () => {
       {/* Two columns on the left we have categories and on the right we have image */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Column-1 */}
-        <div className="flex flex-col p-2 justify-end">
+        <div className="flex flex-col p-2 justify-evenly">
           {/* Single sub-coloumn */}
           <div className="p-2">
             {/* Row-1 */}

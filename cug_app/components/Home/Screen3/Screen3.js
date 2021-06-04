@@ -5,7 +5,7 @@ import Screen3_Feature from "./Screen3_Feature";
 
 const Screen3 = () => {
   return (
-    <div className="container mx-auto mt-30 md:container md:mx-auto p-5 mb-60">
+    <div className="container mx-auto my-10 md:container md:mx-auto p-5">
       {/* The component heading */}
       <p className="montserrat-30 text-center text-align: center text-4xl font-size: 2.25rem+-* m-1.5 margin: 0.375rem">
         <span>Title 3</span>
@@ -23,11 +23,11 @@ const Screen3 = () => {
         </div>
 
         {/* Column-2 */}
-        <div className="flex flex-col p-2 justify-end">
+        <div className="flex flex-col p-2 justify-evenly">
           {/* Single sub-coloumn */}
           <div className="p-2">
             {/* Row-1 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 auto-cols-max">
               <Screen3_Feature />
               <Screen3_Feature />
               <Screen3_Feature />

@@ -62,3 +62,8 @@ a {
 .subtext_css {
   text-shadow: 2px 2px #bbbbbb;
 }
+
+#the_mobile_icon_navbar_button {
+  height: 35px !important;
+  width: 35px !important;
+}
