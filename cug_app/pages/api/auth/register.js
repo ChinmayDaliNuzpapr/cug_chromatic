@@ -1,5 +1,7 @@
 import userModel from '../../../models/user';
 import DBConnect from '../../middleware/DBConnect';
+import nodemailer from 'nodemailer';
+import jwt from 'jsonwebtoken';
 
 const generateToken = (user) => {
 	return jwt.sign(
@@ -8,7 +10,7 @@ const generateToken = (user) => {
 			Group_name: user.Group_name,
 			email: user.email,
 		},
-		secretKey,
+		process.env.secretKey,
 		{ expiresIn: '2h' }
 	);
 };
@@ -16,34 +18,50 @@ const generateToken = (user) => {
 const Register = async (req, res) => {
 	if ((req.method = 'POST')) {
 		try {
-			const { name, email, password } = req.body;
+			const { Group_name, email } = req.body;
 
-			let emailAlreadyExist = await userModel.findOne({ email });
+			const emailAlreadyExist = await userModel.findOne({ email });
 
-			if (emailAlreadyExist)
-				return res.status(403).send({ error: 'Email already exist' });
+			if (emailAlreadyExist) throw 'Email already exist';
 
-			let userNameAlreadyExist = await userModel.findOne({ name });
+			//GENERATING alphanumeric id
+			const id = Math.random().toString(36).substr(2);
 
-			if (userNameAlreadyExist)
-				return res.status(403).send({ error: 'User already exist' });
-
-			let user = new userModel({
-				name,
-				email,
-				password,
+			const user = new userModel({
+				Group_name: Group_name,
+				email: email,
+				alpha_numeric_id: id,
 			});
 
 			await user.save();
-
-			//generating token after saving
 			const token = generateToken(user);
-			return res.status(200).send({ token });
+
+			const url = `http://localhost:3000/api/auth/confirm/${token}`;
+
+			const transporter = nodemailer.createTransport({
+				service: 'gmail',
+				auth: {
+					user: process.env.email,
+					pass: process.env.password,
+				},
+			});
+
+			const mailOptions = {
+				from: process.env.email,
+				to: email,
+				subject:
+					'EMAIL CONFIRMATION - Please click on this link to confirm your email',
+				text: url,
+			};
+
+			const info = await transporter.sendMail(mailOptions);
+			return res.status(200).send({ message: 'EMAIL CONFIRMATION SENT' });
 		} catch (err) {
-			return res.status(500).send(err);
+			console.log(err);
+			return res.status(500).send({ error: err });
 		}
 	} else {
-		res.status(422).send('UNSUPPORTED METHOD');
+		res.status(422).send({ error: 'UNSUPPORTED METHOD' });
 	}
 };
 
