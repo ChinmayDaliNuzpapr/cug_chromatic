@@ -5,7 +5,7 @@ const Layout = ({ children }) => {
   console.log("THE CHILD", children);
   return (
     <div id="base_layout">
-      <div id="layout_navbar_div" className="sticky top-0">
+      <div id="layout_navbar_div" className="sticky top-0 bg-white">
         <Navbar />
       </div>
 

@@ -7,7 +7,10 @@ const Index = () => {
       {/* The left side image */}
       <div className="w-1/5">
         <div className="flex flex-col">
-          <img className="h-screen" src="/sidebar_image.jpeg" />
+          <img
+            className="h-screen image_full_screen"
+            src="/sidebar_image.jpeg"
+          />
         </div>
       </div>
       {/* The right-side content */}

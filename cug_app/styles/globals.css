@@ -68,7 +68,10 @@ a {
   width: 35px !important;
 }
 /* 100% width */
-.w-100
-{
+.w-100 {
   width: 100%;
+}
+
+.image_full_screen {
+  height: 100vmin;
 }

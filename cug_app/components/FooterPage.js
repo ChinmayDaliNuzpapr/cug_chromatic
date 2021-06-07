@@ -2,7 +2,7 @@ import React from "react";
 
 function FooterPage() {
   return (
-    <div id="footerPageComponent" className="bg-blue-200 p-5 mt-10">
+    <div id="footerPageComponent" className="bg-blue-200 p-5">
       <div className="container container mx-auto">
         <div className="grid grid-col-1 md:grid-cols-3 gap-4 justify-items-center content-center">
           {/* Column-1 */}
