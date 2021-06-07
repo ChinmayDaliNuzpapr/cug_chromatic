@@ -1,84 +1,101 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { TextField } from "./TextField.js";
+import LoginForm from "./FormComponent.js";
 const FormTailwind = () => {
+  const adminUser = {
+    email: "admin@admin.com",
+    password: "admin123",
+  };
+  const [user, setUser] = useState({ name: "", email: "" });
+  const [error, setError] = useState("");
+
+  const Login = (details) => {
+    console.log(details);
+    if (
+      details.email == adminUser.email &&
+      details.password == adminUser.password
+    ) {
+      console.log("Logged in");
+      setUser({
+        name: details.name,
+        email: details.email,
+      });
+    } else {
+      console.log("Details did not matched!!!");
+      setError("Details did not matched!!!");
+    }
+  };
+
+  const Logout = () => {
+    console.log("LOGOUT");
+    setUser({ name: "", email: "" });
+  };
+
+  const submitFunc = (e) => {
+    e.preventDefault();
+    console.log("VALUES", e.target.values);
+  };
   return (
     <div>
+      {/* 📌THE BELOW CODE IS FOR SIMPLE FORM WITHOUT FORMIKS _THAT WORKS_ */}
       <div className="w-full max-w-xs my-16">
-        <Formik
-          initialValues={{ email: "", password: "" }}
+        <div>
+          {user.email != "" ? (
+            <div className="welcome">
+              <h2>
+                Welcome, <span>{user.name}</span>
+              </h2>
+              <button onClick={Logout}>Logout</button>
+            </div>
+          ) : (
+            <LoginForm Login={Login} error={error} />
+          )}
+        </div>
+        {/* 🔴THE BELOW CODE IS FOR SIMPLE FORM WITHOUT FORMIKS _THAT WORKS_ */}
+        {/* <Formik
+          initialValues={{ email: "", group_name: "" }}
           validationSchema={Yup.object({
             email: Yup.string()
               .email("Email is invalid")
               .required("Email is required"),
-            password: Yup.string()
-              .min(6, "Password must be at least 6 charaters")
-              .required("Password is required"),
-            confirmPassword: Yup.string()
-              .oneOf([Yup.ref("password"), null], "Password must match")
-              .required("Confirm password is required"),
+            group_name: Yup.string()
+              .max(20, "Group name is invalid")
+              .required("Group name is required"),
           })}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            console.log(values);
+            console.log("ALL THE VALUES", values);
             setTimeout(() => {
               alert(JSON.stringify(value, null, 2));
-              resetForm();
+              // resetForm();
               setSubmitting(false);
             }, 3000);
           }}
         >
-          <form className="bg-white shadow-md rounded px-8 mb-4 py-16">
-            <div className="mb-4 ">
-              <TextField label="Email" name="email" type="email" />
-
-              {/* <label
-                className="block text-gray-700 text-2xl font-bold my-4"
-                htmlform="username"
-              >
-                Username
-              </label>
-              <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="username"
-                type="text"
-                placeholder="Username"
-              /> */}
-            </div>
-            <div className="mb-6 ">
-              <TextField label="password" name="password" type="password" />
-              {/* <label
-                className="block text-gray-700 text-2xl font-bold my-4"
-                htmlform="password"
-              >
-                Password
-              </label>
-              <input
-                className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                id="password"
-                type="password"
-                placeholder="******************"
-              />
-              <p className="text-red-500 text-xs italic">
-                Please choose a password.
-              </p> */}
-            </div>
-            <div className="flex items-center justify-between ">
-              <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button"
-              >
-                Sign In
-              </button>
-              <a
-                className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-                href="#"
-              >
-                Forgot Password?
-              </a>
-            </div>
-          </form>
-        </Formik>
+          {(props) => (
+            <form
+              onSubmit={submitFunc}
+              className="bg-white shadow-md rounded px-8 mb-4 py-16"
+            >
+              <span className="text-4xl">Sign In</span>
+              <div className="mb-4 ">
+                <TextField label="Email" name="email" type="email" />
+              </div>
+              <div className="mb-6 ">
+                <TextField label="group_name" name="group_name" type="text" />
+              </div>
+              <div className="flex items-center justify-between ">
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  type="submit"
+                >
+                  {props.isSubmitting ? `Loading...` : "submit"}
+                </button>
+              </div>
+            </form>
+          )}
+        </Formik> */}
       </div>
     </div>
   );
