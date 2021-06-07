@@ -6,15 +6,15 @@ const Trending = () => {
 			<div className='my-2 '>
 				<Button width='w-100' />
 			</div>
-			<div className='grid grid-cols-1'>
+			<div className='grid grid-cols-1 border-[1px]'>
 				<div className='py-2 bg-blue-500 rounded-sm text-white'>Trending</div>
-				<div className='py-2 border-2'>Question 1 is here</div>
-				<div className=' py-2 border-2'>Question 1 is here</div>
-				<div className=' py-2 border-2'>Question 1 is here</div>
-				<div className='py-2 border-2'>Question 1 is here</div>
-				<div className='py-2 border-2'>Question 1 is here</div>
-				<div className='py-2 border-2'>Question 1 is here</div>
-				<div className='py-2 border-2'>Question 1 is here</div>
+				<div className='py-2  border-[1px]'>Question 1 is here</div>
+				<div className=' py-2  border-[1px]'>Question 1 is here</div>
+				<div className=' py-2  border-[1px]'>Question 1 is here</div>
+				<div className='py-2  border-[1px]'>Question 1 is here</div>
+				<div className='py-2  border-[1px]'>Question 1 is here</div>
+				<div className='py-2  border-[1px]'>Question 1 is here</div>
+				<div className='py-2  border-[1px]'>Question 1 is here</div>
 			</div>
 		</div>
 	);

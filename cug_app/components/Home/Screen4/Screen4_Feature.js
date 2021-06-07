@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 // import image from "../../../public/banner.png";
 // import Image from 'next/image';
 const Screen4_Feature = () => {
   return (
     <div className="text-center text-align: center ">
-      <img className="m-auto" src="/banner.png" />
+      <img className="m-auto  auto w-100" src="/banner.png" />
       <p className="montserrat-18 text-lg font-size: 1.125rem">
         <span>How 1</span>
       </p>
