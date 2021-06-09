@@ -1,9 +1,13 @@
-import React, { useState } from "react";
-import { Formik } from "formik";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import { toast } from "react-toastify";
 import { TextField } from "./TextField.js";
 import LoginForm from "./FormComponent.js";
 const FormTailwind = () => {
+  const router = useRouter();
+
   const adminUser = {
     email: "admin@admin.com",
     password: "admin123",
@@ -11,37 +15,65 @@ const FormTailwind = () => {
   const [user, setUser] = useState({ name: "", email: "" });
   const [error, setError] = useState("");
 
+  const [authenticated, setAuthenticated] = useState(null);
+
   const Login = (details) => {
     console.log(details);
-    if (
-      details.email == adminUser.email &&
-      details.password == adminUser.password
-    ) {
-      console.log("Logged in");
-      setUser({
-        name: details.name,
-        email: details.email,
+
+    var objectWithData = { Group_name: "", email: "" };
+    objectWithData.Group_name = details.group_name;
+    objectWithData.email = details.email;
+    console.log("THE OBJECT WITH DATA", objectWithData);
+    fetch("/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(objectWithData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("THE RESPONSE", data);
+        setAuthenticated(true);
+      })
+      .catch((err) => {
+        setAuthenticated(false);
+        alert("ERROR");
       });
-    } else {
-      console.log("Details did not matched!!!");
-      setError("Details did not matched!!!");
-    }
+
+    console.log("AFTER AUTHENTICATION");
   };
 
-  const Logout = () => {
-    console.log("LOGOUT");
-    setUser({ name: "", email: "" });
-  };
+  useEffect(() => {
+    if (authenticated === true) {
+      router.push("/verification");
+      toast.success("Sent an email", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else if (authenticated === false) {
+      toast.error("ERROR ", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else;
+  }, [authenticated]);
 
-  const submitFunc = (e) => {
-    e.preventDefault();
-    console.log("VALUES", e.target.values);
-  };
   return (
     <div>
       {/* 📌THE BELOW CODE IS FOR SIMPLE FORM WITHOUT FORMIKS _THAT WORKS_ */}
       <div className="w-full max-w-xs my-16">
-        <div>
+        {/* <div>
           {user.email != "" ? (
             <div className="welcome">
               <h2>
@@ -52,9 +84,9 @@ const FormTailwind = () => {
           ) : (
             <LoginForm Login={Login} error={error} />
           )}
-        </div>
+        </div> */}
         {/* 🔴THE BELOW CODE IS FOR SIMPLE FORM WITHOUT FORMIKS _THAT WORKS_ */}
-        {/* <Formik
+        <Formik
           initialValues={{ email: "", group_name: "" }}
           validationSchema={Yup.object({
             email: Yup.string()
@@ -66,19 +98,18 @@ const FormTailwind = () => {
           })}
           onSubmit={(values, { setSubmitting, resetForm }) => {
             console.log("ALL THE VALUES", values);
+            Login(values);
             setTimeout(() => {
-              alert(JSON.stringify(value, null, 2));
-              // resetForm();
+              // alert(JSON.stringify(values, null, 2));
+              resetForm();
+
               setSubmitting(false);
             }, 3000);
           }}
         >
           {(props) => (
-            <form
-              onSubmit={submitFunc}
-              className="bg-white shadow-md rounded px-8 mb-4 py-16"
-            >
-              <span className="text-4xl">Sign In</span>
+            <Form className="bg-white shadow-md rounded px-8 mb-4 py-16">
+              <span className="text-4xl">Authentication</span>
               <div className="mb-4 ">
                 <TextField label="Email" name="email" type="email" />
               </div>
@@ -93,9 +124,9 @@ const FormTailwind = () => {
                   {props.isSubmitting ? `Loading...` : "submit"}
                 </button>
               </div>
-            </form>
+            </Form>
           )}
-        </Formik> */}
+        </Formik>
       </div>
     </div>
   );

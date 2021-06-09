@@ -75,3 +75,21 @@ a {
 .image_full_screen {
   height: 100vmin;
 }
+#center_a_box {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  box-shadow: 10px 10px 10px 0 rgba(86, 91, 119, 0.4);
+  padding: 50px;
+  width: 70%;
+  border-radius: 10px;
+  font-size: 15px;
+  line-height: 30px;
+  cursor: pointer;
+}
+
+#aggressiveBoxShadow {
+  box-shadow: 10px 10px 10px 0 rgba(86, 91, 119, 0.4);
+  border-radius: 10px;
+}
