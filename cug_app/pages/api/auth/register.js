@@ -12,6 +12,14 @@ const Register = async (req, res) => {
 
 			if (!validator.validate(email)) throw 'Please enter a valid email';
 
+			//making previous active link inactive
+			await validationModel.updateMany(
+				{ email },
+				{
+					active: false,
+				}
+			);
+
 			const code = randomstring.generate();
 
 			const validationCode = new validationModel({

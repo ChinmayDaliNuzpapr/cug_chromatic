@@ -27,8 +27,8 @@ p {
     color: black;
 }
 
-.linkb{
-    display: flex;
-    justify-content: center;
-}
 
+.linktext{
+    font-style: italic;
+    font-size: 12px;
+}
