@@ -8,6 +8,7 @@ const TokenSchema = new mongoose.Schema({
 	},
 	createdAt: { type: Date, default: Date.now, expireAfterSeconds: 100 },
 });
+
 const userSchema = new mongoose.Schema({
 	Group_name: {
 		type: String,

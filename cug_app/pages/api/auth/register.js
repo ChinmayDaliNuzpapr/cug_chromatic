@@ -1,20 +1,9 @@
-import userModel from '../../../models/user';
 import DBConnect from '../../middleware/DBConnect';
 import nodemailer from 'nodemailer';
-import jwt from 'jsonwebtoken';
 import validator from 'email-validator';
-
-const generateToken = (user) => {
-	return jwt.sign(
-		{
-			_id: user._id,
-			Group_name: user.Group_name,
-			alphaNumericId: user.alphaNumericId,
-		},
-		process.env.secretKey,
-		{ expiresIn: '2h' }
-	);
-};
+import validationModel from '../../../models/validationCode';
+import randomstring from 'randomstring';
+import Email from 'email-templates';
 
 const Register = async (req, res) => {
 	if ((req.method = 'POST')) {
@@ -23,16 +12,16 @@ const Register = async (req, res) => {
 
 			if (!validator.validate(email)) throw 'Please enter a valid email';
 
-			let user, token;
+			const code = randomstring.generate();
 
-			//checking if a token has already been sent
-			const previousToken = await userModel.findOne({
-				email: email,
-				token: { $ne: '' },
+			const validationCode = new validationModel({
+				Group_name,
+				email,
+				code,
 			});
 
-			if (previousToken) throw 'Validation email has been sent already';
-
+			await validationCode.save();
+			/*
 			const UserAlreadyRegistered = await userModel.findOne({ email: email });
 
 			if (UserAlreadyRegistered) {
@@ -56,9 +45,9 @@ const Register = async (req, res) => {
 				//saving email after generating the token
 				user.email = email;
 				await user.save();
-			}
+			}*/
 
-			const url = `http://localhost:3000/api/auth/confirm/${token}`;
+			const url = `http://localhost:3000/api/auth/confirm/${code}`;
 
 			const transporter = nodemailer.createTransport({
 				service: 'gmail',
@@ -68,26 +57,31 @@ const Register = async (req, res) => {
 				},
 			});
 
-			const mailOptions = {
+			const Myemail = new Email({
+				transport: transporter,
+				send: true,
+				preview: false,
+			});
+
+			await Myemail.send({
+				template: 'hello',
+				message: {
+					from: process.env.email,
+					to: email,
+				},
+				locals: {
+					url: url,
+				},
+			});
+
+			/*const mailOptions = {
 				from: process.env.email,
 				to: email,
 				subject: 'Confirm your email address to start communicating',
 				text: url,
 			};
 
-			await transporter.sendMail(mailOptions);
-
-			//adding the token in the user's database after mail has been sent
-
-			await userModel.updateOne(
-				{ email: user.email },
-				{
-					$set: {
-						token: token,
-					},
-				}
-			);
-
+			await transporter.sendMail(mailOptions);*/
 			return res.status(200).send({ message: 'EMAIL CONFIRMATION SENT' });
 		} catch (err) {
 			console.log(err);
