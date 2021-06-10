@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Link from "next/link";
 import { XIcon, MenuIcon } from "@heroicons/react/solid";
 
 import { Transition } from "@headlessui/react";
+import { UserContext } from "../Layout";
 
-function Nav() {
+function Nav(props) {
+  console.log("THE PROPS", props);
+  const { authenticated, setAuthenticated } = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="shadow-lg">
@@ -31,10 +34,28 @@ function Nav() {
                   <div className="text-gray-900 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                     <Link href="#">Menu-4</Link>
                   </div>
-
-                  <div className="text-gray-900 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                    <Link href="/Auth">Login</Link>
-                  </div>
+                  {/* 📌 THE CONTEXT FOR AUTHENTICATION */}
+                  {console.log("THE CONTEXT", authenticated)}
+                  {authenticated === null ? (
+                    <>
+                      <div className="text-gray-900 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                        <Link href="/Auth">Login</Link>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="text-gray-900 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                        <button
+                          onClick={() => {
+                            localStorage.removeItem("token");
+                            setAuthenticated(null);
+                          }}
+                        >
+                          Logout
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

@@ -1,84 +1,89 @@
-import jwt from 'jsonwebtoken';
-import userModel from '../../../../models/user';
-import DBConnect from '../../../middleware/DBConnect';
-import validationModel from '../../../../models/validationCode';
-import randomstring from 'randomstring';
-
+import jwt from "jsonwebtoken";
+import userModel from "../../../../models/user";
+import DBConnect from "../../../middleware/DBConnect";
+import validationModel from "../../../../models/validationCode";
+import randomstring from "randomstring";
+// import { useRouter } from "next/router";
+// const router = useRouter();
 const generateToken = (user) => {
-	return jwt.sign(
-		{
-			_id: user._id,
-			Group_name: user.Group_name,
-			alphaNumericId: user.alphaNumericId,
-		},
-		process.env.secretKey,
-		{ expiresIn: '2h' }
-	);
+  return jwt.sign(
+    {
+      _id: user._id,
+      Group_name: user.Group_name,
+      alphaNumericId: user.alphaNumericId,
+    },
+    process.env.secretKey,
+    { expiresIn: "2h" }
+  );
 };
 
 const confirmation = async (req, res) => {
-	try {
-		const { code } = req.query;
+  try {
+    const { code } = req.query;
 
-		const validationCode = await validationModel.findOne({
-			$and: [{ code: code }, { active: true }],
-		});
+    const validationCode = await validationModel.findOne({
+      $and: [{ code: code }, { active: true }],
+    });
 
-		console.log(validationCode);
+    console.log(validationCode);
 
-		if (!validationCode) throw 'Please use a valid activation link';
+    if (!validationCode) throw "Please use a valid activation link";
 
-		let token, user;
+    let token, user;
 
-		const UserAlreadyRegistered = await userModel.findOne({
-			email: validationCode.email,
-		});
+    const UserAlreadyRegistered = await userModel.findOne({
+      email: validationCode.email,
+    });
 
-		if (UserAlreadyRegistered) {
-			user = {
-				_id: UserAlreadyRegistered._id,
-				Group_name: UserAlreadyRegistered.Group_name,
-				alphaNumericId: UserAlreadyRegistered.alphaNumericId,
-			};
+    if (UserAlreadyRegistered) {
+      user = {
+        _id: UserAlreadyRegistered._id,
+        Group_name: UserAlreadyRegistered.Group_name,
+        alphaNumericId: UserAlreadyRegistered.alphaNumericId,
+      };
 
-			token = generateToken(user);
-			console.log('NOT FIRST TIME', token);
+      token = generateToken(user);
+      console.log("NOT FIRST TIME", token);
 
-			//making validation code inactive
-			validationCode.active = false;
-			validationCode.save();
-			return res.redirect('/', { token: token });
-		} else {
-			const id = randomstring.generate({
-				length: 12,
-				charset: 'alphanumeric',
-			});
+      //making validation code inactive
+      validationCode.active = false;
+      validationCode.save();
+      console.log("THE TOKEN", token);
+      // router.push(`token/${token}`);
+      return res.redirect(`http://localhost:3000/token/${token}`, {
+        token: token,
+      });
+    } else {
+      const id = randomstring.generate({
+        length: 12,
+        charset: "alphanumeric",
+      });
 
-			//register the user
-			user = new userModel({
-				Group_name: validationCode.Group_name,
-				alphaNumericId: id,
-			});
+      //register the user
+      user = new userModel({
+        Group_name: validationCode.Group_name,
+        alphaNumericId: id,
+      });
 
-			await user.save();
-			token = generateToken(user);
-			console.log('FIRST TIME', token);
+      await user.save();
+      token = generateToken(user);
+      console.log("FIRST TIME", token);
 
-			//saving email after generating the token
-			user.email = validationCode.email;
-			await user.save();
+      //saving email after generating the token
+      user.email = validationCode.email;
+      await user.save();
 
-			//making validation code inactive
-			validationCode.active = false;
-			validationCode.save();
+      //making validation code inactive
+      validationCode.active = false;
+      validationCode.save();
 
-			return res.redirect('/', {
-				alphaNumericId: id,
-				token: token,
-			});
-		}
+      return res.redirect(`http://localhost:3000/token/${token}`, {
+        alphaNumericId: id,
+        token: token,
+      });
+    }
 
-		/*(const user = jwt.verify(token, process.env.secretKey);
+    /*(const user = jwt.verify(token, process.env.secretKey);
 
 		if (!user) throw 'INVALID TOKEN';
 
@@ -88,7 +93,7 @@ const confirmation = async (req, res) => {
 		if (!previousToken || previousToken.token !== token)
 			throw 'Please use the latest activation link';*/
 
-		/*if (user.alphaNumericId) {
+    /*if (user.alphaNumericId) {
 			await userModel.updateOne(
 				{ Group_name: user.Group_name },
 				{
@@ -121,10 +126,10 @@ const confirmation = async (req, res) => {
 				token: token,
 			});
 		}*/
-	} catch (err) {
-		console.log(err);
-		res.redirect('/404', { error: err });
-	}
+  } catch (err) {
+    console.log(err);
+    res.redirect("/404", { error: err });
+  }
 };
 
 export default DBConnect(confirmation);

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useRouter } from "next/router";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -7,14 +8,7 @@ import { TextField } from "./TextField.js";
 import LoginForm from "./FormComponent.js";
 const FormTailwind = () => {
   const router = useRouter();
-
-  const adminUser = {
-    email: "admin@admin.com",
-    password: "admin123",
-  };
-  const [user, setUser] = useState({ name: "", email: "" });
-  const [error, setError] = useState("");
-
+  const [error, setError] = useState(null);
   const [authenticated, setAuthenticated] = useState(null);
 
   const Login = (details) => {
@@ -24,28 +18,25 @@ const FormTailwind = () => {
     objectWithData.Group_name = details.group_name;
     objectWithData.email = details.email;
     console.log("THE OBJECT WITH DATA", objectWithData);
-    fetch("/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(objectWithData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("THE RESPONSE", data);
+    // THE AXIOS REQUEST
+    axios
+      .post("/api/auth/register", objectWithData)
+      .then((response) => {
+        console.log(response);
         setAuthenticated(true);
       })
       .catch((err) => {
+        alert(err);
+        console.log(JSON.stringify(err));
+        console.log(err.response);
+        // console.log(err.data.error);
         setAuthenticated(false);
-        alert("ERROR");
+        setError(err.response.data.error);
       });
-
-    console.log("AFTER AUTHENTICATION");
   };
 
   useEffect(() => {
-    if (authenticated === true) {
+    if (authenticated === true && error === null) {
       router.push("/verification");
       toast.success("Sent an email", {
         position: "top-right",
@@ -56,8 +47,8 @@ const FormTailwind = () => {
         draggable: true,
         progress: undefined,
       });
-    } else if (authenticated === false) {
-      toast.error("ERROR ", {
+    } else if (authenticated === false && error) {
+      toast.error(`ERROR: ${error}`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -67,24 +58,12 @@ const FormTailwind = () => {
         progress: undefined,
       });
     } else;
-  }, [authenticated]);
+  }, [authenticated, error]);
 
   return (
     <div>
       {/* 📌THE BELOW CODE IS FOR SIMPLE FORM WITHOUT FORMIKS _THAT WORKS_ */}
       <div className="w-full max-w-xs my-16">
-        {/* <div>
-          {user.email != "" ? (
-            <div className="welcome">
-              <h2>
-                Welcome, <span>{user.name}</span>
-              </h2>
-              <button onClick={Logout}>Logout</button>
-            </div>
-          ) : (
-            <LoginForm Login={Login} error={error} />
-          )}
-        </div> */}
         {/* 🔴THE BELOW CODE IS FOR SIMPLE FORM WITHOUT FORMIKS _THAT WORKS_ */}
         <Formik
           initialValues={{ email: "", group_name: "" }}
@@ -100,9 +79,7 @@ const FormTailwind = () => {
             console.log("ALL THE VALUES", values);
             Login(values);
             setTimeout(() => {
-              // alert(JSON.stringify(values, null, 2));
               resetForm();
-
               setSubmitting(false);
             }, 3000);
           }}

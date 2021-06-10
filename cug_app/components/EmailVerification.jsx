@@ -1,6 +1,6 @@
 import React from "react";
 
-const EmailVerification = () => {
+const EmailVerification = (props) => {
   return (
     <div className="">
       <div id="center_a_box" className="absolute">
@@ -19,14 +19,6 @@ const EmailVerification = () => {
             <section className="font-bold text-lg text-blue-900">
               Nuzpapr-Technolabs
             </section>
-            {/* <section className="flex justify-end">
-              <button
-                type="button"
-                className="bg-yellow-600 text-white px-3 py-1 rounded-md"
-              >
-                Read more
-              </button>
-            </section> */}
           </div>
         </main>
       </div>

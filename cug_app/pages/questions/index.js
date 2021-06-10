@@ -13,8 +13,20 @@ import QuestionCard from "../../components/QuestionCard";
 import QuestionComponent from "../../components/QuestionComponent";
 import Sidebar from "../../components/Workflow/Sidebar";
 import Trending from "../../components/Workflow/Trending";
+import { useRouter } from "next/router";
+import { UserContext } from "../../components/Layout";
+
 const index = () => {
   const [category, setCategory] = useState("home");
+  const { authenticated } = useContext(UserContext);
+  const router = useRouter();
+  // The below effect will only run if the user has logged out
+  useEffect(() => {
+    if (authenticated === null) {
+      router.push("/");
+    }
+  }, [authenticated]);
+
   // const [];
   return (
     <div className="container mx-auto">
