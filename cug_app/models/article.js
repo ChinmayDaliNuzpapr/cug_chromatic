@@ -13,6 +13,9 @@ const articleSchema = new mongoose.Schema({
 	content: {
 		type: String,
 	},
+	scope: {
+		type: String, //scope can be either company and global
+	},
 	createdAt: { type: Date, default: Date.now },
 	updatedAt: { type: Date, default: Date.now },
 });
