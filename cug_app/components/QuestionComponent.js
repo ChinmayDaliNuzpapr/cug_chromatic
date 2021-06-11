@@ -11,24 +11,26 @@ const QuestionComponent = () => {
   return (
     <>
       <div className="flex flex-wrap justify-between">
-        <div className="mr-20">
+        <div className="order-1 mr-20">
           <MyToggle />
         </div>
-        <div className="fixed">
+        <div className="order-2">
           <SearchBar />
         </div>
-        <div className="flex flex-col flex-wrap justify-between">
-          <div>
-            <button className="bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white py-1 px-6 border border-blue-500 hover:border-transparent rounded">
-              Ask Question
-            </button>
-          </div>
-          <div>
-            <MenuComponent />
+        <div className="order-3">
+          <div className="flex flex-col flex-wrap justify-between">
+            <div>
+              <button className="bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white py-1 px-6 border border-blue-500 hover:border-transparent rounded">
+                Ask Question
+              </button>
+            </div>
+            <div>
+              <MenuComponent />
+            </div>
           </div>
         </div>
       </div>
-      <div className="grid grid-col-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-col-1 md:grid-cols-2 gap-6">
         {/* <div className="container "> */}
         <Question />
         <Question />

@@ -4,8 +4,8 @@ const Trending = () => {
   return (
     <>
       <div>
-        <nav className="flex flex-col w-64 h-screen px-auto tex-gray-900 border border-gray-200">
-          <div className="flex flex-wrap mt-8">
+        <nav className="flex flex-col w-64 h-screen px-auto tex-gray-900 border rounded-lg border-gray-200">
+          <div className="flex flex-wrap mt-8 mx-auto">
             <div className="w-1/2 justify-center">
               <p className="text-3xl">Trending</p>
             </div>

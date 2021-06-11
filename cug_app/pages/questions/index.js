@@ -31,15 +31,17 @@ const index = () => {
   return (
     <div className="container mx-auto">
       <div className="flex flex-col my-16">
-        <div className="flex flex-row px-14">
-          <div className="flex-grow w-16 h-16">
+        <div className="flex flex-row">
+          <div className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
+            {/* flex-grow */}
             <Sidebar />
           </div>
-          <div className="flex-grow container mx-4">
+          <div className="w-full lg:w-1/2 px-2">
             <BoxComponent />
             <QuestionComponent />
           </div>
-          <div className="flex-grow w-16 h-16">
+          <div className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
+            {/* flex-grow */}
             <Trending />
           </div>
         </div>
