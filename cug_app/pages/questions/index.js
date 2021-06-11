@@ -12,12 +12,28 @@ import BoxComponent from "../../components/question/BoxComponent";
 import QuestionCard from "../../components/QuestionCard";
 import QuestionComponent from "../../components/QuestionComponent";
 import Sidebar from "../../components/Workflow/Sidebar";
-import Trending from "../../components/Workflow/Trending";
+import { Trending, ExtraTrendingBox } from "../../components/Workflow/Trending";
 import { useRouter } from "next/router";
 import { UserContext } from "../../components/Layout";
 
 const index = () => {
-  const [category, setCategory] = useState("home");
+  // const [category, setCategory] = useState("home");
+  const category = [
+    "home",
+    "category 1",
+    "category 2",
+    "category 3",
+    "category 4",
+    "category 5",
+    "category 6",
+    "category 7",
+    "category 8",
+    "category 9",
+    "category 10",
+    "category 11",
+    "category 12",
+    "category 13",
+  ];
   const { authenticated } = useContext(UserContext);
   const router = useRouter();
   // The below effect will only run if the user has logged out
@@ -32,17 +48,17 @@ const index = () => {
     <div className="container mx-auto">
       <div className="flex flex-col my-16">
         <div className="flex flex-row">
-          <div className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
+          <div className=" md:w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
             {/* flex-grow */}
-            <Sidebar />
+            <Sidebar category={category} />
           </div>
           <div className="w-full lg:w-1/2 px-2">
             <BoxComponent />
             <QuestionComponent />
           </div>
-          <div className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
-            {/* flex-grow */}
-            <Trending />
+          <div className=" w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
+            {/* flex-grow sm:hidden */}
+            <ExtraTrendingBox />
           </div>
         </div>
       </div>

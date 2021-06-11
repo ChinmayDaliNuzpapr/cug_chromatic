@@ -6,15 +6,15 @@ import randomstring from "randomstring";
 // import { useRouter } from "next/router";
 // const router = useRouter();
 const generateToken = (user) => {
-	return jwt.sign(
-		{
-			_id: user._id,
-			Group_name: user.Group_name,
-			alphaNumericId: user.alphaNumericId,
-		},
-		process.env.secretKey,
-		{ expiresIn: '2h' }
-	);
+  return jwt.sign(
+    {
+      _id: user._id,
+      Group_name: user.Group_name,
+      alphaNumericId: user.alphaNumericId,
+    },
+    process.env.secretKey,
+    { expiresIn: "2h" }
+  );
 };
 
 const confirmation = async (req, res) => {
@@ -27,7 +27,7 @@ const confirmation = async (req, res) => {
 
     console.log(validationCode);
 
-		if (!validationCode) throw 'Please use a valid activation link';
+    if (!validationCode) throw "Please use a valid activation link";
 
     let token, user;
 
@@ -45,15 +45,17 @@ const confirmation = async (req, res) => {
       token = generateToken(user);
       console.log("NOT FIRST TIME", token);
 
-			//making validation code inactive
-			validationCode.active = false;
-			validationCode.save();
-			return res.redirect('/', { token: token });
-		} else {
-			const id = randomstring.generate({
-				length: 12,
-				charset: 'alphanumeric',
-			});
+      //making validation code inactive
+      validationCode.active = false;
+      validationCode.save();
+      return res.redirect(`http://localhost:3000/token/${token}`, {
+        token: token,
+      });
+    } else {
+      const id = randomstring.generate({
+        length: 12,
+        charset: "alphanumeric",
+      });
 
       //register the user
       user = new userModel({
@@ -73,11 +75,11 @@ const confirmation = async (req, res) => {
       validationCode.active = false;
       validationCode.save();
 
-			return res.redirect('/', {
-				alphaNumericId: id,
-				token: token,
-			});
-		}
+      return res.redirect(`http://localhost:3000/token/${token}`, {
+        alphaNumericId: id,
+        token: token,
+      });
+    }
 
     /*(const user = jwt.verify(token, process.env.secretKey);
 
