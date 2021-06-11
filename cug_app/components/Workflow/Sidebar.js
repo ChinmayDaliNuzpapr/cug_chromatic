@@ -33,7 +33,7 @@ const Sidebar = (props) => {
         <nav className="flex flex-col w-64 h-screen px-auto tex-gray-900 border rounded-lg border-gray-200">
           <div className="flex flex-wrap bg-blue-300">
             <div className="w-1/2 justify-center my-4 mx-auto">
-              <p className="text-3xl">Work Space</p>
+              <p className="text-3xl">Workspace</p>
             </div>
           </div>
           <div className="mt-10 mb-4">

@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
   return (
     <UserContext.Provider value={{ authenticated, setAuthenticated }}>
       <div id="base_layout">
-        <div id="layout_navbar_div" className="sticky top-0 bg-white">
+        <div id="layout_navbar_div2" className="sticky top-0 bg-white z-50">
           <Navbar />
         </div>
 

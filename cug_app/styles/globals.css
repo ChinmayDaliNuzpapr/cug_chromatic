@@ -63,9 +63,9 @@ a {
   text-shadow: 2px 2px #bbbbbb;
 }
 
-#layout_navbar_div {
+/* #layout_navbar_div {
   z-index: 1;
-}
+} */
 
 #the_mobile_icon_navbar_button {
   height: 35px !important;
@@ -161,3 +161,4 @@ a {
   background: #07051a;
   color: white;
 }
+/* THE SWITCHER */
