@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import {
-  BellIcon,
-  MenuAlt2Icon,
-  XIcon,
-  MenuIcon,
-} from "@heroicons/react/solid";
-import { Transition } from "@headlessui/react";
+import React, { useState, useContext } from "react";
+import Link from "next/link";
+import { XIcon, MenuIcon } from "@heroicons/react/solid";
 
-function Nav() {
+import { Transition } from "@headlessui/react";
+import { UserContext } from "../Layout";
+
+function Nav(props) {
+  console.log("THE PROPS", props);
+  const { authenticated, setAuthenticated } = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div>
+    <div className="shadow-lg">
       <nav className="bg-white container mx-auto">
         <div className="max-w-full mx-auto p-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -20,40 +20,42 @@ function Nav() {
               </div>
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4 flex-end">
-                  <a
-                    href="#"
-                    className="text-gray-900 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Menu-1
-                  </a>
+                  <div className="text-gray-900 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                    <Link href="#">Menu-1</Link>
+                  </div>
+                  <div className="text-gray-900 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                    <Link href="#">Menu-2</Link>
+                  </div>
 
-                  <a
-                    href="#"
-                    className="text-gray-900 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Menu-2
-                  </a>
+                  <div className="text-gray-900 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                    <Link href="#">Menu-3</Link>
+                  </div>
 
-                  <a
-                    href="#"
-                    className="text-gray-900 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Menu-3
-                  </a>
-
-                  <a
-                    href="#"
-                    className="text-gray-900 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Menu-4
-                  </a>
-
-                  <a
-                    href="#"
-                    className="text-gray-900 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Login
-                  </a>
+                  <div className="text-gray-900 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                    <Link href="#">Menu-4</Link>
+                  </div>
+                  {/* 📌 THE CONTEXT FOR AUTHENTICATION */}
+                  {console.log("THE CONTEXT", authenticated)}
+                  {authenticated === null ? (
+                    <>
+                      <div className="text-gray-900 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                        <Link href="/Auth">Login</Link>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="text-gray-900 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                        <button
+                          onClick={() => {
+                            localStorage.removeItem("token");
+                            setAuthenticated(null);
+                          }}
+                        >
+                          Logout
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
