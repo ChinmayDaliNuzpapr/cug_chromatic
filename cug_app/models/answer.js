@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-const ModelName = 'commentModel';
+const ModelName = 'answerModel';
 import articleSchema from './article';
 
-const commentSchema = new mongoose.Schema({
+const answerSchema = new mongoose.Schema({
 	question: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'question', //name of the collection
@@ -11,4 +11,4 @@ const commentSchema = new mongoose.Schema({
 });
 
 export default mongoose.models[ModelName] ||
-	mongoose.model(ModelName, commentSchema, 'comment');
+	mongoose.model(ModelName, answerSchema, 'answer');

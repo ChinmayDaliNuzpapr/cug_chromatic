@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 const ModelName = 'groupModel';
 
 const groupSchema = new mongoose.Schema({
-	name: {
+	groupName: {
 		type: String,
 	},
 });

@@ -12,7 +12,7 @@ const generateToken = (user) => {
 			alphaNumericId: user.alphaNumericId,
 		},
 		process.env.secretKey,
-		{ expiresIn: '2h' }
+		{ expiresIn: '4h' }
 	);
 };
 
@@ -26,7 +26,7 @@ const confirmation = async (req, res) => {
 
 		console.log(validationCode);
 
-		if (!validationCode) throw 'Please use a valid activation link';
+		if (!validationCode) throw process.env.INVALID_ACTIVATION_LINK;
 
 		let token, user;
 
@@ -47,7 +47,10 @@ const confirmation = async (req, res) => {
 			//making validation code inactive
 			validationCode.active = false;
 			validationCode.save();
-			return res.redirect('/', { token: token });
+			return res.redirect('/', {
+				token: token,
+				message: process.env.LOGGED_IN_SUCCESSFULLY,
+			});
 		} else {
 			const id = randomstring.generate({
 				length: 12,
@@ -73,6 +76,7 @@ const confirmation = async (req, res) => {
 			validationCode.save();
 
 			return res.redirect('/', {
+				message: process.env.LOGGED_IN_SUCCESSFULLY,
 				alphaNumericId: id,
 				token: token,
 			});

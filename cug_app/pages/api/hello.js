@@ -7,6 +7,7 @@ import Email from 'email-templates';
 
 const Hello = async (req, res) => {
 	try {
+		console.log(process.env.error);
 		/*const transporter = nodemailer.createTransport({
 			service: 'gmail',
 			auth: {

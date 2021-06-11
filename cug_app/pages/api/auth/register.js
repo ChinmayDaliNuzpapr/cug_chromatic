@@ -10,7 +10,7 @@ const Register = async (req, res) => {
 		try {
 			const { Group_name, email } = req.body;
 
-			if (!validator.validate(email)) throw 'Please enter a valid email';
+			if (!validator.validate(email)) throw process.env.INVALID_EMAIL_ERROR;
 
 			//making previous active link inactive
 			await validationModel.updateMany(
@@ -90,7 +90,7 @@ const Register = async (req, res) => {
 			};
 
 			await transporter.sendMail(mailOptions);*/
-			return res.status(200).send({ message: 'EMAIL CONFIRMATION SENT' });
+			return res.status(200).send({ message: process.env.EMAIL_CONFIRMATION });
 		} catch (err) {
 			console.log(err);
 			return res.status(500).send({ error: err });

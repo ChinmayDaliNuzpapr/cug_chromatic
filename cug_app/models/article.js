@@ -8,7 +8,12 @@ const articleSchema = new mongoose.Schema({
 		type: String,
 	},
 	like: {
-		type: String,
+		type: Number,
+		default: 0,
+	},
+	view: {
+		type: Number,
+		default: 0,
 	},
 	content: {
 		type: String,
