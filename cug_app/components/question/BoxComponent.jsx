@@ -3,14 +3,11 @@ import React from "react";
 const BoxComponent = () => {
   return (
     <div className="m-4">
-      {/* m-8 */}
       <div id="aggressiveBoxShadow" className=" ">
-        {/* h-32 mx-4 p-4 */}
         <main className=" flex justify-center">
           <div className="flex flex-col md:min-w-full p-3 space-y-5 rounded-xl bg-white ">
-            {/* border border-black shadow-xl */}
             <section className="text-sm font-thin text-orange-400">
-              {Date()}
+              Thu Jun 10 2021 18:44:17 GMT+0530 (India Standard Time)
             </section>
             <section className="text-3xl font-bold">
               Welcome to Group_Name

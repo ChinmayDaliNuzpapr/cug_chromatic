@@ -1,15 +1,20 @@
 import React from "react";
 
-const Question = () => {
+const Question = ({ user_name, date_val }) => {
   return (
-    <div className="p-3 border-2 rounded-md mx-auto">
-      <p className="montserrat-14">Question to list here in 1-2 lines?</p>
-      <p className="montserrat-12">
+    <div className="w-full relative p-3 border-2 rounded-md mx-auto">
+      <p className="sm:text-base md:text-xl text-gray-900">
+        Question to list here in 1-2 lines?
+      </p>
+      <p className="md:text-base text-gray-500">
         2 lines of question is quoted in 2 point small font than font used in
         question and 3 dots added …
       </p>
-      <p className="montserrat-10 mt-7">Posted by: fhfyeifjr23</p>
-      <div className="flex justify-between montserrat-10 ">
+      <p className="text-sm my-7">
+        Posted by: {user_name ? <>{user_name}</> : <>fhfyeifjr23</>} <br />
+        Posted on: {date_val ? <>{date_val}</> : <>Jun 10 2021</>} <br />
+      </p>
+      <div className="flex justify-between text-sm ">
         <div className="grid grid-cols-3">
           <div className="flex justify-start">
             <div className="w-[20px] h-[20px]">
@@ -94,7 +99,6 @@ const Question = () => {
               </svg>
             </div>
           </div>
-          <div>today</div>
         </div>
       </div>
     </div>

@@ -1,20 +1,21 @@
 import React from "react";
-
+import Head from "next/head";
 const SearchBar = () => {
   return (
     <>
-      <div className="flex border-grey-light border ml-4">
-        <input
-          className="w-full rounded ml-1"
-          type="text"
-          placeholder="Search..."
+      <Head>
+        <link
+          rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+          crossorigin="anonymous"
         />
-        <button className="bg-grey-lightest border-grey border-l shadow hover:bg-grey-lightest">
-          <span className="w-auto flex justify-end items-center text-grey p-2 hover:text-grey-darkest">
-            <i className="material-icons text-xs">search</i>
-          </span>
-        </button>
-      </div>
+      </Head>
+
+      <form id="searchbar" action="">
+        <input id="searchbar_input" type="search" />
+        <i id="search_icon" className="fa fa-search"></i>
+      </form>
     </>
   );
 };

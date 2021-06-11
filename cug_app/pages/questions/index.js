@@ -21,25 +21,25 @@ const index = () => {
   const { authenticated } = useContext(UserContext);
   const router = useRouter();
   // The below effect will only run if the user has logged out
-  useEffect(() => {
-    if (authenticated === null) {
-      router.push("/");
-    }
-  }, [authenticated]);
+  // useEffect(() => {
+  //   if (authenticated === null) {
+  //     router.push("/");
+  //   }
+  // }, [authenticated]);
 
   // const [];
   return (
     <div className="container mx-auto">
       <div className="flex flex-col my-16">
         <div className="flex flex-row px-14">
-          <div className="flex-none w-16 h-16 md:px-4">
+          <div className="flex-grow w-16 h-16">
             <Sidebar />
           </div>
-          <div className="flex-grow">
+          <div className="flex-grow container mx-4">
             <BoxComponent />
             <QuestionComponent />
           </div>
-          <div className="flex-none w-16 h-16">
+          <div className="flex-grow w-16 h-16">
             <Trending />
           </div>
         </div>
@@ -49,3 +49,8 @@ const index = () => {
 };
 
 export default index;
+
+/*
+
+
+*/

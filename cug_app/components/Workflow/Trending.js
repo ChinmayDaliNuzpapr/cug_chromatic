@@ -1,23 +1,48 @@
-import React from 'react';
-import Button from '../Button/Button';
+import React from "react";
+import Button from "../Button/Button";
 const Trending = () => {
-	return (
-		<div className='text-center w-[200px]  '>
-			<div className='my-2 '>
-				<Button width='w-100' />
-			</div>
-			<div className='grid grid-cols-1 border-[1px]'>
-				<div className='py-2 bg-blue-500 rounded-sm text-white'>Trending</div>
-				<div className='py-2  border-[1px]'>Question 1 is here</div>
-				<div className=' py-2  border-[1px]'>Question 1 is here</div>
-				<div className=' py-2  border-[1px]'>Question 1 is here</div>
-				<div className='py-2  border-[1px]'>Question 1 is here</div>
-				<div className='py-2  border-[1px]'>Question 1 is here</div>
-				<div className='py-2  border-[1px]'>Question 1 is here</div>
-				<div className='py-2  border-[1px]'>Question 1 is here</div>
-			</div>
-		</div>
-	);
+  return (
+    <>
+      <div>
+        <nav className="flex flex-col w-64 h-screen px-auto tex-gray-900 border border-gray-200">
+          <div className="flex flex-wrap mt-8">
+            <div className="w-1/2 justify-center">
+              <p className="text-3xl">Trending</p>
+            </div>
+          </div>
+          <div className="mt-10 mb-4">
+            <ul className="">
+              <li className="mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg">
+                <div className="mx-auto">
+                  <span>Dashboard</span>
+                </div>
+              </li>
+              <li className="mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg">
+                <div className="mx-auto">
+                  <span>Dashboard</span>
+                </div>
+              </li>
+              <li className="mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg">
+                <div className="mx-auto">
+                  <span>Dashboard</span>
+                </div>
+              </li>
+              <li className="mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg">
+                <div className="mx-auto">
+                  <span>Dashboard</span>
+                </div>
+              </li>
+              <li className="mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg">
+                <div className="mx-auto">
+                  <span>Dashboard</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </>
+  );
 };
 
 export default Trending;
