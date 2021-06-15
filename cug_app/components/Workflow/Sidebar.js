@@ -1,23 +1,4 @@
-import React, { useState } from "react";
-
-const ActiveCategory = () => (
-  <>
-    {["vas", "sav", "aaa"].map((item, i) => {
-      return (
-        <button
-          key={i}
-          className={classNames({ "color-red": per === item })}
-          onClick={() => {
-            setPer(item);
-          }}
-        >
-          {item}
-        </button>
-      );
-    })}
-  </>
-);
-// active:bg-green-600
+import React, { useState, useEffect } from "react";
 
 const activeString =
   "bg-green-500 border-green-500 hover:bg-blue-600 text-white shadow-light xl:shadow-none py-6 xl:py-2 xl:px-4 border-r-8 xl:opacity-75 mb-2 px-auto py-4 border-gray-900 hover:text-white hover:font-bold";
@@ -25,8 +6,12 @@ const activeString =
 const deactiveString =
   "mb-2 px-auto py-4 text-gray-900 border-gray-900 hover:bg-blue-600 hover:text-white hover:font-bold rounded rounded-lg";
 const Sidebar = (props) => {
-  const { category } = props;
-  const [per, setPer] = useState("home");
+  console.log("THE PROPS", props);
+  const { category, category_func } = props;
+  // const [pr,setPr] =
+  console.log("THE LIST OF CATEGORY", category);
+  //📌 Initially the sidebar will be at "home"
+  useEffect(() => {}, []);
   return (
     <>
       <div className="md:w-[150px] lg:w-[250px]">
@@ -38,19 +23,26 @@ const Sidebar = (props) => {
           </div>
           <div className="mt-10 mb-4">
             <ul className="">
-              {category.map((item, index) => {
-                return (
-                  <li
-                    key={{ index }}
-                    className={item === per ? activeString : deactiveString}
-                    onClick={() => setPer(item)}
-                  >
-                    <div className="ml-4">
-                      <span>{item}</span>
-                    </div>
-                  </li>
-                );
-              })}
+              {category.category_list &&
+                category.category_list.map((item, index) => {
+                  return (
+                    <li
+                      key={index}
+                      className={
+                        item === category.current_category
+                          ? activeString
+                          : deactiveString
+                      }
+                      onClick={() => {
+                        category_func({ ...category, current_category: item });
+                      }}
+                    >
+                      <div className="ml-4">
+                        <span>{item}</span>
+                      </div>
+                    </li>
+                  );
+                })}
             </ul>
           </div>
         </nav>

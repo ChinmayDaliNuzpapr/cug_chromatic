@@ -11,8 +11,10 @@ import {
   MyListbox,
   MyDropdown,
 } from "./question/menu/MenuComponent";
+import { useRouter } from "next/router";
 
-const QuestionComponent = () => {
+const QuestionComponent = (props) => {
+  console.log("THE PROPS in Question Component", props);
   return (
     <>
       <div className="flex flex-wrap justify-between my-4">
@@ -25,7 +27,13 @@ const QuestionComponent = () => {
         <div className="order-3">
           <div className="flex flex-col flex-wrap justify-between">
             <div className="mb-2">
-              <button className="bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white py-1 px-6 border border-blue-500 hover:border-transparent rounded">
+              <button
+                onClick={() => {
+                  props.setselectedQuestion(null);
+                  props.askQuestion_func(true);
+                }}
+                className="bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white py-1 px-6 border border-blue-500 hover:border-transparent rounded"
+              >
                 Ask Question
               </button>
             </div>
