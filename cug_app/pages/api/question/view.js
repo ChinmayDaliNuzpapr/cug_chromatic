@@ -13,7 +13,7 @@ const viewQuestion = async (req, res) => {
 				_id: questionID,
 			},
 			{
-				$inc: { view: 1 },
+				$inc: { 'view.count': 1 },
 			},
 			{
 				new: true,

@@ -13,8 +13,8 @@ const questionSchema = new mongoose.Schema({
 	},
 	article: articleSchema,
 	view: {
-		type: Number,
-		default: 0,
+		count: { type: Number, default: 0 },
+		viewedOn: { type: Date, default: Date.now },
 	},
 	tags: [String],
 });
