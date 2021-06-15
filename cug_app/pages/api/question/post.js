@@ -1,8 +1,6 @@
 import DBConnect from '../../middleware/DBConnect';
 import questionModel from '../../../models/question';
 import isUserLoggedIn from '../../middleware/isUserLoggedIn';
-import categoryModel from '../../../models/category';
-import groupModel from '../../../models/group';
 
 const PostQuestion = async (req, res) => {
 	if ((req.method = 'POST')) {
@@ -23,14 +21,11 @@ const PostQuestion = async (req, res) => {
 			req = await isUserLoggedIn(req, res);
 
 			//console.log(req);
-			const { category, article, tags } = req.body;
-
-			const Currentcategory = await categoryModel.findOne({
-				categoryName: category,
-			});
+			const { categoryID, groupID, article, tags } = req.body;
 
 			const newQuestion = new questionModel({
-				category: Currentcategory._id,
+				category: categoryID,
+				group: groupID,
 				article,
 				tags,
 			});

@@ -1,7 +1,10 @@
 import jwt from 'jsonwebtoken';
 import userModel from '../../../../models/user';
-import DBConnect from '../../../middleware/DBConnect';
 import validationModel from '../../../../models/validationCode';
+import groupModel from '../../../../models/group';
+import questionModel from '../../../../models/question';
+import categoryModel from '../../../../models/category';
+import DBConnect from '../../../middleware/DBConnect';
 import randomstring from 'randomstring';
 
 const generateToken = (user) => {
@@ -16,6 +19,16 @@ const generateToken = (user) => {
 	);
 };
 
+/*const getCategoryAndQuestions = async (groupID) => {
+	const defaultCategory = '60c1d3759e4b0d08706a9a3d'; //ID of default category "category 1"
+	const categories = await categoryModel.find({});
+	const questions = await questionModel.find({
+		$and: [{ category: defaultCategory }, { group: groupID }],
+	});
+
+	return { categories, questions };
+};*/
+
 const confirmation = async (req, res) => {
 	try {
 		const { code } = req.query;
@@ -24,11 +37,27 @@ const confirmation = async (req, res) => {
 			$and: [{ code: code }, { active: true }],
 		});
 
-		console.log(validationCode);
-
 		if (!validationCode) throw process.env.INVALID_ACTIVATION_LINK;
 
-		let token, user;
+		let token, user, current_group;
+
+		//CREATING THE GROUP
+
+		const GroupAlreadyExist = await groupModel.findOne({
+			Group_name: validationCode.Group_name,
+		});
+
+		current_group = GroupAlreadyExist;
+
+		if (!GroupAlreadyExist) {
+			const new_group = new groupModel({
+				Group_name: validationCode.Group_name,
+			});
+
+			await new_group.save();
+
+			current_group = new_group;
+		}
 
 		const UserAlreadyRegistered = await userModel.findOne({
 			email: validationCode.email,
@@ -47,8 +76,9 @@ const confirmation = async (req, res) => {
 			//making validation code inactive
 			validationCode.active = false;
 			validationCode.save();
-			return res.redirect('/', {
-				token: token,
+
+			return res.send({
+				token,
 				message: process.env.LOGGED_IN_SUCCESSFULLY,
 			});
 		} else {
@@ -75,56 +105,12 @@ const confirmation = async (req, res) => {
 			validationCode.active = false;
 			validationCode.save();
 
-			return res.redirect('/', {
+			return res.send({
+				token,
 				message: process.env.LOGGED_IN_SUCCESSFULLY,
 				alphaNumericId: id,
-				token: token,
 			});
 		}
-
-		/*(const user = jwt.verify(token, process.env.secretKey);
-
-		if (!user) throw 'INVALID TOKEN';
-
-		//restricting the previous activation link
-		const previousToken = await userModel.findOne({ token: token });
-
-		if (!previousToken || previousToken.token !== token)
-			throw 'Please use the latest activation link';*/
-
-		/*if (user.alphaNumericId) {
-			await userModel.updateOne(
-				{ Group_name: user.Group_name },
-				{
-					$set: {
-						status: true,
-						token: '',
-					},
-				}
-			);
-
-			return res.redirect('/', { token: token });
-		} else {
-			//GENERATING alphanumeric id only for the first time
-
-			//possible error - handling same id
-
-			const id = Math.random().toString(36).substr(2);
-			await userModel.updateOne(
-				{ Group_name: user.Group_name },
-				{
-					$set: {
-						status: true,
-						alphaNumericId: id,
-						token: '',
-					},
-				}
-			);
-			return res.redirect('/', {
-				welcome: 'Hey, we welcome you on our platform',
-				token: token,
-			});
-		}*/
 	} catch (err) {
 		console.log(err);
 		res.redirect('/404', { error: err });

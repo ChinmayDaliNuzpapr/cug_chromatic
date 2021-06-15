@@ -22,8 +22,14 @@ const Register = async (req, res) => {
 
 			const code = randomstring.generate();
 
+			//extracting group name from email
+			const extracted_group_name = email.substring(
+				email.lastIndexOf('@') + 1,
+				email.lastIndexOf('.')
+			);
+
 			const validationCode = new validationModel({
-				Group_name,
+				Group_name: extracted_group_name,
 				email,
 				code,
 			});

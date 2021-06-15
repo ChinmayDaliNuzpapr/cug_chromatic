@@ -3,11 +3,19 @@ const ModelName = 'questionModel';
 import articleSchema from './article';
 
 const questionSchema = new mongoose.Schema({
+	group: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'group',
+	},
 	category: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'category', //name of the collection
 	},
 	article: articleSchema,
+	view: {
+		type: Number,
+		default: 0,
+	},
 	tags: [String],
 });
 

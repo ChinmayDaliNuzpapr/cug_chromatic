@@ -2,27 +2,16 @@ import DBConnect from '../../middleware/DBConnect';
 import questionModel from '../../../models/question';
 import isUserLoggedIn from '../../middleware/isUserLoggedIn';
 
-const viewQuestion = async (req, res) => {
+const titleBasedSearch = async (req, res) => {
 	try {
 		req = await isUserLoggedIn(req, res);
 
-		const { questionID } = req.body;
+		const { title } = req.body;
 
-		const question = await questionModel.findOneAndUpdate(
-			{
-				_id: questionID,
-			},
-			{
-				$inc: { view: 1 },
-			},
-			{
-				new: true,
-			}
-		);
+		const question = await questionModel.find({
+			'article.title': { $eq: title },
+		});
 
-		//get all answers and comments
-
-		console.log(question);
 		return res.status(200).send({ question });
 	} catch (err) {
 		console.log(err);
@@ -30,4 +19,4 @@ const viewQuestion = async (req, res) => {
 	}
 };
 
-export default DBConnect(viewQuestion);
+export default DBConnect(titleBasedSearch);

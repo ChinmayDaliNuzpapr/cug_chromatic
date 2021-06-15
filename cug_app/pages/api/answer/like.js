@@ -1,23 +1,23 @@
 import DBConnect from '../../middleware/DBConnect';
-import questionModel from '../../../models/question';
+import answerModel from '../../../models/answer';
 import isUserLoggedIn from '../../middleware/isUserLoggedIn';
 
 const likeQuestion = async (req, res) => {
 	try {
 		req = await isUserLoggedIn(req, res);
 
-		const { questionID } = req.body;
+		const { answerID } = req.body;
 
-		const question = await questionModel.findOneAndUpdate(
+		const answer = await answerModel.findOneAndUpdate(
 			{
-				_id: questionID,
+				_id: answerID,
 			},
 			{
 				$inc: { 'article.like': 1 },
 			},
 			{ new: true }
 		);
-		return res.status(200).send({ question });
+		return res.status(200).send({ answer });
 	} catch (err) {
 		console.log(err);
 		return res.status(500).send({ error: err });
