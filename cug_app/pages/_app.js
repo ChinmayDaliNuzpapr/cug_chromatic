@@ -1,6 +1,8 @@
 import "../styles/globals.css";
 // THE NOTIFICATION PACKAGE SETTINGS
 import "react-toastify/dist/ReactToastify.css";
+// THE QUILL EDITOR
+import "react-quill/dist/quill.snow.css";
 import { ToastContainer, toast } from "react-toastify";
 import Layout from "../components/Layout.jsx";
 function MyApp({ Component, pageProps }) {

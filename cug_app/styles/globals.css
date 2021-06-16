@@ -63,9 +63,9 @@ a {
   text-shadow: 2px 2px #bbbbbb;
 }
 
-#layout_navbar_div {
+/* #layout_navbar_div {
   z-index: 1;
-}
+} */
 
 #the_mobile_icon_navbar_button {
   height: 35px !important;
@@ -160,4 +160,13 @@ a {
 #searchbar:hover .fa {
   background: #07051a;
   color: white;
+}
+/* THE SWITCHER */
+
+/* *************************************** THE SIDBAR ************************************* */
+/* DO NOT DISPLAY THE SIDEBAR in the NAVBAR if the width is more than 720px */
+@media only screen and (min-width: 720px) {
+  #category_option_button {
+    display: none;
+  }
 }

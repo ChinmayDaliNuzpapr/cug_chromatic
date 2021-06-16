@@ -1,59 +1,48 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-const Sidebar = () => {
+const activeString =
+  "bg-green-500 border-green-500 hover:bg-blue-600 text-white shadow-light xl:shadow-none py-6 xl:py-2 xl:px-4 border-r-8 xl:opacity-75 mb-2 px-auto py-4 border-gray-900 hover:text-white hover:font-bold";
+// bg-blue-300
+const deactiveString =
+  "mb-2 px-auto py-4 text-gray-900 border-gray-900 hover:bg-blue-600 hover:text-white hover:font-bold rounded rounded-lg";
+const Sidebar = (props) => {
+  console.log("THE PROPS", props);
+  const { category, category_func } = props;
+  // const [pr,setPr] =
+  console.log("THE LIST OF CATEGORY", category);
+  //📌 Initially the sidebar will be at "home"
+  useEffect(() => {}, []);
   return (
     <>
-      <div>
+      <div className="md:w-[150px] lg:w-[250px]">
         <nav className="flex flex-col w-64 h-screen px-auto tex-gray-900 border rounded-lg border-gray-200">
-          <div className="flex flex-wrap mt-8 mx-auto">
-            <div className="w-1/2 justify-center">
-              <p className="text-3xl">
-                Question & Answer <br></br>Work spaces
-              </p>
+          <div className="flex flex-wrap bg-blue-300">
+            <div className="w-1/2 justify-center my-4 mx-auto">
+              <p className="text-3xl">Workspace</p>
             </div>
           </div>
           <div className="mt-10 mb-4">
             <ul className="">
-              <li className="mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg">
-                <div className="mx-auto">
-                  <span>Home</span>
-                </div>
-              </li>
-              <li className="mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg">
-                <div className="mx-auto">
-                  <span>Category1</span>
-                </div>
-              </li>
-              <li className="mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg">
-                <div className="mx-auto">
-                  <span>Category2</span>
-                </div>
-              </li>
-              <li className="mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg">
-                <div className="mx-auto">
-                  <span>Category3</span>
-                </div>
-              </li>
-              <li className="mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg">
-                <div className="mx-auto">
-                  <span>Category4</span>
-                </div>
-              </li>
-              <li className="mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg">
-                <div className="mx-auto">
-                  <span>Category5</span>
-                </div>
-              </li>
-              <li className="mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg">
-                <div className="mx-auto">
-                  <span>Category6</span>
-                </div>
-              </li>
-              <li className="mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg">
-                <div className="mx-auto">
-                  <span>Category7</span>
-                </div>
-              </li>
+              {category.category_list &&
+                category.category_list.map((item, index) => {
+                  return (
+                    <li
+                      key={index}
+                      className={
+                        item === category.current_category
+                          ? activeString
+                          : deactiveString
+                      }
+                      onClick={() => {
+                        category_func({ ...category, current_category: item });
+                      }}
+                    >
+                      <div className="ml-4">
+                        <span>{item}</span>
+                      </div>
+                    </li>
+                  );
+                })}
             </ul>
           </div>
         </nav>
