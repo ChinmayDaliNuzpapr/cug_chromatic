@@ -5,9 +5,11 @@ import answerModel from '../../../models/answer';
 const postAnswer = async (req, res) => {
 	try {
 		req = await isUserLoggedIn(req, res);
-		const { qid, article } = req.body;
+
+		const { questionID, article } = req.body;
+
 		const newAnswer = new answerModel({
-			question: qid,
+			question: questionID,
 			article: article,
 		});
 

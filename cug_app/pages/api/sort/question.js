@@ -7,7 +7,7 @@ const Sort = async (req, res) => {
 	try {
 		req = await isUserLoggedIn(req, res);
 
-		const { categoryID, criteria } = req.body;
+		const { categoryID, criteria, scope } = req.body;
 
 		let SortingExpression;
 
@@ -35,7 +35,10 @@ const Sort = async (req, res) => {
 		const sortedQuestions = await questionModel.aggregate([
 			{
 				$match: {
-					category: new ObjectId(categoryID),
+					$and: [
+						{ category: new ObjectId(categoryID) },
+						{ 'article.scope': scope },
+					],
 				},
 			},
 			SortingExpression,

@@ -5,9 +5,11 @@ import replyModel from '../../../models/reply';
 const postReply = async (req, res) => {
 	try {
 		req = await isUserLoggedIn(req, res);
-		const { aid, article } = req.body;
+
+		const { answerID, article } = req.body;
+
 		const newReply = new replyModel({
-			answer: aid,
+			answer: answerID,
 			article: article,
 		});
 

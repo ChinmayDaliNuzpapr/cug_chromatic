@@ -6,7 +6,7 @@ const Search = async (req, res) => {
 	try {
 		req = await isUserLoggedIn(req, res);
 
-		const { search, searchBy } = req.body;
+		const { search, searchBy, scope } = req.body;
 
 		let searchingExpression;
 
@@ -24,7 +24,9 @@ const Search = async (req, res) => {
 				break;
 		}
 
-		const question = await questionModel.find(searchingExpression);
+		const question = await questionModel.find({
+			$and: [searchingExpression, { 'article.scope': scope }],
+		});
 
 		//FOR MULTIPLE TAGS
 		/*const question = questionModel.find({
