@@ -24,7 +24,7 @@ const Trending = async (req, res) => {
 					$match: {
 						$and: [
 							{ category: new ObjectId(categoryID) },
-							{ 'view.viewedOn': { $gte: date } },
+							{ 'article.createdAt': { $gte: date } },
 						],
 					},
 				},
@@ -32,7 +32,7 @@ const Trending = async (req, res) => {
 					$sort: { 'view.count': -1 },
 				},
 				{
-					$project: { _id: 1, 'article.title': 1, view: 1 },
+					$project: { _id: 1, 'article.title': 1, 'view.count': 1 },
 				},
 			]);
 
@@ -42,14 +42,14 @@ const Trending = async (req, res) => {
 			Trending_Questions = await questionModel.aggregate([
 				{
 					$match: {
-						'view.viewedOn': { $gte: date },
+						'article.createdAt': { $gte: date },
 					},
 				},
 				{
 					$sort: { 'view.count': -1 },
 				},
 				{
-					$project: { _id: 1, 'article.title': 1, view: 1 },
+					$project: { _id: 1, 'article.title': 1, 'view.count': 1 },
 				},
 			]);
 

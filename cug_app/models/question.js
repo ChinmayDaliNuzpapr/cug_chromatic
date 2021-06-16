@@ -14,7 +14,7 @@ const questionSchema = new mongoose.Schema({
 	article: articleSchema,
 	view: {
 		count: { type: Number, default: 0 },
-		viewedOn: { type: Date, default: Date.now },
+		//viewedOn: { type: Date, default: Date.now },
 	},
 	tags: [String],
 });

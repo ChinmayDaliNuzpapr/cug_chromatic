@@ -9,9 +9,11 @@ module.exports = {
 		//success messages
 
 		EMAIL_CONFIRMATION: ' We have sent you email confirmation to you.',
-		LOGGED_IN_SUCCESSFULLY: 'Email validation is successful, welcome to CUG',
+		LOGGED_IN_SUCCESSFULLY: 'Welcome back to  our platform',
 		QUESTION_ADDED: 'Your question has been added successfuly',
 		ANSWER_DELETED: 'Your answer has been deleted',
+		FIRST_TIME_LOGGEDIN:
+			'Welcome to our platform , you have been assigned this ID ',
 
 		//all errors will be put here
 
