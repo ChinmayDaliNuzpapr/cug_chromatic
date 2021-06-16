@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { UserContext } from "../../components/Layout";
-
+import axios from "axios";
 const AuthConfirmComponent = ({ token_val, user_id }) => {
   return (
     <div className="flex flex-row h-screen">
@@ -30,20 +30,30 @@ const TokenComponent = (props) => {
   const { authenticated, setAuthenticated } = useContext(UserContext);
   const { query } = useRouter();
   const router = useRouter();
+  let intialCodeVal = null;
   console.log("THE PROPS👉👉👉👉", props);
   console.log("THE QUERY🎇🎇🎇🎇🎇", query);
   if (query.token) {
+    intialCodeVal = query.token;
     localStorage.setItem("token", query.token);
-    setAuthenticated(query.token);
-    // return router.push("http://localhost:3000/questions");
+    // setAuthenticated(query.token);
   }
   useEffect(() => {
-    console.log("THE USE EFFECT RAN", authenticated);
+    console.log("THE USE EFFECT RAN");
     if (localStorage.getItem("token")) {
-      return router.push("http://localhost:3000/questions");
+      // Now lets fetch token
+      axios
+        .get(`http://localhost:3000/api/auth/confirm/${query.token}`)
+        .then((res) => {
+          console.log("THE RESPONSE👉👉👉👉👉👉👉👉👉👉", res);
+          localStorage.setItem("jwt_token", res.data.token);
+          setAuthenticated(res.data);
+          return router.push("http://localhost:3000/questions");
+        })
+        .catch((err) => console.log("SOMETHING WENT WRONG", err));
     }
-  }, [authenticated]);
-
+  }, [intialCodeVal]);
+  console.log("THE VALUE OF authenticated", authenticated);
   return (
     <div>
       {authenticated && <AuthConfirmComponent token_val={{ authenticated }} />}

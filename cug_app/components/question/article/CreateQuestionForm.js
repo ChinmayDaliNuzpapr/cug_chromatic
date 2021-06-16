@@ -70,7 +70,7 @@ const CreateQuestionForm = (props) => {
     axios
       .post("http://localhost:3000/api/question/post", postBody, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
         },
       })
       .then((response) => {

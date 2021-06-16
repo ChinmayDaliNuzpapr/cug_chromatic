@@ -29,16 +29,19 @@ const Sidebar = (props) => {
                     <li
                       key={index}
                       className={
-                        item === category.current_category
+                        item._id === category.current_category
                           ? activeString
                           : deactiveString
                       }
                       onClick={() => {
-                        category_func({ ...category, current_category: item });
+                        category_func({
+                          ...category,
+                          current_category: item._id,
+                        });
                       }}
                     >
                       <div className="ml-4">
-                        <span>{item}</span>
+                        <span>{item.categoryName}</span>
                       </div>
                     </li>
                   );
