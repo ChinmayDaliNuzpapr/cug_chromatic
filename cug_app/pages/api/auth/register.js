@@ -1,41 +1,41 @@
-import DBConnect from '../../middleware/DBConnect';
-import nodemailer from 'nodemailer';
-import validator from 'email-validator';
-import validationModel from '../../../models/validationCode';
-import randomstring from 'randomstring';
-import Email from 'email-templates';
+import DBConnect from "../../middleware/DBConnect";
+import nodemailer from "nodemailer";
+import validator from "email-validator";
+import validationModel from "../../../models/validationCode";
+import randomstring from "randomstring";
+import Email from "email-templates";
 
 const Register = async (req, res) => {
-	if ((req.method = 'POST')) {
-		try {
-			const { Group_name, email } = req.body;
+  if ((req.method = "POST")) {
+    try {
+      const { Group_name, email } = req.body;
 
-			if (!validator.validate(email)) throw process.env.INVALID_EMAIL_ERROR;
+      if (!validator.validate(email)) throw process.env.INVALID_EMAIL_ERROR;
 
-			//making previous active link inactive
-			await validationModel.updateMany(
-				{ email },
-				{
-					active: false,
-				}
-			);
+      //making previous active link inactive
+      await validationModel.updateMany(
+        { email },
+        {
+          active: false,
+        }
+      );
 
-			const code = randomstring.generate();
+      const code = randomstring.generate();
 
-			//extracting group name from email
-			const extracted_group_name = email.substring(
-				email.lastIndexOf('@') + 1,
-				email.lastIndexOf('.')
-			);
+      //extracting group name from email
+      const extracted_group_name = email.substring(
+        email.lastIndexOf("@") + 1,
+        email.lastIndexOf(".")
+      );
 
-			const validationCode = new validationModel({
-				Group_name: extracted_group_name,
-				email,
-				code,
-			});
+      const validationCode = new validationModel({
+        Group_name: extracted_group_name,
+        email,
+        code,
+      });
 
-			await validationCode.save();
-			/*
+      await validationCode.save();
+      /*
 			const UserAlreadyRegistered = await userModel.findOne({ email: email });
 
 			if (UserAlreadyRegistered) {
@@ -61,34 +61,34 @@ const Register = async (req, res) => {
 				await user.save();
 			}*/
 
-			const url = `http://localhost:3000/api/auth/confirm/${code}`;
+      const url = `http://localhost:3000/token/${code}`;
 
-			const transporter = nodemailer.createTransport({
-				service: 'gmail',
-				auth: {
-					user: process.env.email,
-					pass: process.env.password,
-				},
-			});
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.email,
+          pass: process.env.password,
+        },
+      });
 
-			const Myemail = new Email({
-				transport: transporter,
-				send: true,
-				preview: false,
-			});
+      const Myemail = new Email({
+        transport: transporter,
+        send: true,
+        preview: false,
+      });
 
-			await Myemail.send({
-				template: 'hello',
-				message: {
-					from: process.env.email,
-					to: email,
-				},
-				locals: {
-					url: url,
-				},
-			});
+      await Myemail.send({
+        template: "hello",
+        message: {
+          from: process.env.email,
+          to: email,
+        },
+        locals: {
+          url: url,
+        },
+      });
 
-			/*const mailOptions = {
+      /*const mailOptions = {
 				from: process.env.email,
 				to: email,
 				subject: 'Confirm your email address to start communicating',
@@ -96,14 +96,14 @@ const Register = async (req, res) => {
 			};
 
 			await transporter.sendMail(mailOptions);*/
-			return res.status(200).send({ message: process.env.EMAIL_CONFIRMATION });
-		} catch (err) {
-			console.log(err);
-			return res.status(500).send({ error: err });
-		}
-	} else {
-		res.status(422).send({ error: 'UNSUPPORTED METHOD' });
-	}
+      return res.status(200).send({ message: process.env.EMAIL_CONFIRMATION });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send({ error: err });
+    }
+  } else {
+    res.status(422).send({ error: "UNSUPPORTED METHOD" });
+  }
 };
 
 export default DBConnect(Register);
