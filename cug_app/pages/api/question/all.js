@@ -12,6 +12,8 @@ const getCategoryAndQuestions = async (req, res) => {
 			Group_name: req.user.Group_name,
 		});
 
+		//console.log(req.user);
+
 		const defaultCategory = '60c1d3759e4b0d08706a9a3d'; //ID of default category "category 1"
 
 		const categories = await categoryModel.find({});
@@ -20,8 +22,9 @@ const getCategoryAndQuestions = async (req, res) => {
 			$and: [{ category: defaultCategory }, { group: currentGroup._id }],
 		});
 
-		res.status(200).send({ categories, questions });
+		res.status(200).send({ categories, questions, currentGroup });
 	} catch (err) {
+		console.log(err);
 		res.status(500).send({ error: err });
 	}
 };
