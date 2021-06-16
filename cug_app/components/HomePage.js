@@ -1,11 +1,12 @@
-import React from 'react';
-import Hero from './Home/Hero_component/Hero';
-import Footer from './Home/Screen1_Footer/Footer';
-import Screen3 from './Home/Screen3/Screen3';
-import TopQuestion from './Home/subscribe_component/topQuestion';
-import Subscribe from './Home/subscribe_component/subscribe';
-import Title2 from './Home/Title_two_comp/title2';
-import Screen4 from './Home/Screen4/Screen4';
+import React from "react";
+import Hero from "./Home/Hero_component/Hero";
+import Footer from "./Home/Screen1_Footer/Footer";
+import Screen3 from "./Home/Screen3/Screen3";
+import TopQuestion from "./Home/subscribe_component/topQuestion";
+import Subscribe from "./Home/subscribe_component/subscribe";
+import Title2 from "./Home/Title_two_comp/title2";
+import Screen4 from "./Home/Screen4/Screen4";
+import Index from "./Home/accordian";
 
 function HomePage() {
   console.log("THE HOMEPAGE COMPONENT");
@@ -32,6 +33,7 @@ function HomePage() {
       {/* Top Questions component */}
       <div className="my-10 bg-blue-200 ">
         <div className="container m-auto md:container md:mx-auto">
+          {/* <Index /> */}
           <TopQuestion />
           <TopQuestion />
           <TopQuestion />
