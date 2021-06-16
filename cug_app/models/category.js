@@ -5,10 +5,10 @@ const categorySchema = new mongoose.Schema({
 	categoryName: {
 		type: String,
 	},
-	group: {
+	/*group: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'group', //name of the collection
-	},
+	},*/
 });
 
 export default mongoose.models[ModelName] ||

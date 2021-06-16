@@ -1,9 +1,9 @@
 import DBConnect from '../../middleware/DBConnect';
 import questionModel from '../../../models/question';
 import isUserLoggedIn from '../../middleware/isUserLoggedIn';
-import categoryModel from '../../../models/category';
-import groupModel from '../../../models/group';
 import answerModel from '../../../models/answer';
+import replyModel from '../../../models/reply';
+import checkOwnership from '../../middleware/checkOwnership';
 
 const DeleteQuestion = async (req, res) => {
 	if ((req.method = 'DELETE')) {
@@ -11,13 +11,24 @@ const DeleteQuestion = async (req, res) => {
 			//checking whether user is logged in or not
 			req = await isUserLoggedIn(req, res);
 
-			const { id } = req.body;
+			const { answerID, author } = req.body;
 
-			await questionModel.deleteOne({ _id: id });
+			const isOwner = checkOwnership(author, req);
+
+			if (!isOwner) throw process.env.OWNERSHIP_NOT_FOUND;
+
+			await questionModel.updateOne(
+				{ _id: answerID },
+				{ $set: { 'article.active': false } },
+				{ new: true }
+			);
 
 			//deleting all the associated answers
 
-			await answerModel.deleteMany({ question: id });
+			await answerModel.updateMany(
+				{ question: id },
+				{ $set: { 'article.active': false } }
+			);
 
 			//deleting all the reply to answers
 

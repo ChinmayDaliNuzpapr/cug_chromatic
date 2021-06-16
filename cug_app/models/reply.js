@@ -3,9 +3,9 @@ const ModelName = 'replyModel';
 import articleSchema from './article';
 
 const replySchema = new mongoose.Schema({
-	comment: {
+	answer: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'comment', //name of the collection
+		ref: 'answer', //name of the collection
 	},
 	article: articleSchema,
 });

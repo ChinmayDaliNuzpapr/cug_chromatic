@@ -10,9 +10,14 @@ const EditQuestion = async (req, res) => {
 			//checking whether user is logged in or not
 			req = await isUserLoggedIn(req, res);
 
-			const { id, article, tags } = req.body;
+			const { questionID, article, tags } = req.body;
+
+			const isOwner = checkOwnership(article.author, req);
+
+			if (!isOwner) throw process.env.OWNERSHIP_NOT_FOUND;
+
 			const updatedQuestion = await questionModel.findOneAndUpdate(
-				{ _id: id },
+				{ _id: questionID },
 				{
 					$set: {
 						article,
