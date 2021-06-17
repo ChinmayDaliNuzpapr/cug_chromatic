@@ -31,6 +31,7 @@ const index = () => {
   const { authenticated } = useContext(UserContext);
   const router = useRouter();
   console.log("THE Authentication", authenticated);
+  // -----------------------------------------------------------------------------------
   /* [📌] The below code is commented for developement purposes. 
     // The below effect will only run if the user has logged out
     // useEffect(() => {
@@ -42,43 +43,11 @@ const index = () => {
     //   }
     // }, [authenticated]);
   */
-
-  // useEffect(() => {
-  //   console.log("THE 👉👉👉", authenticated);
-  //   if (
-  //     authenticated !== null &&
-  //     authenticated.token === localStorage.getItem("jwt_token")
-  //   ) {
-  //     axios
-  //       .get(`http://localhost:3000/api/question/all`, {
-  //         headers: {
-  //           Authorization: `Bearer ${authenticated.token}`,
-  //         },
-  //       })
-  //       .then((res) => {
-  //         console.log("THE RES Data", res);
-  //         setFetchedData({
-  //           category: {
-  //             category_list: res.data.categories,
-  //             current_category: res.data.categories[0]._id,
-  //           },
-  //           questions: res.data.questions,
-  //           group_data: res.data.currentGroup,
-  //         });
-  //         // setCategory({
-  //         //   current_category: res.data.categories[0].categoryName,
-  //         //   category_list: res.data.categories,
-  //         // });
-  //         // setselectedQuestion(res.data.questions);
-  //         // localStorage.setItem("group_id", res.data.currentGroup._id);
-  //       })
-  //       .catch((err) => alert(err));
-  //   }
-  // }, [authenticated]);
+  // -----------------------------------------------------------------------------------
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/question/all`, {
+      .get(`http://localhost:3000/api/question/category`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
         },

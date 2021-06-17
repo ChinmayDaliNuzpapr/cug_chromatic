@@ -46,9 +46,9 @@ const QuestionComponent = ({ listOfQuestions, ...props }) => {
       <div className="grid grid-col-1 md:grid-cols-2 gap-6">
         {listOfQuestions &&
           listOfQuestions.map((item, index) => (
-            <>
+            <React.Fragment key={index}>
               <Question data={item} />
-            </>
+            </React.Fragment>
           ))}
       </div>
     </>
