@@ -14,8 +14,9 @@ const generateToken = (user) => {
 			Group_name: user.Group_name,
 			alphaNumericId: user.alphaNumericId,
 		},
-		process.env.secretKey,
-		{ expiresIn: '4h' }
+		process.env.secretKey
+		//expiry of jwt token
+		//{ expiresIn: '6h' }
 	);
 };
 

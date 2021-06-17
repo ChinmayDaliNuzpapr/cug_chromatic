@@ -1,5 +1,6 @@
 import DBConnect from '../../middleware/DBConnect';
 import questionModel from '../../../models/question';
+import answerModel from '../../../models/answer';
 import isUserLoggedIn from '../../middleware/isUserLoggedIn';
 
 const viewQuestion = async (req, res) => {
@@ -22,8 +23,9 @@ const viewQuestion = async (req, res) => {
 
 		//get all answers and comments
 
-		console.log(question);
-		return res.status(200).send({ question });
+		const answer = await answerModel.find({ question: question._id });
+
+		return res.status(200).send({ question, answer });
 	} catch (err) {
 		console.log(err);
 		return res.status(500).send({ error: err });
