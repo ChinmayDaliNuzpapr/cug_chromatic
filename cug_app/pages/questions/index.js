@@ -22,28 +22,6 @@ import axios from "axios";
 
 export const MainDataContext = createContext(null);
 
-/*
-{
-    current_category: "home",
-    category_list: [
-      "home",
-      "category 1",
-      "category 2",
-      "category 3",
-      "category 4",
-      "category 5",
-      "category 6",
-      "category 7",
-      "category 8",
-      "category 9",
-      "category 10",
-      "category 11",
-      "category 12",
-      "category 13",
-    ],
-  }
-*/
-
 const index = () => {
   const [fetchedData, setFetchedData] = useState(null);
   const [category, setCategory] = useState(null);
@@ -131,7 +109,6 @@ const index = () => {
 
   return (
     <MainDataContext.Provider value={{ fetchedData, setFetchedData }}>
-      <p>ALL THE VALUES </p>
       <div className="container mx-auto">
         <div className="flex flex-col my-16">
           <div className="flex flex-row">
@@ -157,6 +134,7 @@ const index = () => {
                     <QuestionComponent
                       setselectedQuestion={setselectedQuestion}
                       askQuestion_func={setAskQuestion}
+                      listOfQuestions={fetchedData.questions}
                     />
                   </>
                 )

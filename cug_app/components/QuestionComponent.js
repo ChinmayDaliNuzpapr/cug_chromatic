@@ -13,7 +13,7 @@ import {
 } from "./question/menu/MenuComponent";
 import { useRouter } from "next/router";
 
-const QuestionComponent = (props) => {
+const QuestionComponent = ({ listOfQuestions, ...props }) => {
   console.log("THE PROPS in Question Component", props);
   return (
     <>
@@ -44,15 +44,12 @@ const QuestionComponent = (props) => {
         </div>
       </div>
       <div className="grid grid-col-1 md:grid-cols-2 gap-6">
-        <Question />
-        <Question />
-        <Question />
-        <Question />
-        <Question />
-        <Question />
-        <Question />
-        <Question />
-        <Question />
+        {listOfQuestions &&
+          listOfQuestions.map((item, index) => (
+            <>
+              <Question data={item} />
+            </>
+          ))}
       </div>
     </>
   );
