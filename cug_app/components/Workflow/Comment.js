@@ -1,17 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const Comment = () => {
+const Comment = ({ answer }) => {
 	return (
-		<div className='p-3 rounded-md border-2 w-[600px]'>
-			<p className='montserrat-12 mb-8'>
-				Here is my reply to the above question. This will be a modal dialog with
-				a text editor through which I can write my reply and can then submit it
-				to the asked question
-			</p>
+		<div className='my-4 p-3 rounded-md border-2 w-[600px]'>
+			<p className='montserrat-12 mb-8'>{answer.article.content}</p>
 
 			<div className='flex justify-between montserrat-10 '>
 				<div className='grid grid-cols-3 gap-6'>
-					<div className='montserrat-10 '>Posted by: fhfyeifjr23</div>
+					<div className='montserrat-10 '>{`Posted by : ${answer.article.author}`}</div>
 					<div className='flex justify-start'>
 						<div className='w-[20px] h-[20px]'>
 							<svg
@@ -28,7 +25,7 @@ const Comment = () => {
 								/>
 							</svg>
 						</div>
-						<div className='margin_auto'>like</div>
+						<div className='margin_auto'>{answer.article.like}</div>
 					</div>
 				</div>
 				<div className='flex justify-start'>
@@ -49,7 +46,7 @@ const Comment = () => {
 							</svg>
 						</div>
 					</div>
-					<div>today</div>
+					<div>{answer.article.createdAt}</div>
 				</div>
 			</div>
 		</div>

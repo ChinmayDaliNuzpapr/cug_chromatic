@@ -6,6 +6,7 @@ module.exports = {
 		email: 'testmail67590@gmail.com',
 		password: '/mK&F,Z2xG',
 
+		DEVELOPMENT: 'http://localhost:3000',
 		//success messages
 
 		EMAIL_CONFIRMATION: ' We have sent you email confirmation to you.',
@@ -22,5 +23,9 @@ module.exports = {
 		TOKEN_NOT_FOUND: 'No authorization header (token) present',
 		OWNERSHIP_NOT_FOUND:
 			"You can't perform any operation in this document as you don't own it",
+		PROVIDE_COMPLETE_DETAILS:
+			'Please provide all details to complete the operation',
+		INVALID_URL: 'The URL provided is invalid',
+		UNAUTHORIZED_ACCESS: "You don't have access to view it 😥",
 	},
 };
