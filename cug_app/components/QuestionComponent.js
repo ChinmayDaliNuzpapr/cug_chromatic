@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 
 const QuestionComponent = ({ listOfQuestions, ...props }) => {
   console.log("THE PROPS in Question Component", props);
+  // console.log("THE ASK QUESTION COMPONENT TOGGLER", askingAQuestionfunc);
   return (
     <>
       <div className="flex flex-wrap justify-between my-4">
@@ -29,8 +30,8 @@ const QuestionComponent = ({ listOfQuestions, ...props }) => {
             <div className="mb-2">
               <button
                 onClick={() => {
-                  props.setselectedQuestion(null);
-                  props.askQuestion_func(true);
+                  console.log("THE ASK A QUESTION CLICKed");
+                  props.askingAQuestionfunc();
                 }}
                 className="bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white py-1 px-6 border border-blue-500 hover:border-transparent rounded"
               >

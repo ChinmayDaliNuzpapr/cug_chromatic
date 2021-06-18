@@ -13,66 +13,34 @@ import QuestionCard from "../../components/QuestionCard";
 import CreateQuestionForm from "../../components/question/article/CreateQuestionForm";
 import QuestionComponent from "../../components/QuestionComponent";
 import Sidebar from "../../components/Workflow/Sidebar";
-import { Trending, ExtraTrendingBox } from "../../components/Workflow/Trending";
 import { useRouter } from "next/router";
 import { UserContext, MainDataContext } from "../../components/Layout";
-// import styles from "./sidebar.module.css";
-// import Layout from "../../components/question/Layout";
-// import axios from "axios";
-
-// The local-state of the question will have
-/**
- * List of Questions
- * state about any kind of searched/filtered array [Assuming the user navigates to a particular question-id then they want to see the list of question they searched]
- * If in "Home" category then a list of trending questions
- * state of scope [global or company]
- */
 
 const index = () => {
   const { fetchedData } = useContext(MainDataContext);
-
-  console.log("THE current category", fetchedData);
-
+  const [askQuestion, setAskQuestion] = useState(null);
+  console.log("DATA IN INDEX.JS file of Question", fetchedData);
+  function askingAQuestionfunc() {
+    setAskQuestion(true);
+  }
   const router = useRouter();
-  // -----------------------------------------------------------------------------------
-  /* [📌] The below code is commented for developement purposes. 
-    // The below effect will only run if the user has logged out
-    // useEffect(() => {
-    //   if (
-    //     localStorage.getItem("jwt_token") === null &&
-    //     authenticated.token !== localStorage.getItem("jwt_token")
-    //   ) {
-    //     router.push("/");
-    //   }
-    // }, [authenticated]);
-  */
-  // -----------------------------------------------------------------------------------
-  // useEffect(() => {
-
-  //       setCategory({
-  //         category_list: res.data.categories,
-  //         current_category: res.data.categories[0]._id,
-  //       });
-  // },[])
 
   return (
     <>
-      <BoxComponent />
-      <QuestionComponent listOfQuestions={fetchedData.questions} />
+      {askQuestion === false || askQuestion === null ? (
+        <>
+          <BoxComponent />
+          <QuestionComponent
+            x={"value"}
+            askingAQuestionfunc={askingAQuestionfunc}
+            listOfQuestions={fetchedData.questions}
+          />
+        </>
+      ) : (
+        <CreateQuestionForm setAskQuestion={setAskQuestion} />
+      )}
     </>
   );
 };
 
 export default index;
-
-/*
-<>
-                    <BoxComponent />
-                    <QuestionComponent
-                      setselectedQuestion={setselectedQuestion}
-                      askQuestion_func={setAskQuestion}
-                      listOfQuestions={fetchedData.questions}
-                    />
-                  </>
-
-*/

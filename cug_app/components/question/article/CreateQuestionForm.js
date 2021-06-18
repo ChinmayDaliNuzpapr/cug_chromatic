@@ -115,6 +115,14 @@ const CreateQuestionForm = (props) => {
       <div className="flex flex-col my-16">
         <div className="py-12 px-4">
           <div className="w-full mx-auto sm:px-12 lg:px-8">
+            <button
+              onClick={() => {
+                console.log("THE PROPS AND CLICKED", props);
+                props.setAskQuestion(false);
+              }}
+            >
+              Go Back
+            </button>
             <div className="bg-white overflow-hidden shadow-xl rounded-lg">
               <div className="p-6 bg-white border-b border-gray-200">
                 <Formik

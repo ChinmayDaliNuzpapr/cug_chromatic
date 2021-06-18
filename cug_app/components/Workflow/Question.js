@@ -15,17 +15,12 @@ function findTheCategory(category_list, category_name) {
       return item.categoryName;
     }
   });
-  console.log("THE X", x);
   return x;
 }
 
 const Question = (props) => {
   const { fetchedData } = useContext(MainDataContext);
-
   console.log("THE MAIN DATA in Question Component", fetchedData);
-  console.log("props for question", props);
-  const { user_name, date_val } = props;
-  const router = useRouter();
   return (
     <div
       className="w-full relative  border-2 rounded-md mx-auto"
@@ -99,10 +94,16 @@ const Question = (props) => {
                 </svg>
               </div>
               <div className="margin_auto">
-                {props.data.view !== undefined ? (
-                  <>{toString(props.data.view.count)}</>
+                {/* When the sort-API is running */}
+                {props.data.article &&
+                typeof props.data.article.view !== undefined ? (
+                  <>{props.data.article.view}</>
+                ) : // {/* When the category-API is running */}
+                props.data.view ? (
+                  <>{props.data.view}</>
                 ) : (
-                  <></>
+                  // When either of the API dont return anything we call it zero
+                  <>0</>
                 )}
               </div>
             </div>
@@ -123,7 +124,13 @@ const Question = (props) => {
                   />
                 </svg>
               </div>
-              <div className="margin_auto">{props.data.article.like}</div>
+              <div className="margin_auto">
+                {typeof props.data.article.like === undefined ? (
+                  <></>
+                ) : (
+                  <>{props.data.article.like}</>
+                )}
+              </div>
             </div>
             <div className="flex justify-start">
               <div className="w-[20px] h-[20px]">
@@ -143,11 +150,7 @@ const Question = (props) => {
                 </svg>
               </div>
               <div className="margin_auto">
-                {props.data.comments ? (
-                  <>props.data.comments</>
-                ) : (
-                  <>no comments</>
-                )}
+                {props.data.comments ? <>props.data.comments</> : <>0</>}
               </div>
             </div>
           </div>

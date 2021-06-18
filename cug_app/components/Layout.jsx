@@ -21,7 +21,7 @@ const Layout = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(null);
   const router = useRouter();
 
-  console.log("router ----->", router);
+  // console.log("router ----->", router);
 
   // Initially we fetched all the questions from default category ie "60c1d3759e4b0d08706a9a3d"
   // from the API itself when, fetchedData is null.
