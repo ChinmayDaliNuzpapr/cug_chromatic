@@ -41,7 +41,8 @@ const Spin = () => {
 export default function Loading() {
   return (
     <div styles={styles.loadingComponent}>
-      <Spin />
+      {/* <Spin /> */}
+      <p>LOADING</p>
     </div>
   );
 }

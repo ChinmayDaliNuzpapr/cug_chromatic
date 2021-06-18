@@ -9,12 +9,14 @@ import axios from "axios";
 import Navbar from "../components/navbar/navbar";
 import FooterPage from "../components/FooterPage";
 import Sidebar from "../components/Workflow/Sidebar";
+import Loading from "./Loading";
 const whiteListForSidebar = ["/questions/[question_id]", "/questions"];
 
 export const UserContext = createContext(null);
 export const MainDataContext = createContext(null);
 
 const Layout = ({ children }) => {
+  const [loading, setLoading] = useState(null);
   const [fetchedData, setFetchedData] = useState(null);
   const [authenticated, setAuthenticated] = useState(null);
   const router = useRouter();
@@ -27,6 +29,7 @@ const Layout = ({ children }) => {
 
   useEffect(() => {
     console.log("THE FIRST USE_EFFECT WITH NO PARAMETERS");
+    setLoading(true);
     axios
       .get(`http://localhost:3000/api/question/category`, {
         headers: {
@@ -43,6 +46,7 @@ const Layout = ({ children }) => {
           questions: res.data.questions,
           group_data: res.data.currentGroup,
         });
+        setLoading(false);
         localStorage.setItem("group_id", res.data.currentGroup._id);
       })
       .catch((err) => alert(err));
@@ -71,7 +75,7 @@ const Layout = ({ children }) => {
           },
           questions: res.data.questions,
         });
-        // localStorage.setItem("group_id", res.data.currentGroup._id);
+        setLoading(false);
       })
       .catch((err) => console.log("😈😈😈😈", err));
   }
@@ -84,37 +88,47 @@ const Layout = ({ children }) => {
           <div id="layout_navbar_div2" className="sticky top-0 bg-white z-50">
             <Navbar />
           </div>
+
           <div>
             {whiteListForSidebar.includes(`${router.pathname}`) ? (
-              <div className="container mx-auto">
-                <div className="flex flex-col my-16">
-                  <div className="flex flex-row">
-                    <div className="hidden md:block">
-                      <div
-                        id="sidebar_div"
-                        className="md:w-full md:w-1/2 lg:w-1/4 px-2 mb-4"
-                      >
-                        {fetchedData !== null && (
-                          <Sidebar
-                            fetchingDataOfNewCategory={
-                              fetchingDataOfNewCategory
-                            }
-                          />
-                        )}
+              <React.Fragment>
+                {loading === false ? (
+                  <>
+                    <div className="container mx-auto">
+                      <div className="flex flex-col my-16">
+                        <div className="flex flex-row">
+                          <div className="hidden md:block">
+                            <div
+                              id="sidebar_div"
+                              className="md:w-full md:w-1/2 lg:w-1/4 px-2 mb-4"
+                            >
+                              {fetchedData !== null && (
+                                <Sidebar
+                                  fetchingDataOfNewCategory={
+                                    fetchingDataOfNewCategory
+                                  }
+                                />
+                              )}
+                            </div>
+                          </div>
+                          <div className="flex-grow w-full lg:w-1/2 px-2">
+                            <React.Fragment>{children}</React.Fragment>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div className="flex-grow w-full lg:w-1/2 px-2">
-                      <React.Fragment>{children}</React.Fragment>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                  </>
+                ) : (
+                  <Loading />
+                )}
+              </React.Fragment>
             ) : (
               <>
                 <React.Fragment>{children}</React.Fragment>
               </>
             )}
           </div>
+
           <div id="layout_footer_div">
             <FooterPage />
           </div>

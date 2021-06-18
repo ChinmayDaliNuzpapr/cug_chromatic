@@ -29,7 +29,6 @@ import { UserContext, MainDataContext } from "../../components/Layout";
  */
 
 const index = () => {
-  const { authenticated } = useContext(UserContext);
   const { fetchedData } = useContext(MainDataContext);
 
   console.log("THE current category", fetchedData);
@@ -59,14 +58,12 @@ const index = () => {
   return (
     <>
       <BoxComponent />
-      {/* <QuestionComponent/> */}
+      <QuestionComponent listOfQuestions={fetchedData.questions} />
     </>
   );
 };
 
 export default index;
-
-const DetailQuestionComponent = <div>DETAILS OF A QUESTION</div>;
 
 /*
 <>

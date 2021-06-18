@@ -1,22 +1,25 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 import moment from "moment";
 import { useRouter } from "next/router";
-import { MainDataContext } from "../../pages/questions/index";
+import { MainDataContext } from "../../components/Layout";
 import Link from "next/link";
 
 function convertingDateValue(createdAt) {
-  var createdDate = moment(createdAt, "DD.MM.YYYY");
-  console.log("THE DATE ", createdDate);
-  var endDate = moment();
-  console.log("THE DATE ", endDate);
-  var result = `Diff: ${endDate.diff(createdDate, "days")}`;
-  console.log("THE RESULT ", result);
+  let result = moment(createdAt).fromNow(true);
   return result;
+
+  console.log("THE RESULT ", result_in_days, result_in_weeks);
+  return result_in_days;
 }
 
 function findTheCategory(category_list, category_name) {
-  console.log("THE LIST OF ALL THE CATEGORIES", category_list, category_name);
-  return category_name;
+  let x = category_list.map((item) => {
+    if (item._id === category_name) {
+      return item.categoryName;
+    }
+  });
+  console.log("THE X", x);
+  return x;
 }
 
 const Question = (props) => {
@@ -36,7 +39,7 @@ const Question = (props) => {
           <span style={{ padding: "8px" }}>
             {fetchedData &&
               findTheCategory(
-                fetchedData.category.categories,
+                fetchedData.category.category_list,
                 props.data.category
               )}
           </span>
@@ -45,7 +48,9 @@ const Question = (props) => {
           <span style={{ padding: "8px" }}>
             {console.log("THE PROPS CREATED", props.data.article.createdAt)}
             {/* convertingDateValue(props.data.article.createdAt) */}
-            {fetchedData && <>{props.data.article.createdAt}</>}
+            {fetchedData && (
+              <>{convertingDateValue(props.data.article.createdAt)}</>
+            )}
           </span>
         </div>
       </div>
