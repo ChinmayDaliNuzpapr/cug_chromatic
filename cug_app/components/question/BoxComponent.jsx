@@ -11,7 +11,7 @@ const BoxComponent = () => {
               SOME RANDOM STRING
             </section>
             <section className="text-3xl font-bold">
-              Welcome to {fetchedData && fetchedData.group_data.Group_name}
+              {/* Welcome to {fetchedData && fetchedData.group_data.Group_name} */}
             </section>
             <section className="font-normal text-md text-gray-700">
               Have Fun <br />

@@ -25,7 +25,6 @@ import { UserContext, MainDataContext } from "../Layout";
 function Nav(props) {
   const { fetchedData } = useContext(MainDataContext);
   const { setCategory } = props;
-  console.log("THE PROPS", props);
   const { authenticated, setAuthenticated } = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
   const [isCategory, setIsCategory] = useState(false);
@@ -79,7 +78,6 @@ function Nav(props) {
                     <Link href="#">Menu-4</Link>
                   </div>
                   {/* 📌 THE CONTEXT FOR AUTHENTICATION */}
-                  {console.log("THE CONTEXT", authenticated)}
                   {authenticated === null ? (
                     <>
                       <div className="text-gray-900 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium">

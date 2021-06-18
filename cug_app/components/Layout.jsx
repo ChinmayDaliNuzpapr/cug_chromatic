@@ -13,13 +13,17 @@ const whiteListForSidebar = ["/questions/[question_id]", "/questions"];
 
 export const UserContext = createContext(null);
 export const MainDataContext = createContext(null);
+
 const Layout = ({ children }) => {
   const [fetchedData, setFetchedData] = useState(null);
   const [authenticated, setAuthenticated] = useState(null);
   const [category, setCategory] = useState(null);
   const router = useRouter();
+
   console.log("router ----->", router);
-  //[📌] Everytime the category changes we need to fetch a new set of questions
+  // Initially we fetched all the questions from default category ie "60c1d3759e4b0d08706a9a3d"
+  // from the API itself when, fetchedData is null.
+  // we will use setCategory function in the place of "fetchDataBaseOnCategory"
   useEffect(() => {
     console.log("THE FIRST USE_EFFECT WITH NO PARAMETERS");
     axios
@@ -38,35 +42,13 @@ const Layout = ({ children }) => {
           questions: res.data.questions,
           group_data: res.data.currentGroup,
         });
-        setCategory({
-          current_category: res.data.categories[0]._id,
-          category_list: res.data.categories,
-        });
         localStorage.setItem("group_id", res.data.currentGroup._id);
       })
       .catch((err) => alert(err));
-  }, []);
+  }, [fetchedData]);
+
+  //[📌] Everytime the category changes we need to fetch a new set of questions
   //[📌] Everytime the new data is fetched we need to update category state.
-  // useEffect(() => {
-  //   if (
-  //     fetchedData &&
-  //     fetchedData.category.current_category !== category.current_category
-  //   ) {
-  //     axios.get(
-  //       `http://localhost:3000/api/question/category`,
-  //       { category: category },
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
-  //         },
-  //       }
-  //     );
-  //     setCategory({
-  //       current_category: fetchedData.category.current_category,
-  //       category_list: fetchedData.category.category_list,
-  //     });
-  //   }
-  // }, [category]);
 
   console.log("THE STATE IN THE BASE LAYOUT", fetchedData);
   console.log("THE STATE IN THE BASE LAYOUT", authenticated);
@@ -88,10 +70,11 @@ const Layout = ({ children }) => {
                         id="sidebar_div"
                         className="md:w-full md:w-1/2 lg:w-1/4 px-2 mb-4"
                       >
-                        {fetchedData !== null && category !== null && (
+                        {fetchedData !== null && (
                           <Sidebar
-                            category={category}
-                            category_func={setCategory}
+                            fetchingDataOfNewCategory={
+                              fetchingDataOfNewCategory
+                            }
                           />
                         )}
                       </div>
