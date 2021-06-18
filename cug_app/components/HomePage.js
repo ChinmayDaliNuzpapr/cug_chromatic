@@ -9,7 +9,6 @@ import Screen4 from "./Home/Screen4/Screen4";
 import Index from "./Home/accordian";
 
 function HomePage() {
-  console.log("THE HOMEPAGE COMPONENT");
   return (
     <div id="homePage" className="grid grid-cols-1 gap-4">
       <div className="my-10">

@@ -4,7 +4,6 @@ const BoxComponent = () => {
   const { fetchedData } = useContext(MainDataContext);
   return (
     <div className="m-4">
-      {console.log("THE MAIN COMPONENT", fetchedData)}
       <div id="aggressiveBoxShadow" className=" ">
         <main className=" flex justify-center">
           <div className="flex flex-col md:min-w-full p-3 space-y-5 rounded-xl bg-white ">

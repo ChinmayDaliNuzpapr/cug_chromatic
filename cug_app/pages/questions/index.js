@@ -34,10 +34,8 @@ const index = () => {
 
   const [selectedQuestion, setselectedQuestion] = useState(null);
   const [askQuestion, setAskQuestion] = useState(false);
-  console.log("THE LOCAL STATE MAIN DATA", fetchedData);
 
   const router = useRouter();
-  console.log("THE Authentication", authenticated);
   // -----------------------------------------------------------------------------------
   /* [📌] The below code is commented for developement purposes. 
     // The below effect will only run if the user has logged out
@@ -61,7 +59,6 @@ const index = () => {
 
   return (
     <>
-      {console.log("THE LOCAL STATE OF QUESTION")}
       <BoxComponent />
       {/* <QuestionComponent/> */}
     </>
