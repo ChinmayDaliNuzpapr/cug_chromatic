@@ -32,8 +32,7 @@ const index = () => {
   const { authenticated } = useContext(UserContext);
   const { fetchedData } = useContext(MainDataContext);
 
-  const [selectedQuestion, setselectedQuestion] = useState(null);
-  const [askQuestion, setAskQuestion] = useState(false);
+  console.log("THE current category", fetchedData);
 
   const router = useRouter();
   // -----------------------------------------------------------------------------------

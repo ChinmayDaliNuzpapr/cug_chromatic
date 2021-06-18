@@ -9,32 +9,6 @@ const deactiveString =
   "mb-2 px-auto py-4 text-gray-900 border-gray-900 hover:bg-blue-600 hover:text-white hover:font-bold rounded rounded-lg";
 const Sidebar = (props) => {
   const { fetchedData, setFetchedData } = useContext(MainDataContext);
-  function fetchingDataOfNewCategory(category_id) {
-    console.log("THE ID", category_id);
-    axios
-      .get(
-        `http://localhost:3000/api/question/category`,
-        { category: category_id },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log("THE RES Data", res);
-        // setFetchedData({
-        //   category: {
-        //     category_list: res.data.categories,
-        //     current_category: res.data.categories[0]._id,
-        //   },
-        //   questions: res.data.questions,
-        //   group_data: res.data.currentGroup,
-        // });
-        localStorage.setItem("group_id", res.data.currentGroup._id);
-      })
-      .catch((err) => console.log("😈😈😈😈", err));
-  }
 
   // console.log("THE PROPS of CATEGORY", props);
   // const { category, category_func } = props;
@@ -62,7 +36,9 @@ const Sidebar = (props) => {
                       }
                       onClick={() => {
                         console.log("THE CATEGORY ID", item._id);
-                        fetchingDataOfNewCategory(item._id);
+                        if (props.fetchingDataOfNewCategory) {
+                          props.fetchingDataOfNewCategory(item._id);
+                        }
                       }}
                     >
                       <div className="ml-4">
