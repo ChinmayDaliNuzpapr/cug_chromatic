@@ -83,7 +83,9 @@ const Layout = ({ children }) => {
   console.log("THE FETCHED-DATA IN THE BASE LAYOUT", fetchedData);
   return (
     <UserContext.Provider value={{ authenticated, setAuthenticated }}>
-      <MainDataContext.Provider value={{ fetchedData, setFetchedData }}>
+      <MainDataContext.Provider
+        value={{ fetchedData, setFetchedData, loading, setLoading }}
+      >
         <div id="base_layout">
           <div id="layout_navbar_div2" className="sticky top-0 bg-white z-50">
             <Navbar />

@@ -7,9 +7,6 @@ import Link from "next/link";
 function convertingDateValue(createdAt) {
   let result = moment(createdAt).fromNow(true);
   return result;
-
-  console.log("THE RESULT ", result_in_days, result_in_weeks);
-  return result_in_days;
 }
 
 function findTheCategory(category_list, category_name) {
@@ -101,7 +98,13 @@ const Question = (props) => {
                   />
                 </svg>
               </div>
-              <div className="margin_auto">{props.data.view.count}</div>
+              <div className="margin_auto">
+                {props.data.view !== undefined ? (
+                  <>{toString(props.data.view.count)}</>
+                ) : (
+                  <></>
+                )}
+              </div>
             </div>
             <div className="flex justify-start">
               <div className="w-[20px] h-[20px]">

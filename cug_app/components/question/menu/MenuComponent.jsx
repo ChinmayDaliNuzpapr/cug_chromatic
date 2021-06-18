@@ -1,7 +1,9 @@
+import React from "react";
 import { Menu, Listbox, Transition, Switch, Popover } from "@headlessui/react";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
-
+import { MainDataContext } from "../../../components/Layout";
+import axios from "axios";
 const people = [
   { id: 1, name: "Durward Reynolds", unavailable: false },
   { id: 2, name: "Kenton Towne", unavailable: false },
@@ -144,8 +146,55 @@ export function MyListbox() {
   );
 }
 export function MyToggle() {
-  const [enabled, setEnabled] = useState(false);
-
+  const [enabled, setEnabled] = React.useState(false);
+  const { fetchedData, setFetchedData, setLoading } = React.useContext(
+    MainDataContext
+  );
+  React.useEffect(() => {
+    if (enabled) {
+      axios
+        .post(
+          `http://localhost:3000/api/sort/question`,
+          {
+            categoryID: fetchedData.category.current_category,
+            criteria: "date",
+            scope: "company",
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log("THE RES Data COMPANY/SCOPE", res);
+          setFetchedData({ ...fetchedData, questions: res.data });
+          setLoading(false);
+        })
+        .catch((err) => console.log("😈😈😈😈", err));
+    } else {
+      axios
+        .post(
+          `http://localhost:3000/api/sort/question`,
+          {
+            categoryID: fetchedData.category.current_category,
+            criteria: "date",
+            scope: "global",
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log("THE RES Data COMPANY/SCOPE", res);
+          setFetchedData({ ...fetchedData, questions: res.data });
+          setLoading(false);
+        })
+        .catch((err) => console.log("😈😈😈😈", err));
+    }
+  }, [enabled]);
   return (
     <div className="flex flex-col content-center">
       <span className="self-center w-[80px] text-center">
