@@ -4,8 +4,7 @@ import Sidebar from "../../components/Workflow/Sidebar";
 import { XIcon, MenuIcon, DotsVerticalIcon } from "@heroicons/react/solid";
 
 import { Transition } from "@headlessui/react";
-import { UserContext } from "../Layout";
-
+import { UserContext, MainDataContext } from "../Layout";
 // const category = [
 //   "home",
 //   "category 1",
@@ -24,6 +23,8 @@ import { UserContext } from "../Layout";
 // ];
 
 function Nav(props) {
+  const { fetchedData } = useContext(MainDataContext);
+  const { setCategory } = props;
   console.log("THE PROPS", props);
   const { authenticated, setAuthenticated } = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
@@ -190,6 +191,12 @@ function Nav(props) {
             <div className="md:hidden" id="mobile-menu">
               <div ref={ref} className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <Sidebar category={category} />
+                {/* {fetchedData !== null && (
+                  <Sidebar
+                    category={fetchedData.category}
+                    category_func={setCategory}
+                  />
+                )} */}
               </div>
             </div>
           )}

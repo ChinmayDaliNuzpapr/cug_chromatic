@@ -8,9 +8,9 @@ const deactiveString =
 const Sidebar = (props) => {
   console.log("THE PROPS of CATEGORY", props);
   const { category, category_func } = props;
-  useEffect(() => {
-    console.log("THE PROPS in THE USE-EFFECT of CATEGORY", category);
-  }, [category]);
+  // useEffect(() => {
+  //   console.log("THE PROPS in THE USE-EFFECT of CATEGORY", category);
+  // }, [category]);
   return (
     <>
       <div className="md:w-[150px] lg:w-[250px]">
