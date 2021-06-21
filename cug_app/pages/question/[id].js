@@ -40,7 +40,7 @@ export async function getStaticPaths() {
 
 function Question() {
 	const router = useRouter();
-
+	console.log('THE PATHNAME', router.pathname);
 	const [question, setQuestions] = useState();
 	const [answer, setAnswer] = useState();
 
@@ -61,7 +61,7 @@ function Question() {
 			try {
 				const response = await axios.get(url, {
 					headers: {
-						Authorization: token && `Bearer ${token}`,
+						Authorization: `Bearer ${token}`,
 					},
 				});
 				const data = response.data;
@@ -77,8 +77,8 @@ function Question() {
 		<div>
 			{/* For now flex seems only option , otherwise custom css is to be written  */}
 			<div className='flex'>
-				<div className='w-2/8'>SIDEBAR IS TO BE ADDED</div>
-				<div class='w-4/8'>
+				{/* <div className="w-2/8">SIDEBAR IS TO BE ADDED</div> */}
+				<div class='w-6/8'>
 					<div className='text-center mb-8 '>QUESTION COMPONENT HERE</div>
 					<div className='mb-2 flex justify-between'>
 						{answer && answer.length == 0 && (
