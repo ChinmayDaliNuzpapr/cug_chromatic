@@ -56,6 +56,7 @@ const Layout = ({ children }) => {
   //[📌] Everytime the new data is fetched we need to update category state.
   function fetchingDataOfNewCategory(category_id) {
     console.log("THE ID OF CATEGORY", category_id);
+    console.log("THE LOCAL HOST OF ", localStorage.getItem("jwt_token"));
     axios
       .post(
         `http://localhost:3000/api/question/category`,
@@ -90,7 +91,6 @@ const Layout = ({ children }) => {
           <div id="layout_navbar_div2" className="sticky top-0 bg-white z-50">
             <Navbar />
           </div>
-
           <div>
             {whiteListForSidebar.includes(`${router.pathname}`) ? (
               <React.Fragment>

@@ -14,23 +14,8 @@ import { MyToggle } from "../menu/MenuComponent";
 // import { QuillNoSSRWrapper } from "./TextEditorForNextjs";
 //👉The only working Editor
 import QuillEditor from "../../Workflow/QuillEditor";
+import { MainDataContext } from "../../Layout.jsx";
 
-const category_list = [
-  "home",
-  "Category 1",
-  "Category 2",
-  "Category 3",
-  "Category 4",
-  "Category 5",
-  "Category 6",
-  "Category 7",
-  "Category 8",
-  "Category 9",
-  "Category 10",
-  "Category 11",
-  "Category 12",
-  "Category 13",
-];
 // ===============================================
 /*                      🌟NOTES:🌟
     - initially I have to fetch list of all the unique tags
@@ -42,6 +27,7 @@ const category_list = [
 
 const CreateQuestionForm = (props) => {
   const [post, setPost] = useState({ response_value: "", posted: null });
+  const { fetchedData } = React.useContext(MainDataContext);
   const [editorHtml, setEditorHtml] = useState(null);
   console.log("THE VALUES IN THE EDITOR", editorHtml);
   const handleChange = (html) => {
@@ -52,10 +38,11 @@ const CreateQuestionForm = (props) => {
   const postAQuestion = (details) => {
     console.log("THE OBJECT WITH DATA", details);
     console.log("THE EDITOR VALUE", editorHtml);
-    // console.log("THE EDITOR VALUE", editorHtml.current.innerHTML);
+    console.log("THE EDITOR VALUE", localStorage.getItem("group_id"));
     details = { ...details, content: editorHtml };
     let postBody = {
-      category: details.category,
+      categoryID: fetchedData.category.current_category,
+      groupID: localStorage.getItem("group_id"),
       article: {
         title: details.title,
         author: "Chinmay",
@@ -131,7 +118,7 @@ const CreateQuestionForm = (props) => {
                     author: "",
                     scope: "",
                     tags: [],
-                    category: "",
+                    category: fetchedData.category.current_category,
                   }}
                   // validationSchema={Yup.object({
                   //   title: Yup.string()
@@ -182,18 +169,20 @@ const CreateQuestionForm = (props) => {
                       </div>
                       {/* LIST OF CATEGORY */}
                       <React.Fragment>
-                        <label htmlFor="category">Category</label>
+                        <label>Category</label>
                         <Field
                           component="select"
-                          id="category"
+                          // id="category"
                           name="category"
                           // multiple={true}
                         >
-                          {category_list.map((item, index) => (
-                            <option key={index} value={`${item}`}>
-                              {item}
-                            </option>
-                          ))}
+                          {fetchedData.category.category_list.map(
+                            (item, index) => (
+                              <option key={index} value={`${item._id}`}>
+                                {item.categoryName}
+                              </option>
+                            )
+                          )}
                         </Field>
                       </React.Fragment>
 
