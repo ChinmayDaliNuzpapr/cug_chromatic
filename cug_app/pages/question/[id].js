@@ -88,7 +88,7 @@ function Question() {
 						)}
 
 						{answer && answer.length != 0 && (
-							<div>{answer && answer.length} comments</div>
+							<div>{answer && answer.length} answers</div>
 						)}
 
 						<div className='flex items-center'>

@@ -7,6 +7,9 @@ import jwt from 'jsonwebtoken';
 /*isUserLoggedIn middleware is not being used here, as it throws error when token isn't there, but someone
 without token can access the "global" view*/
 
+//type of request - GET
+//data to recieve here from frontend - sebd questionID in URL
+
 const getCategoryAndQuestions = async (req, res) => {
 	try {
 		const { category } = req.body;

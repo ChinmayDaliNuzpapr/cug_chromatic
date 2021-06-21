@@ -27,5 +27,7 @@ module.exports = {
 			'Please provide all details to complete the operation',
 		INVALID_URL: 'The URL provided is invalid',
 		UNAUTHORIZED_ACCESS: "You don't have access to view it 😥",
+		UNSUPPORTED_METHOD:
+			'Please use a valid HTTP method as designed in server side',
 	},
 };
