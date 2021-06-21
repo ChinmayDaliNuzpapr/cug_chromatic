@@ -1,31 +1,26 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 import moment from "moment";
 import { useRouter } from "next/router";
-import { MainDataContext } from "../../pages/questions/index";
+import { MainDataContext } from "../../components/Layout";
 import Link from "next/link";
 
 function convertingDateValue(createdAt) {
-  var createdDate = moment(createdAt, "DD.MM.YYYY");
-  console.log("THE DATE ", createdDate);
-  var endDate = moment();
-  console.log("THE DATE ", endDate);
-  var result = `Diff: ${endDate.diff(createdDate, "days")}`;
-  console.log("THE RESULT ", result);
+  let result = moment(createdAt).fromNow(true);
   return result;
 }
 
 function findTheCategory(category_list, category_name) {
-  console.log("THE LIST OF ALL THE CATEGORIES", category_list, category_name);
-  return category_name;
+  let x = category_list.map((item) => {
+    if (item._id === category_name) {
+      return item.categoryName;
+    }
+  });
+  return x;
 }
 
 const Question = (props) => {
   const { fetchedData } = useContext(MainDataContext);
-
   console.log("THE MAIN DATA in Question Component", fetchedData);
-  console.log("props for question", props);
-  const { user_name, date_val } = props;
-  const router = useRouter();
   return (
     <div
       className="w-full relative  border-2 rounded-md mx-auto"
@@ -36,7 +31,7 @@ const Question = (props) => {
           <span style={{ padding: "8px" }}>
             {fetchedData &&
               findTheCategory(
-                fetchedData.category.categories,
+                fetchedData.category.category_list,
                 props.data.category
               )}
           </span>
@@ -45,7 +40,9 @@ const Question = (props) => {
           <span style={{ padding: "8px" }}>
             {console.log("THE PROPS CREATED", props.data.article.createdAt)}
             {/* convertingDateValue(props.data.article.createdAt) */}
-            {fetchedData && <>{props.data.article.createdAt}</>}
+            {fetchedData && (
+              <>{convertingDateValue(props.data.article.createdAt)}</>
+            )}
           </span>
         </div>
       </div>
@@ -96,7 +93,20 @@ const Question = (props) => {
                   />
                 </svg>
               </div>
-              <div className="margin_auto">{props.data.view.count}</div>
+              <div className="margin_auto">
+                {/* When the sort-API is running */}
+                {props.data.article &&
+                typeof props.data.article.view !== undefined ? (
+                  <>{props.data.article.view}</>
+                ) : // {/* When the category-API is running */}
+                props.data.view ? (
+                  <>{props.data.view.count}</>
+                ) : (
+                  // When either of the API dont return anything we call it zero
+                  <>0</>
+                )}
+                {props.data.view.count}
+              </div>
             </div>
             <div className="flex justify-start">
               <div className="w-[20px] h-[20px]">
@@ -115,7 +125,13 @@ const Question = (props) => {
                   />
                 </svg>
               </div>
-              <div className="margin_auto">{props.data.article.like}</div>
+              <div className="margin_auto">
+                {typeof props.data.article.like === undefined ? (
+                  <></>
+                ) : (
+                  <>{props.data.article.like}</>
+                )}
+              </div>
             </div>
             <div className="flex justify-start">
               <div className="w-[20px] h-[20px]">
@@ -135,11 +151,7 @@ const Question = (props) => {
                 </svg>
               </div>
               <div className="margin_auto">
-                {props.data.comments ? (
-                  <>props.data.comments</>
-                ) : (
-                  <>no comments</>
-                )}
+                {props.data.comments ? <>props.data.comments</> : <>0</>}
               </div>
             </div>
           </div>
