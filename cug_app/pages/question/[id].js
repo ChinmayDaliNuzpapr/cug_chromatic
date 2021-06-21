@@ -61,7 +61,7 @@ function Question() {
 			try {
 				const response = await axios.get(url, {
 					headers: {
-						Authorization: `Bearer ${token}`,
+						Authorization: token && `Bearer ${token}`,
 					},
 				});
 				const data = response.data;
