@@ -166,7 +166,7 @@ function Question() {
       {/* For now flex seems only option , otherwise custom css is to be written  */}
       <div className="flex flex-row flex-wrap">
         {/* <div className="w-2/8">SIDEBAR IS TO BE ADDED</div> */}
-        <div class="flex-grow">
+        <div className="flex-grow">
           <div className="mb-8 ">
             {console.log("THE DETAILS OF THE QUESTION", question)}
             {question && (
@@ -206,7 +206,7 @@ function Question() {
             )}
           </div>
         </div>
-        <div class="flex-grow-0">
+        <div className="hidden md:block ml-4 flex-grow-0">
           <ExtraTrendingBox />
         </div>
       </div>

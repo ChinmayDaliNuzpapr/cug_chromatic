@@ -55,6 +55,8 @@ const Layout = ({ children }) => {
   //[📌] Everytime the category changes we need to fetch a new set of questions
   //[📌] Everytime the new data is fetched we need to update category state.
   function fetchingDataOfNewCategory(category_id) {
+    router.push("http://localhost:3000/questions");
+
     console.log("THE ID OF CATEGORY", category_id);
     console.log("THE LOCAL HOST OF ", localStorage.getItem("jwt_token"));
     axios
@@ -70,6 +72,7 @@ const Layout = ({ children }) => {
       .then((res) => {
         console.log("THE RES Data in SIDEBAR", res);
         setFetchedData({
+          ...fetchedData,
           category: {
             category_list: res.data.categories,
             current_category: category_id,

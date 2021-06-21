@@ -15,7 +15,7 @@ const Sidebar = (props) => {
 
   return (
     <>
-      <div className="md:w-[150px] lg:w-[250px]">
+      <div className="hidden md:block md:w-[150px] lg:w-[250px]">
         <nav className="flex flex-col w-64 h-screen px-auto tex-gray-900 border rounded-lg border-gray-200">
           <div className="flex flex-wrap bg-blue-300">
             <div className="w-1/2 justify-center my-4 mx-auto">
