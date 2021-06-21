@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
+import { MainDataContext } from "../../components/Layout";
 
 const activeString =
   "bg-green-500 border-green-500 hover:bg-blue-600 text-white shadow-light xl:shadow-none py-6 xl:py-2 xl:px-4 border-r-8 xl:opacity-75 mb-2 px-auto py-4 border-gray-900 hover:text-white hover:font-bold";
@@ -6,12 +8,11 @@ const activeString =
 const deactiveString =
   "mb-2 px-auto py-4 text-gray-900 border-gray-900 hover:bg-blue-600 hover:text-white hover:font-bold rounded rounded-lg";
 const Sidebar = (props) => {
-  console.log("THE PROPS", props);
-  const { category, category_func } = props;
-  // const [pr,setPr] =
-  console.log("THE LIST OF CATEGORY", category);
-  //📌 Initially the sidebar will be at "home"
-  useEffect(() => {}, []);
+  const { fetchedData, setFetchedData } = useContext(MainDataContext);
+
+  // console.log("THE PROPS of CATEGORY", props);
+  // const { category, category_func } = props;
+
   return (
     <>
       <div className="md:w-[150px] lg:w-[250px]">
@@ -23,21 +24,21 @@ const Sidebar = (props) => {
           </div>
           <div className="mt-10 mb-4">
             <ul className="">
-              {category.category_list &&
-                category.category_list.map((item, index) => {
+              {fetchedData.category.category_list &&
+                fetchedData.category.category_list.map((item, index) => {
                   return (
                     <li
                       key={index}
                       className={
-                        item._id === category.current_category
+                        item._id === fetchedData.category.current_category
                           ? activeString
                           : deactiveString
                       }
                       onClick={() => {
-                        category_func({
-                          ...category,
-                          current_category: item._id,
-                        });
+                        console.log("THE CATEGORY ID", item._id);
+                        if (props.fetchingDataOfNewCategory) {
+                          props.fetchingDataOfNewCategory(item._id);
+                        }
                       }}
                     >
                       <div className="ml-4">
