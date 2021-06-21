@@ -100,11 +100,12 @@ const Question = (props) => {
                   <>{props.data.article.view}</>
                 ) : // {/* When the category-API is running */}
                 props.data.view ? (
-                  <>{props.data.view}</>
+                  <>{props.data.view.count}</>
                 ) : (
                   // When either of the API dont return anything we call it zero
                   <>0</>
                 )}
+                {props.data.view.count}
               </div>
             </div>
             <div className="flex justify-start">

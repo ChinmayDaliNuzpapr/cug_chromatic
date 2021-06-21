@@ -150,6 +150,7 @@ export function MyToggle() {
   const { fetchedData, setFetchedData, setLoading } = React.useContext(
     MainDataContext
   );
+  // If enabled === false then display the company scope else global scope
   React.useEffect(() => {
     if (enabled) {
       axios
@@ -158,7 +159,7 @@ export function MyToggle() {
           {
             categoryID: fetchedData.category.current_category,
             criteria: "date",
-            scope: "company",
+            scope: "global",
           },
           {
             headers: {
@@ -179,7 +180,7 @@ export function MyToggle() {
           {
             categoryID: fetchedData.category.current_category,
             criteria: "date",
-            scope: "global",
+            scope: "company",
           },
           {
             headers: {
