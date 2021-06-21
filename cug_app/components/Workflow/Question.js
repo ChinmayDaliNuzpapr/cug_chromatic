@@ -19,12 +19,13 @@ function findTheCategory(category_list, category_name) {
 }
 
 const Question = (props) => {
+  const router = useRouter();
   const { fetchedData } = useContext(MainDataContext);
   console.log("THE MAIN DATA in Question Component", fetchedData);
   return (
     <div
       className="w-full relative  border-2 rounded-md mx-auto"
-      // onClick={() => router.push("/questions/1254")}
+      onClick={() => router.push(`/question/${props.data._id}`)}
     >
       <div className="-top-0 flex flex-row justify-between">
         <div className=" -left-0 bg-blue-300 w-[150px] text-left">

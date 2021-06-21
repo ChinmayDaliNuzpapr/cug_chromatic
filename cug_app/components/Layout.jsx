@@ -10,7 +10,7 @@ import Navbar from "../components/navbar/navbar";
 import FooterPage from "../components/FooterPage";
 import Sidebar from "../components/Workflow/Sidebar";
 import Loading from "./Loading";
-const whiteListForSidebar = ["/questions/[question_id]", "/questions"];
+const whiteListForSidebar = ["/question", "/question/[id]", "/questions"];
 
 export const UserContext = createContext(null);
 export const MainDataContext = createContext(null);

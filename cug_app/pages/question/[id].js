@@ -1,12 +1,12 @@
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import QuestionComponent from '../../components/Workflow/Question';
-import Comment from '../../components/Workflow/Comment';
-import { ExtraTrendingBox } from '../../components/Workflow/Trending';
-import Sidebar from '../../components/Workflow/Sidebar';
-import Unanswered from '../../components/Workflow/Unanswered';
-import Button from '../../components/Button/Button';
-import axios from 'axios';
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import QuestionComponent from "../../components/Workflow/Question";
+import Comment from "../../components/Workflow/Comment";
+import { ExtraTrendingBox } from "../../components/Workflow/Trending";
+import Sidebar from "../../components/Workflow/Sidebar";
+import Unanswered from "../../components/Workflow/Unanswered";
+import Button from "../../components/Button/Button";
+import axios from "axios";
 
 /*export async function getStaticProps(context) {
 	const id = context.params.id;
@@ -39,78 +39,78 @@ export async function getStaticPaths() {
 }*/
 
 function Question() {
-	const router = useRouter();
+  const router = useRouter();
+  console.log("THE PATHNAME", router.pathname);
+  const [question, setQuestions] = useState();
+  const [answer, setAnswer] = useState();
 
-	const [question, setQuestions] = useState();
-	const [answer, setAnswer] = useState();
+  //process.env.DEVELOPMENT is undefined
 
-	//process.env.DEVELOPMENT is undefined
+  useEffect(async () => {
+    if (router.asPath !== router.route) {
+      const { id } = router.query;
 
-	useEffect(async () => {
-		if (router.asPath !== router.route) {
-			const { id } = router.query;
+      console.log("ROUTER QUERY", router.query);
+      console.log("ID IS", id);
 
-			console.log('ROUTER QUERY', router.query);
-			console.log('ID IS', id);
+      const url = `http://localhost:3000/api/question/${id}`;
+      console.log("URL IS ", url);
+      const token = localStorage.getItem("jwt_token");
 
-			const url = `http://localhost:3000/api/question/${id}`;
-			console.log('URL IS ', url);
-			const token = localStorage.getItem('jwt_token');
+      console.log("TOKEN IS ", token);
+      try {
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = response.data;
+        setQuestions(data.question);
+        setAnswer(data.answer);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }, [router]);
 
-			console.log('TOKEN IS ', token);
-			try {
-				const response = await axios.get(url, {
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				});
-				const data = response.data;
-				setQuestions(data.question);
-				setAnswer(data.answer);
-			} catch (err) {
-				console.log(err);
-			}
-		}
-	}, [router]);
+  return (
+    <div>
+      {/* For now flex seems only option , otherwise custom css is to be written  */}
+      <div className="flex">
+        {/* <div className="w-2/8">SIDEBAR IS TO BE ADDED</div> */}
+        <div class="w-6/8">
+          <div className="text-center mb-8 ">QUESTION COMPONENT HERE</div>
+          <div className="mb-2 flex justify-between">
+            {answer && answer.length == 0 && (
+              <div>
+                <Unanswered />
+              </div>
+            )}
 
-	return (
-		<div>
-			{/* For now flex seems only option , otherwise custom css is to be written  */}
-			<div className='flex'>
-				<div className='w-2/8'>SIDEBAR IS TO BE ADDED</div>
-				<div class='w-4/8'>
-					<div className='text-center mb-8 '>QUESTION COMPONENT HERE</div>
-					<div className='mb-2 flex justify-between'>
-						{answer && answer.length == 0 && (
-							<div>
-								<Unanswered />
-							</div>
-						)}
+            {answer && answer.length != 0 && (
+              <div>{answer && answer.length} answers</div>
+            )}
 
-						{answer && answer.length != 0 && (
-							<div>{answer && answer.length} answers</div>
-						)}
-
-						<div className='flex items-center'>
-							<Button content={'Add Anwser'} />
-						</div>
-					</div>
-					<div>
-						{answer && (
-							<div>
-								{answer.map((item, index) => {
-									return <Comment key={index} answer={item} />;
-								})}
-							</div>
-						)}
-					</div>
-				</div>
-				<div class='w-2/8'>
-					<ExtraTrendingBox />
-				</div>
-			</div>
-		</div>
-	);
+            <div className="flex items-center">
+              <Button content={"Add Anwser"} />
+            </div>
+          </div>
+          <div>
+            {answer && (
+              <div>
+                {answer.map((item, index) => {
+                  return <Comment key={index} answer={item} />;
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+        <div class="w-2/8">
+          <ExtraTrendingBox />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Question;
