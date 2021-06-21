@@ -1,3 +1,5 @@
+//get all replies
+
 import DBConnect from '../../middleware/DBConnect';
 import replyModel from '../../../models/reply';
 import answerModel from '../../../models/answer';
@@ -8,8 +10,6 @@ const viewAnswer = async (req, res) => {
 		req = await isUserLoggedIn(req, res);
 
 		const { answerID } = req.body;
-
-		//get all reply
 
 		const reply = await replyModel.find({ answer: answerID });
 
