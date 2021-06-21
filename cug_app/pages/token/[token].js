@@ -47,6 +47,7 @@ const TokenComponent = (props) => {
         .then((res) => {
           console.log("THE RESPONSE👉👉👉👉👉👉👉👉👉👉", res);
           localStorage.setItem("jwt_token", res.data.token);
+          localStorage.setItem("alphaNumericId", res.data.alphaNumericId);
           setAuthenticated(res.data);
           return router.push("http://localhost:3000/questions");
         })

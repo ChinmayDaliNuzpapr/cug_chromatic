@@ -45,7 +45,7 @@ const CreateQuestionForm = (props) => {
       groupID: localStorage.getItem("group_id"),
       article: {
         title: details.title,
-        author: "Chinmay",
+        author: localStorage.getItem("alphaNumericId"),
         content: editorHtml.current.innerHTML,
         scope: details.scope,
       },
@@ -115,7 +115,6 @@ const CreateQuestionForm = (props) => {
                 <Formik
                   initialValues={{
                     title: "",
-                    author: "",
                     scope: "",
                     tags: [],
                     category: fetchedData.category.current_category,
