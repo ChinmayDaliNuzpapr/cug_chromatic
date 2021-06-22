@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import CreatableSelect from "react-select/creatable";
 import axios from "axios";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
@@ -25,6 +25,19 @@ import { MainDataContext } from "../../Layout.jsx";
 */
 // ===============================================
 
+export const colourOptions = [
+  { value: "ocean", label: "Ocean" },
+  { value: "blue", label: "Blue" },
+  { value: "purple", label: "Purple" },
+  { value: "red", label: "Red" },
+  { value: "orange", label: "Orange" },
+  { value: "yellow", label: "Yellow" },
+  { value: "green", label: "Green" },
+  { value: "forest", label: "Forest" },
+  { value: "slate", label: "Slate" },
+  { value: "silver", label: "Silver" },
+];
+
 const CreateQuestionForm = (props) => {
   const [post, setPost] = useState({ response_value: "", posted: null });
   const { fetchedData } = React.useContext(MainDataContext);
@@ -33,6 +46,13 @@ const CreateQuestionForm = (props) => {
   const handleChange = (html) => {
     console.log("THE STATE", editorHtml);
     setEditorHtml(html);
+  };
+
+  const handleChangeTag = (newValue, actionMeta) => {
+    console.group("Value Changed");
+    console.log(newValue);
+    console.log(`action: ${actionMeta.action}`);
+    console.groupEnd();
   };
 
   const postAQuestion = (details) => {
@@ -143,62 +163,58 @@ const CreateQuestionForm = (props) => {
                       <div className="mb-4 w-100">
                         <TextField label="Title" name="title" type="text" />
                       </div>
+                      <div className="flex flex-row flex-wrap justify-between">
+                        <div className="flex flex-row flex-wrap justify-evenly">
+                          {/* The select field */}
 
-                      <div className="flex flex-row flex-wrap ">
-                        {/* The select field */}
+                          <>
+                            <div role="group" aria-labelledby="my-radio-group">
+                              <label>
+                                <Field
+                                  type="radio"
+                                  name="scope"
+                                  value="company"
+                                />
+                                Company
+                              </label>
+                              <label>
+                                <Field
+                                  type="radio"
+                                  name="scope"
+                                  value="global"
+                                />
+                                Global
+                              </label>
 
-                        <>
-                          <div role="group" aria-labelledby="my-radio-group">
-                            <label>
-                              <Field
-                                type="radio"
-                                name="scope"
-                                value="company"
-                              />
-                              Company
-                            </label>
-                            <label>
-                              <Field type="radio" name="scope" value="global" />
-                              Global
-                            </label>
-
-                            <div>Picked: {props.values.scope}</div>
-                          </div>
-                        </>
+                              <div>Picked: {props.values.scope}</div>
+                            </div>
+                          </>
+                        </div>
+                        {/* LIST OF CATEGORY */}
+                        <div>
+                          <label className="mr-2">Categories:</label>
+                          <Field
+                            component="select"
+                            // id="category"
+                            name="category"
+                            // multiple={true}
+                          >
+                            {fetchedData.category.category_list.map(
+                              (item, index) => (
+                                <option
+                                  className="border-2"
+                                  key={index}
+                                  value={`${item._id}`}
+                                >
+                                  {item.categoryName}
+                                </option>
+                              )
+                            )}
+                          </Field>
+                        </div>
                       </div>
-                      {/* LIST OF CATEGORY */}
-                      <React.Fragment>
-                        <label>Category</label>
-                        <Field
-                          component="select"
-                          // id="category"
-                          name="category"
-                          // multiple={true}
-                        >
-                          {fetchedData.category.category_list.map(
-                            (item, index) => (
-                              <option key={index} value={`${item._id}`}>
-                                {item.categoryName}
-                              </option>
-                            )
-                          )}
-                        </Field>
-                      </React.Fragment>
-
-                      {/* MULTIPLE TAGS OPTION */}
-                      <Field
-                        component="select"
-                        id="tags"
-                        name="tags"
-                        multiple={true}
-                      >
-                        <option value="TAG_1">TAG_1</option>
-                        <option value="TAG_2">TAG_2</option>
-                        <option value="TAG_3">TAG_3</option>
-                        <option value="TAG_4">TAG_4</option>
-                      </Field>
-
-                      <div className="mx-auto my-4 mb-6 w-100">
+                      {/* Text-Editor */}
+                      <div className="mx-auto my-4 w-100">
                         <label className="text-xl text-gray-600">
                           Content <span className="text-red-500">*</span>
                         </label>
@@ -206,24 +222,15 @@ const CreateQuestionForm = (props) => {
 
                         <QuillEditor handleChangeFunc={handleChange} />
                       </div>
-
-                      {/* <div>
-                        <Field name="richtext">
-                          {({ field, form }) => (
-                            <div
-                              className="text-editor"
-                              style={{ margin: "auto 0px" }}
-                            >
-                              <RichTextEditor name="richtext" field={field} />
-                              {form.errors.richtext && form.touched.richtext ? (
-                                <div className="explain">
-                                  {form.errors.richtext}
-                                </div>
-                              ) : null}
-                            </div>
-                          )}
-                        </Field>
-                      </div> */}
+                      {/* MULTIPLE TAGS OPTION */}
+                      <div className="mt-24">
+                        <label className="text-xl text-gray-900">Tags</label>
+                        <CreatableSelect
+                          isMulti
+                          onChange={handleChangeTag}
+                          options={colourOptions}
+                        />
+                      </div>
 
                       <div className="flex p-1">
                         {/*[📌] The code is commented right-now but will be used when the workflow is complete.
@@ -237,7 +244,7 @@ const CreateQuestionForm = (props) => {
                           <option>Save Draft</option>
                         </select> */}
                         <button
-                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                          className="bg-blue-500 mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                           type="submit"
                         >
                           {props.isSubmitting ? `Loading...` : "submit"}
