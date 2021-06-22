@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { MainDataContext } from "../../components/Layout";
 import Link from "next/link";
 
-function convertingDateValue(createdAt) {
+export function convertingDateValue(createdAt) {
   let result = moment(createdAt).fromNow(true);
   return result;
 }
@@ -56,10 +56,10 @@ const Question = (props) => {
           2 lines of question is quoted in 2 point small font than font used in
           question and 3 dots added …
         </p>
-        <div className="px-6 py-4">
+        <div className=" py-4">
           {props.data.tags.map((item, index) => (
             <React.Fragment key={index}>
-              <span className="inline-block bg-gray-300 px-3 py-2 text-sm font-semibold mr-2 text-gray-700 rounded-full">
+              <span className="inline-block bg-blue-300 px-3 py-2 text-sm font-semibold mr-2 text-gray-700 rounded-lg">
                 {item}
               </span>
             </React.Fragment>
@@ -71,7 +71,7 @@ const Question = (props) => {
         </p>
         <div className="flex justify-between text-sm ">
           <div className="grid grid-cols-3">
-            <div className="flex justify-start">
+            <div className="flex justify-start mr-2">
               <div className="w-[20px] h-[20px]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +109,7 @@ const Question = (props) => {
                 {props.data.view.count}
               </div>
             </div>
-            <div className="flex justify-start">
+            <div className="flex justify-start mr-2">
               <div className="w-[20px] h-[20px]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -134,7 +134,7 @@ const Question = (props) => {
                 )}
               </div>
             </div>
-            <div className="flex justify-start">
+            <div className="flex justify-start mr-2">
               <div className="w-[20px] h-[20px]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
