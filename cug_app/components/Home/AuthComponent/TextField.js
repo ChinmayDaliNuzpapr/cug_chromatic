@@ -12,7 +12,7 @@ export const TextField = ({ label, ...props }) => {
         {label}
       </label>
       <input
-        className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline w-100"
+        className="shadow appearance-none border hover:border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline w-100"
         {...field}
         {...props}
         autoComplete="off"
