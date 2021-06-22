@@ -32,11 +32,15 @@ const DetailsComponent = (props) => {
           ))}
         </div>
       </div>
+
+      <div className="py-2">
+        <span>posted by: {props.author}</span>
+      </div>
       {/* Views/Comments/Likes count & authored-by Div */}
-      <div className="mb-4">
+      <div className="-bottom-0">
         <div className="flex justify-between text-sm ">
-          <div className="grid grid-cols-3">
-            <div className="flex justify-start">
+          <div className="flex">
+            <div className="mr-4 flex justify-start">
               <div className="w-[20px] h-[20px]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -59,9 +63,9 @@ const DetailsComponent = (props) => {
                   />
                 </svg>
               </div>
-              <div className="margin_auto">{props.view.count}</div>
+              <div className="">{props.view}</div>
             </div>
-            <div className="flex justify-start">
+            <div className="mr-4 flex justify-start">
               <div className="w-[20px] h-[20px]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -78,9 +82,9 @@ const DetailsComponent = (props) => {
                   />
                 </svg>
               </div>
-              <div className="margin_auto">{props.like}</div>
+              <div className="">{props.like}</div>
             </div>
-            <div className="flex justify-start">
+            <div className="mr-4 flex justify-start">
               <div className="w-[20px] h-[20px]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +101,7 @@ const DetailsComponent = (props) => {
                   />
                 </svg>
               </div>
-              <div className="margin_auto">{props.comments}</div>
+              <div className="">{props.comments}</div>
             </div>
           </div>
           <div className="flex justify-start">
@@ -131,7 +135,7 @@ function Question() {
   console.log("THE PATHNAME", router.pathname);
   const [question, setQuestions] = useState();
   const [answer, setAnswer] = useState();
-
+  const [modal, setModal] = useState(false);
   //process.env.DEVELOPMENT is undefined
 
   useEffect(async () => {
@@ -173,9 +177,9 @@ function Question() {
               <DetailsComponent
                 title={question.article.title}
                 content={question.article.content}
-                view={question.view.count}
+                view={question.view.count ? question.view.count : 0}
                 like={question.article.like}
-                comments={question.comment ? question.comment : 0}
+                comments={answer ? answer.length : 0}
                 author={question.article.author}
                 tags={question.tags}
               />
@@ -191,9 +195,13 @@ function Question() {
             {answer && answer.length != 0 && (
               <div>{answer && answer.length} answers</div>
             )}
-
             <div className="flex items-center">
-              <Button content={"Add Anwser"} />
+              <button
+                className="bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white py-1 px-6 border border-blue-500 hover:border-transparent rounded"
+                onClick={() => setModal(true)}
+              >
+                Add Answer
+              </button>
             </div>
           </div>
           <div>
