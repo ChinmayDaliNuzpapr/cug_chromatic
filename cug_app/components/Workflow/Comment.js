@@ -23,7 +23,7 @@ const Reply = ({ reply }) => {
 	};
 
 	return (
-		<div className='mb-2 p-3 rounded-md border-2 w-[450px]'>
+		<div className='mb-2 p-3 rounded-md border-2 w-[500px]'>
 			<div className='montserrat-12'>{reply.article.content}</div>
 			<div className='flex justify-between montserrat-10 '>
 				<div className='grid grid-cols-3 gap-6'>
