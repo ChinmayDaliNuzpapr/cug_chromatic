@@ -24,7 +24,7 @@ const Question = (props) => {
   console.log("THE MAIN DATA in Question Component", fetchedData);
   return (
     <div
-      className="w-full relative  border-2 rounded-md mx-auto"
+      className="relative border-2 rounded-md "
       onClick={() => router.push(`/question/${props.data._id}`)}
     >
       <div className="-top-0 flex flex-row justify-between">
@@ -49,7 +49,7 @@ const Question = (props) => {
       </div>
 
       <div className="p-3">
-        <p className="sm:text-base md:text-xl text-gray-900">
+        <p className="montserrat-18 text-gray-900">
           {props.data.article.title}
         </p>
         <p className="md:text-base text-gray-500">
@@ -69,6 +69,8 @@ const Question = (props) => {
           Posted by: {props.data ? <>{props.data.article.author}</> : <></>}{" "}
           <br />
         </p>
+      </div>
+      <div className="-bottom-0">
         <div className="flex justify-between text-sm ">
           <div className="grid grid-cols-3">
             <div className="flex justify-start mr-2">
