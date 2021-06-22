@@ -2,7 +2,9 @@ import jwt from 'jsonwebtoken';
 
 const isUserLoggedIn = (req, res) => {
 	return new Promise((resolve, reject) => {
-		const token = req.headers.authorization.split('Bearer ')[1];
+		let token;
+		if (req.headers.authorization)
+			token = req.headers.authorization.split('Bearer ')[1];
 
 		if (token) {
 			const user = jwt.verify(token, process.env.secretKey);

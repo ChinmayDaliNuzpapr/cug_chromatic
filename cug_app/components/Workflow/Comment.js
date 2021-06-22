@@ -3,6 +3,25 @@ import axios from 'axios';
 import Button from '../Button/Button';
 
 const Reply = ({ reply }) => {
+	const [like, setLike] = useState(reply.article.like);
+
+	const Like = async () => {
+		const token = localStorage.getItem('jwt_token');
+		const data = { articleID: reply.article._id };
+
+		const response = await axios.post(
+			`${process.env.DEVELOPMENT}/api/reply/like`,
+			data,
+			{
+				headers: {
+					Authorization: token && `Bearer ${token}`,
+				},
+			}
+		);
+		const res = response.data;
+		setLike(res.likes);
+	};
+
 	return (
 		<div className='mb-2 p-3 rounded-md border-2 w-[450px]'>
 			<div className='montserrat-12'>{reply.article.content}</div>
@@ -12,7 +31,9 @@ const Reply = ({ reply }) => {
 
 					<div className='flex justify-start'>
 						<div className='w-[20px] h-[20px]'>
+							{/* like button */}
 							<svg
+								onClick={Like}
 								xmlns='http://www.w3.org/2000/svg'
 								className='h-6 w-6'
 								fill='none'
@@ -26,7 +47,7 @@ const Reply = ({ reply }) => {
 								/>
 							</svg>
 						</div>
-						<div className='margin_auto'>{reply.article.like}</div>
+						<div className='margin_auto'>{like && <div>{like}</div>}</div>
 					</div>
 				</div>
 				<div className='flex justify-start'>
@@ -64,6 +85,25 @@ const Comment = ({ answer }) => {
 
 	const [replies, setReplies] = useState([]);
 
+	const [like, setLike] = useState(answer.article.like);
+
+	const Like = async () => {
+		const token = localStorage.getItem('jwt_token');
+		const data = { articleID: answer.article._id };
+
+		const response = await axios.post(
+			`${process.env.DEVELOPMENT}/api/answer/like`,
+			data,
+			{
+				headers: {
+					Authorization: token && `Bearer ${token}`,
+				},
+			}
+		);
+		const res = response.data;
+		setLike(res.likes);
+	};
+
 	const addReply = async (e) => {
 		e.preventDefault();
 
@@ -91,16 +131,16 @@ const Comment = ({ answer }) => {
 
 		console.log(res);
 
-		if (res) setReply('');
+		if (res) {
+			setReply('');
+			setReplies([...replies, res.newReply]);
+		}
 	};
 
-	const EnableReplyToggler = (e) => {
-		setReplyToggler(!replyTogger);
-	};
-
-	const showAllReply = async (e) => {
+	const showAllReply = async () => {
+		console.log('SHOWING REPLIES');
 		setallReplyToggler(!allReplyToggler);
-
+		console.log('allReplyToggler', !allReplyToggler);
 		const token = localStorage.getItem('jwt_token');
 
 		const data = {
@@ -120,6 +160,10 @@ const Comment = ({ answer }) => {
 		const res = response.data;
 
 		setReplies(res.reply);
+	};
+
+	const EnableReplyToggler = (e) => {
+		setReplyToggler(!replyTogger);
 	};
 
 	return (
@@ -169,6 +213,7 @@ const Comment = ({ answer }) => {
 						<div className='flex justify-start'>
 							<div className='w-[20px] h-[20px]'>
 								<svg
+									onClick={Like}
 									xmlns='http://www.w3.org/2000/svg'
 									className='h-6 w-6'
 									fill='none'
@@ -182,7 +227,7 @@ const Comment = ({ answer }) => {
 									/>
 								</svg>
 							</div>
-							<div className='margin_auto'>{answer.article.like}</div>
+							<div className='margin_auto'>{like && <div>{like}</div>}</div>
 						</div>
 					</div>
 					<div className='flex justify-start'>
@@ -230,9 +275,9 @@ const Comment = ({ answer }) => {
 			<div className=''>
 				{allReplyToggler &&
 					replies &&
-					replies.map((item) => (
+					replies.map((item, index) => (
 						<div className='flex justify-end'>
-							<Reply reply={item} />
+							<Reply key={index} reply={item} />
 						</div>
 					))}
 			</div>

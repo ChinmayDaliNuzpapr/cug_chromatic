@@ -4,6 +4,10 @@ const EmailVerification = (props) => {
   return (
     <div className="">
       <div id="center_a_box" className="absolute">
+      <div className = "flex justify-center">
+      <img src="/emailVerification.gif"/>
+      </div>
+    
         <main className="w-full flex justify-center">
           <div className="flex flex-col md:w-2/5 p-3 space-y-5 rounded-xl border border-black bg-white shadow-md">
             <section className="text-sm font-thin text-orange-400">
