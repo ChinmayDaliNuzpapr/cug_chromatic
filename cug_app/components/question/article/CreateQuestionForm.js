@@ -7,12 +7,6 @@ import { toast } from "react-toastify";
 // Custom component for forms
 import { TextField, SelectField } from "../../Home/AuthComponent/TextField.js";
 import { MyToggle } from "../menu/MenuComponent";
-// All the textEditor Component I built
-// import TextEditor from "./TextEditor";
-// import NewTextEditor from "./NewTextEditor";
-// import CompatibleTextEditor from "./CompatibleTextEditor";
-// import { QuillNoSSRWrapper } from "./TextEditorForNextjs";
-//👉The only working Editor
 import QuillEditor from "../../Workflow/QuillEditor";
 import { MainDataContext } from "../../Layout.jsx";
 
@@ -42,6 +36,7 @@ const CreateQuestionForm = (props) => {
   const [post, setPost] = useState({ response_value: "", posted: null });
   const { fetchedData } = React.useContext(MainDataContext);
   const [editorHtml, setEditorHtml] = useState(null);
+  const [tags, setTags] = useState([]);
   console.log("THE VALUES IN THE EDITOR", editorHtml);
   const handleChange = (html) => {
     console.log("THE STATE", editorHtml);
@@ -52,6 +47,7 @@ const CreateQuestionForm = (props) => {
     console.group("Value Changed");
     console.log(newValue);
     console.log(`action: ${actionMeta.action}`);
+    newValue.map((item) => setTags(item.value));
     console.groupEnd();
   };
 
@@ -69,7 +65,7 @@ const CreateQuestionForm = (props) => {
         content: editorHtml.current.innerHTML,
         scope: details.scope,
       },
-      tags: details.tags,
+      tags: tags,
     };
     // postBody = JSON.stringify(postBody);
     console.log("THE FINAL DETAILS", postBody);
@@ -119,8 +115,8 @@ const CreateQuestionForm = (props) => {
 
   return (
     <div className="container mx-auto">
-      <div className="flex flex-col my-16">
-        <div className="py-12 px-4">
+      <div className="flex flex-col">
+        <div className="px-4">
           <div className="w-full mx-auto sm:px-12 lg:px-8">
             <button
               onClick={() => {
@@ -139,13 +135,6 @@ const CreateQuestionForm = (props) => {
                     tags: [],
                     category: fetchedData.category.current_category,
                   }}
-                  // validationSchema={Yup.object({
-                  //   title: Yup.string()
-                  //     .max(100, "Title is required")
-                  //     .required("Title is required"),
-                  //   content: Yup.string().required("Content is required"),
-                  //   author: Yup.string().required("ID"),
-                  // })}
                   onSubmit={(values, { setSubmitting, resetForm }) => {
                     console.log("ALL THE VALUES", values);
                     postAQuestion(values);
