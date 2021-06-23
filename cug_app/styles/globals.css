@@ -163,10 +163,26 @@ a {
 }
 /* THE SWITCHER */
 
+/* input:checked {
+  background-color: #22c55e; /* bg-green-500 /
+}
+
+input:checked ~ span:last-child {
+  --tw-translate-x: 1.75rem; /* translate-x-7 /
+} */
+
 /* *************************************** THE SIDBAR ************************************* */
 /* DO NOT DISPLAY THE SIDEBAR in the NAVBAR if the width is more than 720px */
 @media only screen and (min-width: 720px) {
   #category_option_button {
     display: none;
   }
+}
+
+/* Dialog-Modal */
+#modal_dialog {
+  position: absolute;
+  left: -50%;
+  top: -50%;
+  /* z-index: 1; */
 }
