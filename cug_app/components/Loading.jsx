@@ -40,9 +40,32 @@ const Spin = () => {
 
 export default function Loading() {
   return (
-    <div styles={styles.loadingComponent}>
-      {/* <Spin /> */}
-      <p>LOADING</p>
+    // <div
+    //   styles={{
+    //     height: "100vh",
+    //     display: "flex",
+    //     justifyContent: "center",
+    //     alignItems: "center",
+    //   }}
+    // >
+    //   {/* <Spin /> */}
+    //   {/* <img src="./" /> */}
+    //   <div
+    //     styles={{ position: "absolute", left: "50%", top: "50%", zIndex: "1" }}
+    //   >
+    //     <p>LOADING+++++++</p>
+    //   </div>
+    // </div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "90vh",
+      }}
+    >
+      {/* <p>LOADING</p> */}
+      <img src="Halfcircle.gif" alt="theme" />
     </div>
   );
 }
