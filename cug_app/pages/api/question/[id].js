@@ -1,15 +1,15 @@
+/*isUserLoggedIn middleware is not being used here, as it throws error when token isn't there, but someone
+without token can access the "global" view question*/
+
+//type of request - GET
+//data to recieve here from frontend - sebd questionID in URL
+
 import DBConnect from '../../middleware/DBConnect';
 import questionModel from '../../../models/question';
 import answerModel from '../../../models/answer';
 import groupModel from '../../../models/group';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
-
-/*isUserLoggedIn middleware is not being used here, as it throws error when token isn't there, but someone
-without token can access the "global" view question*/
-
-//type of request - GET
-//data to recieve here from frontend - sebd questionID in URL
 
 const viewQuestion = async (req, res) => {
 	if (req.method == 'GET') {

@@ -7,40 +7,40 @@
 // Incorrect thought process👇
  🚩 we will use useCallback but one failure would be this will query uncessarily the same 10 question over and over
 */
-import React, { useState, useEffect, useContext, createContext } from "react";
-import BoxComponent from "../../components/question/BoxComponent";
-import QuestionCard from "../../components/QuestionCard";
-import CreateQuestionForm from "../../components/question/article/CreateQuestionForm";
-import QuestionComponent from "../../components/QuestionComponent";
-import Sidebar from "../../components/Workflow/Sidebar";
-import { useRouter } from "next/router";
-import { UserContext, MainDataContext } from "../../components/Layout";
+import React, { useState, useEffect, useContext, createContext } from 'react';
+import BoxComponent from '../../components/question/BoxComponent';
+import QuestionCard from '../../components/QuestionCard';
+import CreateQuestionForm from '../../components/question/article/CreateQuestionForm';
+import QuestionComponent from '../../components/QuestionComponent';
+import Sidebar from '../../components/Workflow/Sidebar';
+import { useRouter } from 'next/router';
+import { UserContext, MainDataContext } from '../../components/Layout';
 
 const index = () => {
-  const { fetchedData } = useContext(MainDataContext);
-  const [askQuestion, setAskQuestion] = useState(null);
-  console.log("DATA IN INDEX.JS file of Question", fetchedData);
-  function askingAQuestionfunc() {
-    setAskQuestion(true);
-  }
-  const router = useRouter();
+	const { fetchedData } = useContext(MainDataContext);
+	const [askQuestion, setAskQuestion] = useState(null);
+	console.log('DATA IN INDEX.JS file of Question', fetchedData);
+	function askingAQuestionfunc() {
+		setAskQuestion(true);
+	}
+	const router = useRouter();
 
-  return (
-    <>
-      {askQuestion === false || askQuestion === null ? (
-        <>
-          <BoxComponent />
-          <QuestionComponent
-            x={"value"}
-            askingAQuestionfunc={askingAQuestionfunc}
-            listOfQuestions={fetchedData.questions}
-          />
-        </>
-      ) : (
-        <CreateQuestionForm setAskQuestion={setAskQuestion} />
-      )}
-    </>
-  );
+	return (
+		<>
+			{askQuestion === false || askQuestion === null ? (
+				<>
+					<BoxComponent />
+					<QuestionComponent
+						x={'value'}
+						askingAQuestionfunc={askingAQuestionfunc}
+						listOfQuestions={fetchedData.questions}
+					/>
+				</>
+			) : (
+				<CreateQuestionForm setAskQuestion={setAskQuestion} />
+			)}
+		</>
+	);
 };
 
 export default index;
