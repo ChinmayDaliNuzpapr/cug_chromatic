@@ -138,7 +138,14 @@ function MyDialog({ isOpen, setIsOpen }) {
       onClose={setIsOpen}
       as="div"
       id="modal_dialog"
-      className="absolute inset-0 z-10 flex items-center justify-center overflow-y-auto"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        // height: "90vh",
+        zIndex: 1,
+      }}
+      // className="absolute inset-0 z-10 flex items-center justify-center overflow-y-auto"
     >
       {/* absolute top-0 z-10 flex items-center justify-center overflow-y-auto */}
       <div className="flex flex-col bg-gray-800 text-white w-96 py-8 px-4 text-center">
@@ -216,6 +223,7 @@ function Question() {
         <div className="flex-grow">
           {isOpen === false ? (
             <>
+              {/* This will display the details  */}
               <div className="mb-8 ">
                 {console.log("THE DETAILS OF THE QUESTION", question)}
                 {question && (
@@ -260,7 +268,9 @@ function Question() {
               </div>
             </>
           ) : (
-            <MyDialog isOpen={isOpen} setIsOpen={setIsOpen} />
+            <>
+              <MyDialog isOpen={isOpen} setIsOpen={setIsOpen} />
+            </>
           )}
         </div>
         <div className="hidden md:block ml-4 flex-grow-0">

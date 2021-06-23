@@ -9,6 +9,10 @@ function convertingDateValue(createdAt) {
   return result;
 }
 
+function findTheGroupName(grp_list, grp_id) {
+  return;
+}
+
 function findTheCategory(category_list, category_name) {
   let x = category_list.map((item) => {
     if (item._id === category_name) {
