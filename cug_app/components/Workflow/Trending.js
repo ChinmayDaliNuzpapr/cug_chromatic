@@ -1,100 +1,99 @@
-import React from 'react';
-import Button from '../Button/Button';
+import React from "react";
+import Button from "../Button/Button";
+import { useRouter } from "next/router";
+import axios from "axios";
+export const ExtraTrendingBox = ({ category_id }) => {
+  const router = useRouter();
+  const [trendingList, setTrending] = React.useState(null);
+  React.useEffect(async () => {
+    const url = `http://localhost:3000/api/trending/question`;
+    console.log("URL IS ", url);
+    const token = localStorage.getItem("jwt_token");
 
-export const ExtraTrendingBox = () => (
-	<div className='bg-blue-200 md:w-[200px] lg:w-[300px] p-2 flex justify-center rounded-lg'>
-		<div className='rounded bg-grey-light w-64 p-2'>
-			<div className='flex justify-between py-1'>
-				<h3 className='text-2xl text-center'>Trending Questions</h3>
-				{/* <svg
-          className="w-2h-4 fill-current text-grey-dark cursor-pointer"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-        >
-          <path d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z" />
-        </svg> */}
-			</div>
-			<div className='text-base mt-2'>
-				<div className='bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter'>
-					Question to list here in 1-2 lines?
-				</div>
-
-				<div className='bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter'>
-					Question to list here in 1-2 lines?
-				</div>
-
-				<div className='bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter'>
-					Question to list here in 1-2 lines?
-					<div className='text-grey-darker mt-2 ml-2 flex justify-between items-start'>
-						<span className='text-xs flex items-center'>
-							<svg
-								className='h-4 fill-current mr-1'
-								xmlns='http://www.w3.org/2000/svg'
-								viewBox='0 0 50 50'>
-								<path d='M11 4c-3.855 0-7 3.145-7 7v28c0 3.855 3.145 7 7 7h28c3.855 0 7-3.145 7-7V11c0-3.855-3.145-7-7-7zm0 2h28c2.773 0 5 2.227 5 5v28c0 2.773-2.227 5-5 5H11c-2.773 0-5-2.227-5-5V11c0-2.773 2.227-5 5-5zm25.234 9.832l-13.32 15.723-8.133-7.586-1.363 1.465 9.664 9.015 14.684-17.324z' />
-							</svg>
-							3/5
-						</span>
-						<img
-							src='https://i.imgur.com/OZaT7jl.png'
-							className='rounded-full'
-						/>
-					</div>
-				</div>
-				<div className='bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter'>
-					Question to list here in 1-2 lines?
-				</div>
-				<div className='bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter'>
-					Question to list here in 1-2 lines?
-				</div>
-			</div>
-		</div>
-	</div>
-);
+    console.log("TOKEN IS ", token);
+    try {
+      const response = await axios.post(
+        url,
+        { categoryID: category_id },
+        {
+          headers: {
+            Authorization: token && `Bearer ${token}`,
+          },
+        }
+      );
+      const data = response.data;
+      console.log("THE DATA 🎉🎉🎉🎉", response.data);
+      setTrending(data);
+    } catch (err) {
+      console.log("THE ERROR 👿👿👿👿", err);
+    }
+  }, [category_id]);
+  return (
+    <div className="bg-blue-200 md:w-[200px] lg:w-[300px] p-2 flex justify-center rounded-lg">
+      <div className="rounded bg-grey-light w-64 p-2">
+        <div className="flex justify-between py-1">
+          <h3 className="text-2xl text-center">Trending Questions</h3>
+        </div>
+        <div className="text-base mt-2">
+          {trendingList &&
+            trendingList.Trending_Questions.map((item, index) => (
+              <div
+                key={index}
+                onClick={() => router.push(`/question/${item._id}`)}
+                className="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter"
+              >
+                {item.article.title}
+              </div>
+            ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Trending = () => {
-	return (
-		<>
-			<div>
-				<nav className='flex flex-col w-64 h-screen px-auto tex-gray-900 border rounded-lg border-gray-200'>
-					<div className='flex flex-wrap mt-8 mx-auto'>
-						<div className='w-1/2 justify-center'>
-							<p className='text-3xl'>Trending</p>
-						</div>
-					</div>
-					<div className='mt-10 mb-4'>
-						<ul className=''>
-							<li className='mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg'>
-								<div className='mx-auto'>
-									<span>Dashboard</span>
-								</div>
-							</li>
-							<li className='mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg'>
-								<div className='mx-auto'>
-									<span>Dashboard</span>
-								</div>
-							</li>
-							<li className='mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg'>
-								<div className='mx-auto'>
-									<span>Dashboard</span>
-								</div>
-							</li>
-							<li className='mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg'>
-								<div className='mx-auto'>
-									<span>Dashboard</span>
-								</div>
-							</li>
-							<li className='mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg'>
-								<div className='mx-auto'>
-									<span>Dashboard</span>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</nav>
-			</div>
-		</>
-	);
+  return (
+    <>
+      <div>
+        <nav className="flex flex-col w-64 h-screen px-auto tex-gray-900 border rounded-lg border-gray-200">
+          <div className="flex flex-wrap mt-8 mx-auto">
+            <div className="w-1/2 justify-center">
+              <p className="text-3xl">Trending</p>
+            </div>
+          </div>
+          <div className="mt-10 mb-4">
+            <ul className="">
+              <li className="mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg">
+                <div className="mx-auto">
+                  <span>Dashboard</span>
+                </div>
+              </li>
+              <li className="mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg">
+                <div className="mx-auto">
+                  <span>Dashboard</span>
+                </div>
+              </li>
+              <li className="mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg">
+                <div className="mx-auto">
+                  <span>Dashboard</span>
+                </div>
+              </li>
+              <li className="mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg">
+                <div className="mx-auto">
+                  <span>Dashboard</span>
+                </div>
+              </li>
+              <li className="mb-2 px-auto py-4 text-gray-900 flex flex-row  border-gray-300 hover:text-white active:bg-blue-200 hover:bg-blue-600 hover:font-bold rounded rounded-lg">
+                <div className="mx-auto">
+                  <span>Dashboard</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </>
+  );
 };
 
 export default Trending;

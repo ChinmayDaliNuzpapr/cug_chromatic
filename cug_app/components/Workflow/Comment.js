@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Button from '../Button/Button';
-
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Button from "../Button/Button";
+import { convertingDateValue } from "../../components/Workflow/Question";
 const Reply = ({ reply }) => {
 	const [like, setLike] = useState(reply.article.like);
 
@@ -79,11 +79,11 @@ const Comment = ({ answer }) => {
 	//for submitting form
 	const [replyTogger, setReplyToggler] = useState(false);
 
-	const [reply, setReply] = useState('');
+  const [reply, setReply] = useState("");
 
-	const [allReplyToggler, setallReplyToggler] = useState(false);
+  const [allReplyToggler, setallReplyToggler] = useState(false);
 
-	const [replies, setReplies] = useState([]);
+  const [replies, setReplies] = useState([]);
 
 	const [like, setLike] = useState(answer.article.like);
 
@@ -107,29 +107,29 @@ const Comment = ({ answer }) => {
 	const addReply = async (e) => {
 		e.preventDefault();
 
-		const token = localStorage.getItem('jwt_token');
+    const token = localStorage.getItem("jwt_token");
 
-		const data = {
-			answerID: answer._id,
-			article: {
-				content: reply,
-				author: 'AAA', //enter the author name here
-			},
-		};
+    const data = {
+      answerID: answer._id,
+      article: {
+        content: reply,
+        author: localStorage.getItem("alphaNumericId"), //enter the author name here
+      },
+    };
 
-		const response = await axios.post(
-			`${process.env.DEVELOPMENT}/api/reply/post`,
-			data,
-			{
-				headers: {
-					Authorization: token && `Bearer ${token}`,
-				},
-			}
-		);
+    const response = await axios.post(
+      `${process.env.DEVELOPMENT}/api/reply/post`,
+      data,
+      {
+        headers: {
+          Authorization: token && `Bearer ${token}`,
+        },
+      }
+    );
 
-		const res = response.data;
+    const res = response.data;
 
-		console.log(res);
+    console.log(res);
 
 		if (res) {
 			setReply('');
@@ -137,30 +137,33 @@ const Comment = ({ answer }) => {
 		}
 	};
 
-	const showAllReply = async () => {
-		console.log('SHOWING REPLIES');
+	const EnableReplyToggler = (e) => {
+		setReplyToggler(!replyTogger);
+	};
+
+	const showAllReply = async (e) => {
 		setallReplyToggler(!allReplyToggler);
-		console.log('allReplyToggler', !allReplyToggler);
+
 		const token = localStorage.getItem('jwt_token');
 
-		const data = {
-			answerID: answer._id,
-		};
+    const data = {
+      answerID: answer._id,
+    };
 
-		const response = await axios.post(
-			`${process.env.DEVELOPMENT}/api/reply/all`,
-			data,
-			{
-				headers: {
-					Authorization: token && `Bearer ${token}`,
-				},
-			}
-		);
+    const response = await axios.post(
+      `${process.env.DEVELOPMENT}/api/reply/all`,
+      data,
+      {
+        headers: {
+          Authorization: token && `Bearer ${token}`,
+        },
+      }
+    );
 
-		const res = response.data;
+    const res = response.data;
 
-		setReplies(res.reply);
-	};
+    setReplies(res.reply);
+  };
 
 	const EnableReplyToggler = (e) => {
 		setReplyToggler(!replyTogger);

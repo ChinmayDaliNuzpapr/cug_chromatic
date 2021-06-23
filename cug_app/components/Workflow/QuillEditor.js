@@ -40,7 +40,7 @@ const QuillEditor = ({ handleChangeFunc, ...props }) => {
   console.log("The Quill", quill); // undefined > Quill Object
   console.log("The Quill REF", quillRef); // { current: undefined } > { current: Quill Editor Reference }
   return (
-    <div style={{ width: "100%", border: "1px solid lightgray" }}>
+    <div style={{ width: "100%", height: "200px" }}>
       <div ref={quillRef} />
     </div>
   );
