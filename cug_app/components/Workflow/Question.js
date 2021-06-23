@@ -22,6 +22,7 @@ const Question = (props) => {
 	const router = useRouter();
 	const { fetchedData } = useContext(MainDataContext);
 	console.log('THE MAIN DATA in Question Component', fetchedData);
+	console.log('POSITION', props.position);
 	return (
 		<div
 			className='w-full relative  border-2 rounded-md mx-auto'
@@ -51,10 +52,14 @@ const Question = (props) => {
 				<p className='sm:text-base md:text-xl text-gray-900'>
 					{props.data.article.title}
 				</p>
-				<p className='md:text-base text-gray-500'>
-					2 lines of question is quoted in 2 point small font than font used in
-					question and 3 dots added …
-				</p>
+
+				{props.position + 1 <= 4 && (
+					<p className='md:text-base text-gray-500'>
+						2 lines of question is quoted in 2 point small font than font used
+						in question and 3 dots added …
+					</p>
+				)}
+
 				<div className='px-6 py-4'>
 					{props.data.tags.map((item, index) => (
 						<React.Fragment key={index}>
