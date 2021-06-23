@@ -202,7 +202,7 @@ const Question = (props) => {
                 </div>
               </div>
               {/* Share button */}
-              <div className="flex-1">
+              {/* <div className="flex-1">
                 <div className="flex justify-start mr-2">
                   <div className="w-[20px] h-[20px]">
                     <svg
@@ -221,7 +221,7 @@ const Question = (props) => {
                     </svg>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
             {/* The flag on the other side of flex */}
             <div className="flex justify-start">
