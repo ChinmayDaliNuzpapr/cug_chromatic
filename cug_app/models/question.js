@@ -3,7 +3,7 @@ const ModelName = 'questionModel';
 import articleSchema from './article';
 
 const questionSchema = new mongoose.Schema({
-	//group field will be null in case of question in global view
+	//group field will be null in case of question in global question
 	group: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'group',
