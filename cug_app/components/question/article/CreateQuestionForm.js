@@ -43,18 +43,17 @@ const CreateQuestionForm = (props) => {
     setEditorHtml(html);
   };
 
-  function setTheArrayOfTags(val) {
-    console.log("THE VALUE 🌟🌟🌟🌟🌟", val);
-    setTags(val);
-  }
   const handleChangeTag = (newValue, actionMeta) => {
-    console.group("Value Changed");
-    console.log(newValue);
+    console.group("Value Changed", newValue);
+
     console.log(`action: ${actionMeta.action}`);
-    let tag_array;
-    newValue.map((item) => tag_array.push(item.value));
-    console.groupEnd();
-    setTheArrayOfTags(tag_array);
+    let tag_array = [];
+    newValue.map((item) => {
+      console.log("EACH ITEM IN THE ARRAY", item.value);
+      tag_array.push(item.value);
+    });
+    console.log("THE TAG ARRAY", tag_array);
+    setTags(tag_array);
   };
 
   const postAQuestion = (details) => {
@@ -63,7 +62,7 @@ const CreateQuestionForm = (props) => {
     console.log("THE EDITOR VALUE", localStorage.getItem("group_id"));
     details = { ...details, content: editorHtml };
     let postBody = {
-      categoryID: fetchedData.category.current_category,
+      categoryID: details.category,
       groupID: localStorage.getItem("group_id"),
       article: {
         title: details.title,
