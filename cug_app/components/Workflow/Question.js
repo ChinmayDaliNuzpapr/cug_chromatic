@@ -90,7 +90,19 @@ const Question = (props) => {
             )}
           </div>
           <p className="text-sm my-2">
-            Posted by: {props.data ? <>{props.data.article.author}</> : <></>}{" "}
+            Posted by:{" "}
+            {props.data ? (
+              <>
+                {props.data.article.author}{" "}
+                {fetchedData.scope === "global" ? (
+                  <>{`(${fetchedData.group_data.Group_name})`}</>
+                ) : (
+                  <></>
+                )}
+              </>
+            ) : (
+              <></>
+            )}{" "}
             <br />
           </p>
         </div>

@@ -199,7 +199,12 @@ export function MyToggle() {
         )
         .then((res) => {
           console.log("THE RES Data COMPANY/SCOPE", res);
-          setFetchedData({ ...fetchedData, questions: res.data });
+          setFetchedData({
+            ...fetchedData,
+            questions: res.data,
+            scope: "global",
+            criteria: "date",
+          });
           setLoading(false);
         })
         .catch((err) => console.log("😈😈😈😈", err));
@@ -220,7 +225,12 @@ export function MyToggle() {
         )
         .then((res) => {
           console.log("THE RES Data COMPANY/SCOPE", res);
-          setFetchedData({ ...fetchedData, questions: res.data });
+          setFetchedData({
+            ...fetchedData,
+            questions: res.data,
+            scope: "company",
+            criteria: "date",
+          });
           setLoading(false);
         })
         .catch((err) => console.log("😈😈😈😈", err));
