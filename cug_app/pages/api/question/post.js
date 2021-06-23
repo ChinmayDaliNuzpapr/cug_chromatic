@@ -41,6 +41,8 @@ const PostQuestion = async (req, res) => {
 			console.log(err);
 			return res.status(500).send({ error: err });
 		}
+	} else {
+		return res.status(500).send(process.env.UNSUPPORTED_METHOD);
 	}
 };
 

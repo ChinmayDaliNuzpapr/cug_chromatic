@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import router, { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { Dialog } from '@headlessui/react';
 import QuestionComponent from '../../components/Workflow/Question';
@@ -31,8 +31,14 @@ const DetailsComponent = (props) => {
 		setLike(res.likes);
 	};
 
+	// const ClickQuestion = (id) => {
+	// 	router.push(`${id}`);
+	// };
+
 	return (
-		<div className='my-4 p-3 rounded-md border-2 w-full'>
+		<div
+			onClick={() => props.clickAble && router.push(`${props.questionID}`)}
+			className='my-4 p-3 rounded-md border-2 w-full'>
 			{/* Title Div */}
 			<div className='mb-4'>
 				<span className='text-2xl md:text-5xl font-medium'>{props.title}</span>
@@ -192,6 +198,7 @@ function Question() {
 	console.log('THE PATHNAME', router.pathname);
 	const [question, setQuestions] = useState();
 	const [answer, setAnswer] = useState();
+	const [similarQuestions, setSimilarQuestions] = useState([]);
 	let [isOpen, setIsOpen] = useState(false);
 	//process.env.DEVELOPMENT is undefined
 	console.log('THE TOGGLER FOR MODAL', isOpen);
@@ -216,6 +223,7 @@ function Question() {
 				const data = response.data;
 				setQuestions(data.question);
 				setAnswer(data.answer);
+				setSimilarQuestions(data.similarQuestions);
 			} catch (err) {
 				console.log(err);
 			}
@@ -271,6 +279,28 @@ function Question() {
 										})}
 									</div>
 								)}
+							</div>
+							<hr></hr>
+							<div className='mt-4'>
+								<p className='my-4 text-xl'>Questions you may see</p>
+								{/* showing similar questions  */}
+								{similarQuestions &&
+									similarQuestions.map((item) => {
+										return (
+											<DetailsComponent
+												articleID={item.article._id}
+												title={item.article.title}
+												content={item.article.content}
+												view={item.view.count ? item.view.count : 0}
+												like={item.article.like}
+												comments={0} //number of answers in the questions
+												author={item.article.author}
+												tags={item.tags ? item.tags : []}
+												clickAble={true}
+												questionID={item._id}
+											/>
+										);
+									})}
 							</div>
 						</>
 					) : (
