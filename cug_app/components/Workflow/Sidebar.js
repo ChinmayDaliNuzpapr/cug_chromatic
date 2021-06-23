@@ -6,7 +6,7 @@ const activeString =
   "bg-white border-green-500 hover:bg-blue-600 text-gray-900 shadow-light xl:shadow-none xl:px-4 border-r-8 mb-2 px-auto border-gray-900 hover:text-white hover:font-bold";
 // bg-blue-300
 const deactiveString =
-  "mb-2 px-auto text-gray-900 border-gray-900 hover:bg-blue-600 hover:text-white hover:font-bold rounded rounded-lg";
+  "mb-2 px-auto text-gray-900 border-gray-900 hover:bg-blue-600 hover:font-bold rounded rounded-lg";
 const Sidebar = (props) => {
   const { fetchedData, setFetchedData } = useContext(MainDataContext);
 
@@ -39,7 +39,7 @@ const Sidebar = (props) => {
                         }
                       }}
                     >
-                      <div className="bg-white p-4 rounded mt-1 cursor-pointer hover:bg-blue-600 hover:text-gray-900">
+                      <div className="bg-white p-4 rounded mt-1 cursor-pointer hover:bg-blue-600 hover:text-gray-100">
                         <i className="far fa-chart-bar mr-1"></i>
                         <span>{item.categoryName}</span>
                       </div>
