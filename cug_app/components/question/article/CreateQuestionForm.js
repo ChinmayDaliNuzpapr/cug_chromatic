@@ -43,12 +43,18 @@ const CreateQuestionForm = (props) => {
     setEditorHtml(html);
   };
 
+  function setTheArrayOfTags(val) {
+    console.log("THE VALUE 🌟🌟🌟🌟🌟", val);
+    setTags(val);
+  }
   const handleChangeTag = (newValue, actionMeta) => {
     console.group("Value Changed");
     console.log(newValue);
     console.log(`action: ${actionMeta.action}`);
-    newValue.map((item) => setTags(item.value));
+    let tag_array;
+    newValue.map((item) => tag_array.push(item.value));
     console.groupEnd();
+    setTheArrayOfTags(tag_array);
   };
 
   const postAQuestion = (details) => {
