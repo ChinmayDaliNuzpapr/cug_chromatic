@@ -31,7 +31,7 @@ const Layout = ({ children }) => {
     console.log("THE FIRST USE_EFFECT WITH NO PARAMETERS");
     setLoading(true);
     axios
-      .get(`http://localhost:3000/api/question/category`, {
+      .post(`http://localhost:3000/api/question/category`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
         },
@@ -47,7 +47,8 @@ const Layout = ({ children }) => {
           group_data: res.data.currentGroup,
         });
         setLoading(false);
-        localStorage.setItem("group_id", res.data.currentGroup._id);
+        if(localStorage.getItem("jwt_token"))
+          localStorage.setItem("group_id", res.data.currentGroup._id);
       })
       .catch((err) => alert(err));
   }, []);
