@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { Dialog } from "@headlessui/react";
 import QuestionComponent from "../../components/Workflow/Question";
 import Comment from "../../components/Workflow/Comment";
 import { ExtraTrendingBox } from "../../components/Workflow/Trending";
@@ -130,14 +131,56 @@ const DetailsComponent = (props) => {
   );
 };
 
+function MyDialog({ isOpen, setIsOpen }) {
+  return (
+    <Dialog
+      open={isOpen}
+      onClose={setIsOpen}
+      as="div"
+      id="modal_dialog"
+      className="absolute inset-0 z-10 flex items-center justify-center overflow-y-auto"
+    >
+      {/* absolute top-0 z-10 flex items-center justify-center overflow-y-auto */}
+      <div className="flex flex-col bg-gray-800 text-white w-96 py-8 px-4 text-center">
+        <Dialog.Overlay />
+
+        <Dialog.Title className="text-red-500 text-3xl">
+          Deactivate account
+        </Dialog.Title>
+        <Dialog.Description className="text-xl m-2">
+          This will permanently deactivate your account
+        </Dialog.Description>
+
+        <p className="text-md m-4">
+          Are you sure you want to deactivate your account? All of your data
+          will be permanently removed. This action cannot be undone.
+        </p>
+
+        <button
+          className="w-full m-4 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+          onClick={() => setIsOpen(false)}
+        >
+          Deactivate
+        </button>
+        <button
+          className="m-4 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+          onClick={() => setIsOpen(false)}
+        >
+          Cancel
+        </button>
+      </div>
+    </Dialog>
+  );
+}
+
 function Question() {
   const router = useRouter();
   console.log("THE PATHNAME", router.pathname);
   const [question, setQuestions] = useState();
   const [answer, setAnswer] = useState();
-  const [modal, setModal] = useState(false);
+  let [isOpen, setIsOpen] = useState(false);
   //process.env.DEVELOPMENT is undefined
-
+  console.log("THE TOGGLER FOR MODAL", isOpen);
   useEffect(async () => {
     if (router.asPath !== router.route) {
       const { id } = router.query;
@@ -171,48 +214,54 @@ function Question() {
       <div className="flex flex-row flex-wrap">
         {/* <div className="w-2/8">SIDEBAR IS TO BE ADDED</div> */}
         <div className="flex-grow">
-          <div className="mb-8 ">
-            {console.log("THE DETAILS OF THE QUESTION", question)}
-            {question && (
-              <DetailsComponent
-                title={question.article.title}
-                content={question.article.content}
-                view={question.view.count ? question.view.count : 0}
-                like={question.article.like}
-                comments={answer ? answer.length : 0}
-                author={question.article.author}
-                tags={question.tags}
-              />
-            )}
-          </div>
-          <div className="mb-2 flex justify-between">
-            {answer && answer.length == 0 && (
-              <div>
-                <Unanswered />
+          {isOpen === false ? (
+            <>
+              <div className="mb-8 ">
+                {console.log("THE DETAILS OF THE QUESTION", question)}
+                {question && (
+                  <DetailsComponent
+                    title={question.article.title}
+                    content={question.article.content}
+                    view={question.view.count ? question.view.count : 0}
+                    like={question.article.like}
+                    comments={answer ? answer.length : 0}
+                    author={question.article.author}
+                    tags={question.tags ? question.tags : []}
+                  />
+                )}
               </div>
-            )}
+              <div className="mb-2 flex justify-between">
+                {answer && answer.length == 0 && (
+                  <div>
+                    <Unanswered />
+                  </div>
+                )}
 
-            {answer && answer.length != 0 && (
-              <div>{answer && answer.length} answers</div>
-            )}
-            <div className="flex items-center">
-              <button
-                className="bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white py-1 px-6 border border-blue-500 hover:border-transparent rounded"
-                onClick={() => setModal(true)}
-              >
-                Add Answer
-              </button>
-            </div>
-          </div>
-          <div>
-            {answer && (
-              <div>
-                {answer.map((item, index) => {
-                  return <Comment key={index} answer={item} />;
-                })}
+                {answer && answer.length != 0 && (
+                  <div>{answer && answer.length} answers</div>
+                )}
+                <div className="flex items-center">
+                  <button
+                    className="bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white py-1 px-6 border border-blue-500 hover:border-transparent rounded"
+                    onClick={() => setIsOpen(true)}
+                  >
+                    Add Answer
+                  </button>
+                </div>
               </div>
-            )}
-          </div>
+              <div>
+                {answer && (
+                  <div>
+                    {answer.map((item, index) => {
+                      return <Comment key={index} answer={item} />;
+                    })}
+                  </div>
+                )}
+              </div>
+            </>
+          ) : (
+            <MyDialog isOpen={isOpen} setIsOpen={setIsOpen} />
+          )}
         </div>
         <div className="hidden md:block ml-4 flex-grow-0">
           <ExtraTrendingBox />
