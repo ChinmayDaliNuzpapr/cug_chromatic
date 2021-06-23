@@ -1,17 +1,18 @@
 /* This component will be a smart component for displaying a list of questions
     in two column.
 */
-import React, { useState } from 'react';
-import SearchBar from './question/SearchBar';
-import Question from './Workflow/Question';
-import { Switch } from '@headlessui/react';
+import React, { useState } from "react";
+import SearchBar from "./question/SearchBar";
+import Question from "./Workflow/Question";
+import { Switch } from "@headlessui/react";
 import {
-	MenuComponent,
-	MyToggle,
-	MyListbox,
-	MyDropdown,
-} from './question/menu/MenuComponent';
-import { useRouter } from 'next/router';
+  MenuComponent,
+  MyToggle,
+  NewToggler,
+  MyListbox,
+  MyDropdown,
+} from "./question/menu/MenuComponent";
+import { useRouter } from "next/router";
 
 const QuestionComponent = ({ listOfQuestions, ...props }) => {
   console.log("THE PROPS in Question Component", props);
@@ -21,13 +22,14 @@ const QuestionComponent = ({ listOfQuestions, ...props }) => {
       <div className="flex flex-wrap justify-between my-4">
         <div className="order-1 mr-20">
           <MyToggle />
+          {/* <NewToggler /> */}
         </div>
         <div className="order-2">
           <SearchBar />
         </div>
-        <div className="order-3">
-          <div className="flex flex-col flex-wrap justify-between">
-            <div className="mb-2">
+        <div className="order-3 ">
+          <div className="flex flex-row flex-wrap justify-between mt-2">
+            <div className="mr-2 mt-[2px]">
               <button
                 onClick={() => {
                   console.log("THE ASK A QUESTION CLICKed");
