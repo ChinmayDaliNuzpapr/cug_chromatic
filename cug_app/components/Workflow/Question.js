@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext, createContext } from 'react';
-import moment from 'moment';
-import { useRouter } from 'next/router';
-import { MainDataContext } from '../../components/Layout';
-import Link from 'next/link';
+import React, { useState, useEffect, useContext, createContext } from "react";
+import moment from "moment";
+import { useRouter } from "next/router";
+import { MainDataContext } from "../../components/Layout";
+import Link from "next/link";
 
 function convertingDateValue(createdAt) {
   let result = moment(createdAt).fromNow(true);
@@ -10,12 +10,12 @@ function convertingDateValue(createdAt) {
 }
 
 function findTheCategory(category_list, category_name) {
-	let x = category_list.map((item) => {
-		if (item._id === category_name) {
-			return item.categoryName;
-		}
-	});
-	return x;
+  let x = category_list.map((item) => {
+    if (item._id === category_name) {
+      return item.categoryName;
+    }
+  });
+  return x;
 }
 
 /**
@@ -25,6 +25,7 @@ function findTheCategory(category_list, category_name) {
  * @returns the number that has been rounded in M,k
  */
 function roundingOffFunc(n, d) {
+  let x, p;
   (x = ("" + n).length), (p = Math.pow), (d = p(10, d));
   x -= x % 3;
   return Math.round((n * d) / p(10, x)) / d + " kMGTPE"[x / 3];
