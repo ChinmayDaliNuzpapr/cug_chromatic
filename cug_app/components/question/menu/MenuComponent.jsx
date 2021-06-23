@@ -13,6 +13,36 @@ const people = [
 ];
 
 export function MyDropdown() {
+  const { fetchedData, setFetchedData, setLoading } = React.useContext(
+    MainDataContext
+  );
+  const fetchTheTrendingQuestion = () => {
+    // setLoading(true);
+    axios
+      .post(
+        `http://localhost:3000/api/trending/question`,
+        {
+          categoryID: fetchedData.category.current_category,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("THE RES Data COMPANY/SCOPE", res);
+        setFetchedData({
+          ...fetchedData,
+          questions: res.data.Trending_Questions,
+        });
+        // setLoading(false);
+      })
+      .catch((err) => {
+        // setLoading(false);
+        console.log("😈😈😈😈", err);
+      });
+  };
   return (
     <div className="flex items-center justify-center">
       <div className="relative inline-block text-left">
@@ -57,12 +87,12 @@ export function MyDropdown() {
                     <Menu.Item>
                       {({ active }) => (
                         <a
-                          href="#account-settings"
+                          onClick={() => fetchTheTrendingQuestion()}
                           className={`${
                             active
                               ? "bg-gray-100 text-gray-900"
                               : "text-gray-700"
-                          } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
+                          } flex justify-between w-full px-4 py-2 text-sm cursor-pointer leading-5 text-left`}
                         >
                           Trending
                         </a>
