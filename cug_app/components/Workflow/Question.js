@@ -32,6 +32,9 @@ function roundingOffFunc(n, d) {
 }
 
 const Question = (props) => {
+  let stylingForInline = {
+    paddingTop: "48px",
+  };
   const router = useRouter();
   const { fetchedData } = useContext(MainDataContext);
   console.log("THE MAIN DATA in Question Component", fetchedData);
@@ -43,7 +46,10 @@ const Question = (props) => {
       >
         <div className="-top-0 flex flex-row justify-between">
           <div className=" -left-0 bg-blue-300 w-[150px] text-left">
-            <span style={{ padding: "8px" }}>
+            <span
+              style={{ padding: "8px" }}
+              className="uppercase text-gray-600"
+            >
               {fetchedData &&
                 findTheCategory(
                   fetchedData.category.category_list,
@@ -52,7 +58,7 @@ const Question = (props) => {
             </span>
           </div>
           <div className="-right-0 w-[150px] text-right">
-            <span style={{ padding: "8px" }}>
+            <span style={{ padding: "8px" }} className="text-gray-600">
               {console.log("THE PROPS CREATED", props.data.article.createdAt)}
               {/* convertingDateValue(props.data.article.createdAt) */}
               {fetchedData && (
@@ -89,10 +95,18 @@ const Question = (props) => {
           </p>
         </div>
         {/* Displaying the views/like/comments and flag section */}
-        <div className="-bottom-0 p-3">
+        <div
+          style={{
+            paddingTop:
+              props.data.tags === [] || props.data.tags.length === 0
+                ? "48px"
+                : "",
+          }}
+          className="bottom-0 p-3"
+        >
           {/* views/like/comments */}
           <div className="flex justify-between text-sm ">
-            <div className="flex flex-row">
+            <div style={{ width: "15rem" }} className="flex flex-row">
               <div className="flex-1">
                 <div className="flex justify-start mr-2">
                   <div className="w-[20px] h-[20px]">
@@ -184,6 +198,27 @@ const Question = (props) => {
                     ) : (
                       <>0</>
                     )}
+                  </div>
+                </div>
+              </div>
+              {/* Share button */}
+              <div className="flex-1">
+                <div className="flex justify-start mr-2">
+                  <div className="w-[20px] h-[20px]">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                      />
+                    </svg>
                   </div>
                 </div>
               </div>
