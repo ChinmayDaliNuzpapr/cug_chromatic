@@ -38,7 +38,7 @@ const DetailsComponent = (props) => {
 	return (
 		<div
 			onClick={() => props.clickAble && router.push(`${props.questionID}`)}
-			className='my-4 p-3 rounded-md border-2 w-full'>
+			className='my-4 p-3 rounded-md border-2 w-full hover:bg-purple-700'>
 			{/* Title Div */}
 			<div className='mb-4'>
 				<span className='text-2xl md:text-5xl font-medium'>{props.title}</span>
@@ -92,7 +92,7 @@ const DetailsComponent = (props) => {
 							<div className=''>{props.view}</div>
 						</div>
 						<div className='mr-4 flex justify-start'>
-							<div className='w-[20px] h-[20px]'>
+							<div className='w-[20px] h-[20px] '>
 								<svg
 									onClick={Like}
 									xmlns='http://www.w3.org/2000/svg'

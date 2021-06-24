@@ -20,6 +20,12 @@ const questionSchema = new mongoose.Schema({
 		count: { type: Number, default: 0 },
 		//viewedOn: { type: Date, default: Date.now },
 	},
+
+	answers: {
+		type: Number,
+		default: 0,
+	},
+
 	tags: [String],
 });
 
