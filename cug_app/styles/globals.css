@@ -185,15 +185,14 @@ input:checked ~ span:last-child {
   left: -50%;
   top: -50%;
   /* z-index: 1; */
-}
+/* } */
 
-
-hr{
+hr {
   margin-top: 50px;
 
   border: none;
-    height: 3px;
-    /* Set the hr color */
-    color: rgb(153, 153, 153); /* old IE */
-    background-color:rgb(153, 153, 153); /* Modern Browsers */
+  height: 3px;
+  /* Set the hr color */
+  color: rgb(153, 153, 153); /* old IE */
+  background-color: rgb(153, 153, 153); /* Modern Browsers */
 }

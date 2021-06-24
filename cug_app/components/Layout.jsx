@@ -31,11 +31,15 @@ const Layout = ({ children }) => {
     console.log("THE FIRST USE_EFFECT WITH NO PARAMETERS");
     setLoading(true);
     axios
-      .post(`http://localhost:3000/api/question/category`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
-        },
-      })
+      .post(
+        `http://localhost:3000/api/question/category`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
+          },
+        }
+      )
       .then((res) => {
         console.log("THE RES Data in LAYOUT", res);
         setFetchedData({
@@ -47,8 +51,10 @@ const Layout = ({ children }) => {
           group_data: res.data.currentGroup,
         });
         setLoading(false);
-        if(localStorage.getItem("jwt_token"))
+        if (localStorage.getItem("jwt_token")) {
+          console.log("THE VALUE FOR LOCAL-STORAGE IS SAVED");
           localStorage.setItem("group_id", res.data.currentGroup._id);
+        }
       })
       .catch((err) => alert(err));
   }, []);
