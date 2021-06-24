@@ -1,6 +1,7 @@
 import DBConnect from '../../middleware/DBConnect';
 import isUserLoggedIn from '../../middleware/isUserLoggedIn';
 import answerModel from '../../../models/answer';
+import questionModel from '../../../models/question';
 
 const postAnswer = async (req, res) => {
 	try {
@@ -14,6 +15,12 @@ const postAnswer = async (req, res) => {
 		});
 
 		await newAnswer.save();
+
+		//UPDATE THE NUMBER OF ANSWERS
+		await questionModel.findOneAndUpdate(
+			{ _id: questionID },
+			{ $inc: { answers: 1 } }
+		);
 
 		res.status(200).send({ newAnswer });
 	} catch (err) {
