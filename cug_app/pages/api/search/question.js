@@ -18,8 +18,9 @@ const Search = async (req, res) => {
 				break;
 
 			case 'title':
+				//regex search
 				searchingExpression = {
-					'article.title': { $eq: search },
+					'article.title': { $regex: search, $options: 'i' },
 				};
 				break;
 		}
