@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 // Custom component for forms
 import { TextField, SelectField } from "../../Home/AuthComponent/TextField.js";
 import { MyToggle } from "../menu/MenuComponent";
+import { ExtraTrendingBox } from "../../Workflow/Trending.js";
 import QuillEditor from "../../Workflow/QuillEditor";
 import { MainDataContext } from "../../Layout.jsx";
 
@@ -43,18 +44,17 @@ const CreateQuestionForm = (props) => {
     setEditorHtml(html);
   };
 
-  function setTheArrayOfTags(val) {
-    console.log("THE VALUE 🌟🌟🌟🌟🌟", val);
-    setTags(val);
-  }
   const handleChangeTag = (newValue, actionMeta) => {
-    console.group("Value Changed");
-    console.log(newValue);
+    console.group("Value Changed", newValue);
+
     console.log(`action: ${actionMeta.action}`);
-    let tag_array;
-    newValue.map((item) => tag_array.push(item.value));
-    console.groupEnd();
-    setTheArrayOfTags(tag_array);
+    let tag_array = [];
+    newValue.map((item) => {
+      console.log("EACH ITEM IN THE ARRAY", item.value);
+      tag_array.push(item.value);
+    });
+    console.log("THE TAG ARRAY", tag_array);
+    setTags(tag_array);
   };
 
   const postAQuestion = (details) => {
@@ -63,7 +63,7 @@ const CreateQuestionForm = (props) => {
     console.log("THE EDITOR VALUE", localStorage.getItem("group_id"));
     details = { ...details, content: editorHtml };
     let postBody = {
-      categoryID: fetchedData.category.current_category,
+      categoryID: details.category,
       groupID: localStorage.getItem("group_id"),
       article: {
         title: details.title,
@@ -121,136 +121,147 @@ const CreateQuestionForm = (props) => {
 
   return (
     <div className="container mx-auto">
-      <div className="flex flex-col">
-        <div className="px-4">
-          <div className="w-full mx-auto sm:px-12 lg:px-8">
-            <button
-              onClick={() => {
-                console.log("THE PROPS AND CLICKED", props);
-                props.setAskQuestion(false);
-              }}
-            >
-              Go Back
-            </button>
-            <div className="bg-white overflow-hidden shadow-xl rounded-lg">
-              <div className="p-6 bg-white border-b border-gray-200">
-                <Formik
-                  initialValues={{
-                    title: "",
-                    scope: "",
-                    tags: [],
-                    category: fetchedData.category.current_category,
-                  }}
-                  onSubmit={(values, { setSubmitting, resetForm }) => {
-                    console.log("ALL THE VALUES", values);
-                    postAQuestion(values);
-                    setTimeout(() => {
-                      resetForm();
-                      setSubmitting(false);
-                    }, 3000);
-                  }}
-                >
-                  {(props) => (
-                    <Form className="bg-white shadow-md rounded px-8 mb-4 py-16">
-                      {console.log("PROPS IN FORM", props)}
-                      <span className="text-4xl">Ask A Question</span>
-                      {/* THE TITLE */}
-                      <div className="mb-4 w-100">
-                        <TextField label="Title" name="title" type="text" />
-                      </div>
-                      <div className="flex flex-row flex-wrap justify-between">
-                        <div className="flex flex-row flex-wrap justify-evenly">
-                          {/* The select field */}
-
-                          <>
-                            <div role="group" aria-labelledby="my-radio-group">
-                              <label>
-                                <Field
-                                  type="radio"
-                                  name="scope"
-                                  value="company"
-                                />
-                                Company
-                              </label>
-                              <label>
-                                <Field
-                                  type="radio"
-                                  name="scope"
-                                  value="global"
-                                />
-                                Global
-                              </label>
-
-                              <div>Picked: {props.values.scope}</div>
-                            </div>
-                          </>
+      <div className="flex">
+        <div className="flex flex-col">
+          <div className="px-4">
+            <div className="w-full mx-auto sm:px-12 lg:px-8">
+              <button
+                onClick={() => {
+                  console.log("THE PROPS AND CLICKED", props);
+                  props.setAskQuestion(false);
+                }}
+              >
+                Go Back
+              </button>
+              <div className="bg-white overflow-hidden shadow-xl rounded-lg">
+                <div className="p-6 bg-white border-b border-gray-200">
+                  <Formik
+                    initialValues={{
+                      title: "",
+                      scope: "",
+                      tags: [],
+                      category: fetchedData.category.current_category,
+                    }}
+                    onSubmit={(values, { setSubmitting, resetForm }) => {
+                      console.log("ALL THE VALUES", values);
+                      postAQuestion(values);
+                      setTimeout(() => {
+                        resetForm();
+                        setSubmitting(false);
+                      }, 3000);
+                    }}
+                  >
+                    {(props) => (
+                      <Form className="bg-white shadow-md rounded px-8 mb-4 py-16">
+                        {console.log("PROPS IN FORM", props)}
+                        <span className="text-4xl">Ask A Question</span>
+                        {/* THE TITLE */}
+                        <div className="mb-4 w-100">
+                          <TextField label="Title" name="title" type="text" />
                         </div>
-                        {/* LIST OF CATEGORY */}
-                        <div>
-                          <label className="mr-2">Categories:</label>
-                          <Field
-                            component="select"
-                            // id="category"
-                            name="category"
-                            // multiple={true}
-                          >
-                            {fetchedData.category.category_list.map(
-                              (item, index) => (
-                                <option
-                                  className="border-2"
-                                  key={index}
-                                  value={`${item._id}`}
-                                >
-                                  {item.categoryName}
-                                </option>
-                              )
-                            )}
-                          </Field>
+                        <div className="flex flex-row flex-wrap justify-between">
+                          <div className="flex flex-row flex-wrap justify-evenly">
+                            {/* The select field */}
+
+                            <>
+                              <div
+                                role="group"
+                                aria-labelledby="my-radio-group"
+                              >
+                                <label>
+                                  <Field
+                                    type="radio"
+                                    name="scope"
+                                    value="company"
+                                  />
+                                  Company
+                                </label>
+                                <label>
+                                  <Field
+                                    type="radio"
+                                    name="scope"
+                                    value="global"
+                                  />
+                                  Global
+                                </label>
+
+                                <div>Picked: {props.values.scope}</div>
+                              </div>
+                            </>
+                          </div>
+                          {/* LIST OF CATEGORY */}
+                          <div>
+                            <label className="mr-2">Categories:</label>
+                            <Field
+                              component="select"
+                              // id="category"
+                              name="category"
+                              // multiple={true}
+                            >
+                              {fetchedData.category.category_list.map(
+                                (item, index) => (
+                                  <option
+                                    className="border-2"
+                                    key={index}
+                                    value={`${item._id}`}
+                                  >
+                                    {item.categoryName}
+                                  </option>
+                                )
+                              )}
+                            </Field>
+                          </div>
                         </div>
-                      </div>
-                      {/* Text-Editor */}
-                      <div className="mx-auto my-4 w-100">
-                        <label className="text-xl text-gray-600">
-                          Content <span className="text-red-500">*</span>
-                        </label>
-                        <br />
+                        {/* Text-Editor */}
+                        <div className="mx-auto my-4 w-100">
+                          <label className="text-xl text-gray-600">
+                            Content <span className="text-red-500">*</span>
+                          </label>
+                          <br />
 
-                        <QuillEditor handleChangeFunc={handleChange} />
-                      </div>
-                      {/* MULTIPLE TAGS OPTION */}
-                      <div className="mt-24">
-                        <label className="text-xl text-gray-900">Tags</label>
-                        <CreatableSelect
-                          isMulti
-                          onChange={handleChangeTag}
-                          options={colourOptions}
-                        />
-                      </div>
+                          <QuillEditor handleChangeFunc={handleChange} />
+                        </div>
+                        {/* MULTIPLE TAGS OPTION */}
+                        <div className="mt-24">
+                          <label className="text-xl text-gray-900">Tags</label>
+                          <CreatableSelect
+                            isMulti
+                            onChange={handleChangeTag}
+                            options={colourOptions}
+                          />
+                        </div>
 
-                      <div className="flex p-1">
-                        {/*[📌] The code is commented right-now but will be used when the workflow is complete.
+                        <div className="flex p-1">
+                          {/*[📌] The code is commented right-now but will be used when the workflow is complete.
                             THE BELOW CODE WILL SAVE it as draft 
                             or publish the user can save it as a draft by setting the boolean field */}
-                        {/* <select
+                          {/* <select
                           className="border-2 border-gray-300 border-r p-2 m-2"
                           name="action"
                         >
                           <option>Save and Publish</option>
                           <option>Save Draft</option>
                         </select> */}
-                        <button
-                          className="bg-blue-500 mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                          type="submit"
-                        >
-                          {props.isSubmitting ? `Loading...` : "submit"}
-                        </button>
-                      </div>
-                    </Form>
-                  )}
-                </Formik>
+                          <button
+                            className="bg-blue-500 mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            type="submit"
+                          >
+                            {props.isSubmitting ? `Loading...` : "submit"}
+                          </button>
+                        </div>
+                      </Form>
+                    )}
+                  </Formik>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+        {/* Displaying the trending section */}
+        <div>
+          <ExtraTrendingBox
+            category_id={fetchedData.category.current_category}
+          />
         </div>
       </div>
     </div>

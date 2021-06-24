@@ -155,16 +155,24 @@ const DetailsComponent = (props) => {
 };
 
 function MyDialog({ isOpen, setIsOpen }) {
-	return (
-		<Dialog
-			open={isOpen}
-			onClose={setIsOpen}
-			as='div'
-			id='modal_dialog'
-			className='absolute inset-0 z-10 flex items-center justify-center overflow-y-auto'>
-			{/* absolute top-0 z-10 flex items-center justify-center overflow-y-auto */}
-			<div className='flex flex-col bg-gray-800 text-white w-96 py-8 px-4 text-center'>
-				<Dialog.Overlay />
+  return (
+    <Dialog
+      open={isOpen}
+      onClose={setIsOpen}
+      as="div"
+      id="modal_dialog"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        // height: "90vh",
+        zIndex: 1,
+      }}
+      // className="absolute inset-0 z-10 flex items-center justify-center overflow-y-auto"
+    >
+      {/* absolute top-0 z-10 flex items-center justify-center overflow-y-auto */}
+      <div className="flex flex-col bg-gray-800 text-white w-96 py-8 px-4 text-center">
+        <Dialog.Overlay />
 
 				<Dialog.Title className='text-red-500 text-3xl'>
 					Deactivate account
@@ -230,89 +238,70 @@ function Question() {
 		}
 	}, [router]);
 
-	return (
-		<>
-			{/* For now flex seems only option , otherwise custom css is to be written  */}
-			<div className='flex flex-row flex-wrap'>
-				{/* <div className="w-2/8">SIDEBAR IS TO BE ADDED</div> */}
-				<div className='flex-grow'>
-					{isOpen === false ? (
-						<>
-							<div className='mb-8 '>
-								{console.log('THE DETAILS OF THE QUESTION', question)}
-								{question && (
-									<DetailsComponent
-										articleID={question.article._id}
-										title={question.article.title}
-										content={question.article.content}
-										view={question.view.count ? question.view.count : 0}
-										like={question.article.like}
-										comments={answer ? answer.length : 0}
-										author={question.article.author}
-										tags={question.tags ? question.tags : []}
-									/>
-								)}
-							</div>
-							<div className='mb-2 flex justify-between'>
-								{answer && answer.length == 0 && (
-									<div>
-										<Unanswered />
-									</div>
-								)}
+  return (
+    <>
+      {/* For now flex seems only option , otherwise custom css is to be written  */}
+      <div className="flex flex-row flex-wrap">
+        {/* <div className="w-2/8">SIDEBAR IS TO BE ADDED</div> */}
+        <div className="flex-grow">
+          {isOpen === false ? (
+            <>
+              {/* This will display the details  */}
+              <div className="mb-8 ">
+                {console.log("THE DETAILS OF THE QUESTION", question)}
+                {question && (
+                  <DetailsComponent
+                    title={question.article.title}
+                    content={question.article.content}
+                    view={question.view.count ? question.view.count : 0}
+                    like={question.article.like}
+                    comments={answer ? answer.length : 0}
+                    author={question.article.author}
+                    tags={question.tags ? question.tags : []}
+                  />
+                )}
+              </div>
+              <div className="mb-2 flex justify-between">
+                {answer && answer.length == 0 && (
+                  <div>
+                    <Unanswered />
+                  </div>
+                )}
 
-								{answer && answer.length != 0 && (
-									<div>{answer && answer.length} answers</div>
-								)}
-								<div className='flex items-center'>
-									<button
-										className='bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white py-1 px-6 border border-blue-500 hover:border-transparent rounded'
-										onClick={() => setIsOpen(true)}>
-										Add Answer
-									</button>
-								</div>
-							</div>
-							<div>
-								{answer && (
-									<div>
-										{answer.map((item, index) => {
-											return <Comment key={index} answer={item} />;
-										})}
-									</div>
-								)}
-							</div>
-							<hr></hr>
-							<div className='mt-4'>
-								<p className='my-4 text-xl'>Questions you may see</p>
-								{/* showing similar questions  */}
-								{similarQuestions &&
-									similarQuestions.map((item) => {
-										return (
-											<DetailsComponent
-												articleID={item.article._id}
-												title={item.article.title}
-												content={item.article.content}
-												view={item.view.count ? item.view.count : 0}
-												like={item.article.like}
-												comments={0} //number of answers in the questions
-												author={item.article.author}
-												tags={item.tags ? item.tags : []}
-												clickAble={true}
-												questionID={item._id}
-											/>
-										);
-									})}
-							</div>
-						</>
-					) : (
-						<MyDialog isOpen={isOpen} setIsOpen={setIsOpen} />
-					)}
-				</div>
-				<div className='hidden md:block ml-4 flex-grow-0'>
-					<ExtraTrendingBox />
-				</div>
-			</div>
-		</>
-	);
+                {answer && answer.length != 0 && (
+                  <div>{answer && answer.length} answers</div>
+                )}
+                <div className="flex items-center">
+                  <button
+                    className="bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white py-1 px-6 border border-blue-500 hover:border-transparent rounded"
+                    onClick={() => setIsOpen(true)}
+                  >
+                    Add Answer
+                  </button>
+                </div>
+              </div>
+              <div>
+                {answer && (
+                  <div>
+                    {answer.map((item, index) => {
+                      return <Comment key={index} answer={item} />;
+                    })}
+                  </div>
+                )}
+              </div>
+            </>
+          ) : (
+            <>
+              <MyDialog isOpen={isOpen} setIsOpen={setIsOpen} />
+            </>
+          )}
+        </div>
+        <div className="hidden md:block ml-4 flex-grow-0">
+          <ExtraTrendingBox />
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default Question;

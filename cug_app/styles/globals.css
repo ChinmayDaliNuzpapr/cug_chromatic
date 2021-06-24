@@ -180,7 +180,7 @@ input:checked ~ span:last-child {
 }
 
 /* Dialog-Modal */
-#modal_dialog {
+/* #modal_dialog {
   position: absolute;
   left: -50%;
   top: -50%;

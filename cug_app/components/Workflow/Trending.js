@@ -29,8 +29,8 @@ export const ExtraTrendingBox = ({ category_id }) => {
     }
   }, [category_id]);
   return (
-    <div className="bg-blue-200 md:w-[200px] lg:w-[300px] p-2 flex justify-center rounded-lg">
-      <div className="rounded bg-grey-light w-64 p-2">
+    <div className="hidden md:block bg-blue-200 p-2 flex justify-center rounded-lg">
+      <div className="rounded bg-grey-light md:w-[200px] lg:w-[300px] p-2">
         <div className="flex justify-between py-1">
           <h3 className="text-2xl text-center">Trending Questions</h3>
         </div>
@@ -38,11 +38,16 @@ export const ExtraTrendingBox = ({ category_id }) => {
           {trendingList &&
             trendingList.Trending_Questions.map((item, index) => (
               <div
+                style={{ height: "70px" }}
                 key={index}
                 onClick={() => router.push(`/question/${item._id}`)}
-                className="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter"
+                className="bg-white p-2 rounded mt-1 cursor-pointer hover:border-blue-900 hover:border-2"
               >
-                {item.article.title}
+                {item.article.title.length > 60 ? (
+                  <>{`${item.article.title.substring(0, 60)}+ '...'`}</>
+                ) : (
+                  item.article.title
+                )}
               </div>
             ))}
         </div>
